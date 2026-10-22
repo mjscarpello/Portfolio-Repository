@@ -1,92 +1,48 @@
-# Exactly what I need from you to add your original visualizations
+# Next authentic visuals and work samples: what to provide
 
-You can send these files directly in a future ChatGPT conversation, ideally bundled into **one ZIP per project**. You do **not** need to upload raw datasets if the notebook already contains complete, legible saved chart outputs.
+The new site includes **14 real image files already** (4 NOAA, 10 ERCOT). You do not need to send the ERCOT notebook again for those. The entries below are intentionally waiting for real project material.
 
-## Project 1 — NOAA storm damage
+## 1. NOAA severe weather — DSC 450 Fall Capstone Project 1
 
-**Already included in this website:** four real charts extracted directly from `DSC450_Milestone3_Presentation.pptx` (the top-15 event-frequency chart, top-10 recorded-damage chart, precision–recall curves, and feature-importance chart).
+**Already included** from Group 1's Milestone 3 PowerPoint: event frequency vs damage; total economic losses; precision-recall curves; feature importance.
 
-**Only send additional files if you want to replace or expand those figures:**
-- Final, executed `.ipynb` modeling notebook(s), especially your feature-engineering experiments.
-- Any later NOAA PNG/SVG exports, such as the shallow classification tree or co-occurrence analysis.
-- Final report with model numbers, figure titles, and the final intended interpretation.
-- Exact GitHub repository or source-code link if you want it displayed.
+**Optional future additions:** exported charts from any *final* second research/modeling notebook; verified latest results and attribution. Do not publish earlier experimental figures as if they were the final findings.
 
-**Verify:** data years, sample-size denominator, target definition (known outcomes only), train/test grouped by episode, baseline definition, Random Forest metrics, and whether feature-engineering experiments improved held-out performance.
+## 2. ERCOT electricity demand — DSC 450 Fall Capstone Project 2
 
-## Project 2 — ERCOT electricity forecasting
+**Already included from the uploaded executed notebook:** 10 exact PNG outputs covering month/hour demand, four-season heatmaps, monthly trend, operator forecast overlay, common-sample model MAE, residual relationships, validation weight scan, later-period blend test, a peak-week case, and MAE-divergence heatmap.
 
-**Please provide:**
-- **Most recent executed and saved visualization `.ipynb` notebook.** This is the top priority.
-- Andrea's final modeling/evaluation notebook or its exported tables (if you want model results explained alongside the plots).
-- The final cleaned ERCOT CSV **only if** you want us to regenerate a higher-resolution image from the original code; otherwise it is optional.
-- Any original figure exports, preferably `.png` at 1600+ pixels wide, or `.svg` if they were exported from Matplotlib or another plotting library.
-- Most recent project report/presentation to verify evaluation periods, metric definitions, and agreed-upon claims.
+**Optional future additions:** a final team report with signed-off performance language, notebook updates, and any team-approved figure substitutions. Current descriptions explicitly note that forecast issuance-time comparability and weather availability were not fully audited.
 
-**Most valuable actual figures to identify (only include those that genuinely exist):**
-1. A heatmap of average ERCOT demand by month and local hour.
-2. A view of daily and seasonal demand patterns and high-load hours.
-3. Demand against historical temperature bands.
-4. A side-by-side model metric comparison using the exact same held-out timestamps.
-5. Observed versus forecast demand at a meaningful zoom (peak periods and typical weeks), with model labels.
-6. If available, error behavior during high-demand hours and a diagram illustrating static versus rolling 24-hour forecasts.
+## 3. DSC 450 Fall Capstone Project 3
 
-**Verify before making numerical claims:** 24-hour forecast issuance cutoff, which observed lagged demand was available at each issuance, whether historical actual temperatures were used where a future weather forecast would be required, treatment of missing ERCOT reference-forecast hours, and the metric/sample for each comparison.
+**Nothing required yet.** Project 3 is a pure placeholder. Later, provide the confirmed title, research question, assigned role, dataset, notebook/figures, team contributions and findings. This version does not mention recycling.
 
-## Project 3 — Recycling contamination risk
+## 4. Amazon delivery pick-time visualization (School)
 
-**Please provide when the team has started the project:**
-- The selected dataset/source URL, schema or data dictionary, and your data-wrangling notebook.
-- Final target definition: what makes a record 'contaminated' versus 'not contaminated'.
-- An executed EDA/modeling `.ipynb` notebook, or exported original graphs.
-- Final report or findings with baseline, sample size, class balance, split method, results, and team roles.
-- Relevant figure files: missing-data/quality analysis, label distribution, relevant feature distributions, evaluation plots (e.g. precision–recall/confusion matrix), and failure examples — only where they exist.
+Please provide the original R Markdown (`.Rmd`), `.R` script, Jupyter notebook, exported PDF, or actual PNG plots. Especially useful:
+- Distribution/violin plot of the time it took to locate a package.
+- Comparison of boxes, envelopes, bags or obstructed deliveries.
+- Daily or bag-level timeline and trends over a month, if the data supports them.
 
-**Until then:** the project page is labeled as planned, without fabricated evidence.
+If possible, include your observation-method note: how times were measured, approximate sampling dates, and whether a plot uses firsthand records or simulated values. Do not upload addresses, customer names, tracking numbers or employer-sensitive data.
 
-## Recommended folder to send
+## 5. Weather-based Amazon clothing predictor (School · DSC 355 Predictive Analytics)
 
-```
-project-name-original-materials/
-├── final-visualizations.ipynb
-├── model-evaluation.ipynb                # if applicable
-├── final-report.pdf                      # if available
-├── figures/
-│   ├── 01-original-plot.png
-│   ├── 02-original-plot.png
-│   └── 03-original-plot.png
-└── README.txt                            # short notes on which figures matter most
-```
+Please provide the modeling notebook, completed presentation, or app screenshots, plus any original performance charts such as class distribution, confusion matrix, feature importance, or interface screenshots. Mark the **synthetic dataset** clearly and give the final exact target definition and evaluation method. Do not infer deployment or production accuracy.
 
-## Export original charts yourself, if necessary
+## 6. UNMC E-Learning Internship (Work)
 
-**Option A — In Jupyter:** Right after the cell makes a Matplotlib figure and before closing it, run:
+Please share only **approved-for-public-use** material: stills from instructional animations, screenshots of any nonconfidential coding workflow, storyboard frames, and/or a short explanation of your own responsibilities versus the team’s. Avoid patient data, internal systems, copyrighted course content, or unreleased institutional media without permission.
 
-```python
-fig.savefig('my-original-figure.png', dpi=200, bbox_inches='tight')
-```
+## 7. Studio S (Personal)
 
-**Option B — Extract saved notebook images without rerunning data analysis:** Use the included `tools/extract_notebook_figures.py`:
+Good materials: application screenshot, working timeline or code-driven scene screenshot, demo preview/video if publicly shareable, repository link if public, and a list distinguishing **already working** from **planned** features. The site currently avoids claiming that the full roadmap has been completed.
 
-```bash
-python3 tools/extract_notebook_figures.py "/path/to/your/executed-notebook.ipynb"
-```
+## 8. Mini Bookmaker (Personal)
 
-The tool writes an output folder of the exact image bytes saved in the notebook, plus `figure-inventory.csv` indicating which cell produced each chart. Upload that output folder along with the `.ipynb` file. It does **not** create invented graphs or require your raw data.
+Good materials: photographs of printed examples, page-layout screenshots, a sample PDF you made, source code if it exists, and a short note about what it currently does. No functional status beyond a work-in-progress concept is asserted here.
 
-## How the website accepts the final images
+## Export guidance
 
-Put the chosen image under `figures/` and add an entry inside that project's `figures: []` array in `portfolio-data.js`. Example:
-
-```js
-figures: [
-  {
-    src: 'figures/ercot-monthly-heatmap.png',
-    title: 'Seasonality by month and hour',
-    alt: 'Original ERCOT heatmap with months on one axis, local hour on the other, and color representing average electricity demand.',
-    caption: 'Export from the final visual-analysis notebook; specify the period and time zone.'
-  }
-]
-```
-
-The home-page gallery and that project's case-study gallery will populate automatically. It is fine to send the files instead and ask me to complete the integration for you.
+Export original figures as PNG where possible (often 1600–2400 px wide, or `fig.savefig(..., dpi=200, bbox_inches='tight')`). Keep original labels, data scales, and legible legends. Do not recreate plots with invented values just to fill space. Put finalized files into the repository's `figures/` folder, and add entries in `portfolio-data.js` under the matching project.

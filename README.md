@@ -1,44 +1,74 @@
-# Ordinary i | Matthew Scarpello — Data Science Portfolio
+# Ordinary i | Matthew Scarpello's data science and creative portfolio
 
-A static, GitHub Pages-ready personal data science portfolio. Built from the original `Portfolio-Repository` identity and augmented with the actual charts from DSC 450 Group 1's NOAA presentation. **No stock art, invented figures, build process, external libraries, or API keys.**
+A lightweight, static portfolio for GitHub Pages, organized into three **actual directories**:
 
-**Live site (after updating the original repository):** https://theordinaryi.github.io/Portfolio-Repository/
+- `school/` — Five school and applied-learning projects, including **all three DSC 450 Fall Capstone entries** and two Amazon-related projects.
+- `work/` — UNMC educational media, animation, teamwork, and technical experience.
+- `personal/` — Studio S audiovisual presentation software and Mini Bookmaker.
 
-## Start here
+The homepage and About page retain the original **Question. Analyze. Enjoy.** line, **Note 01**, and the UNMC / Amazon / healthcare experience bubbles.
 
-- **`docs/GITHUB-INSTALLATION.md`** — Full steps for backing up the existing GitHub repository, copying the complete replacement in one go, committing once, and publishing.
-- **`docs/WHAT-TO-SEND-FOR-REAL-FIGURES.md`** — Exact files needed from the NOAA, ERCOT, and Recycling projects to include more original charts.
-- **`docs/FIGURE-SOURCES.md`** — Provenance of the four original NOAA figures.
+## What is real, and what isn't
 
-## Pages
+The 4 NOAA charts come from Group 1's DSC 450 Milestone 3 PowerPoint. The 10 ERCOT charts are unmodified PNG output bytes from `DSC450_ERCOT_Visualization_FULLnotebook(1).ipynb` supplied by Matthew. Sources and descriptions are in `docs/FIGURE-SOURCES.md`. The other projects deliberately show no invented graphs or screenshots. DSC 450 Project 3 is a neutral placeholder with **no recycling-project details**.
 
-| File | Purpose |
-| --- | --- |
-| `index.html` | Personal introduction, Note 01, featured original graph, interactive three-project browser |
-| `about.html` | Personal background, work-experience bubbles, skills, community goals |
-| `project-noaa.html` | Completed milestone case study with four real charts, team attribution, verified reported metrics |
-| `project-ercot.html` | ERCOT question/methodology and an empty gallery awaiting original notebook exports |
-| `project-recycling.html` | Planned project page with no invented results |
-| `style.css` | Light/dark design and mobile-responsive layout |
-| `portfolio-data.js` | Projects, status, links, captions, and actual figure paths in one editable file |
-| `script.js` | Project switching, zoom dialog, figure gallery, keyboard controls, dark-mode preference |
-| `figures/` | Actual original figure files |
-| `tools/extract_notebook_figures.py` | Optional script to extract embedded output images from executed `.ipynb` notebooks |
+Modeling and evaluation captions deliberately distinguish reported evidence from operational guarantees. The ERCOT ensemble is a retrospective combination of exported model predictions, not a newly trained production forecast model.
 
-This is a **static website**; the HTML, CSS, and JS are served directly from the repo's root folder. Do not upload the ZIP itself into GitHub expecting it to unpack. Upload the **files inside** it.
+## Quick upload to GitHub using Chrome (no Desktop required)
 
-## Personal identity retained
+1. Download and unzip the latest complete site ZIP.
+2. Open `https://github.com/theOrdinaryi/Portfolio-Repository` and make sure you are at the **root** of the `main` branch.
+3. Save a backup from **Code → Download ZIP**.
+4. Choose **Add file → Upload files**. Drag **the CONTENTS of the extracted folder**, not the folder itself. This must put `index.html`, `style.css`, `portfolio-data.js`, `school/`, `work/`, `personal/`, and `figures/` beside each other.
+5. Review the file paths; commit with `Organize portfolio collections and add original ERCOT figures`.
+6. Check the GitHub Pages deployment at `https://theordinaryi.github.io/Portfolio-Repository/`.
 
-- "Question. Analyze. Enjoy."
-- Neuroscience-to-data-science background and emphasis on civic life, human impact, and curiosity.
-- "NOTE 01" and the description of combining varied experiences with practical data science and creativity.
-- UNMC E-Learning Intern, Amazon Delivery Driver, Healthcare CNA.
-- Minimal warm-neutral design; no generic "The Process" panel.
+Read **`docs/GITHUB-INSTALLATION.md`** for every step and a verification checklist.
 
-## Content integrity
+## Edit projects
 
-NOAA charts were extracted from the team's PowerPoint as unmodified image bytes, and NOAA performance values are explicitly identified as reported team results. ERCOT and Recycling case-study galleries are deliberately empty until the original chart files are supplied and validated. The website does not claim individual ownership of the full team's work.
+- Edit project labels, summaries, tags, status, and chart captions in `portfolio-data.js`.
+- Edit the short interpretation paragraphs in the individual HTML file for each project.
+- Use `figures/` for actual notebook-exported charts and approved work screenshots.
+- Add a `{ "src": "figures/filename.png", ... }` object to the right project's `figures` list in `portfolio-data.js` only **after** that exact filename is present.
+- `script.js` renders the school-project selector and all project-gallery figures. No build step or external JavaScript dependency.
+- `style.css` controls responsive layout, typography, and light/dark themes.
 
-## Changing content later
+## Main directory tree
 
-Edit `portfolio-data.js` after adding real chart images to `figures/`. To publish again, commit and push. Do not alter the filenames, image paths, or JS data structure casually. To edit biography copy, edit `index.html` or `about.html`.
+```text
+Portfolio-Repository/
+├── index.html               # Homepage: School / Work / Personal collections
+├── about.html               # Personal profile and experience
+├── portfolio-data.js        # All 8 projects, including real chart references
+├── script.js                # Interactions and actual-image zoom dialog
+├── style.css                # Responsive design
+├── school/
+│   ├── index.html
+│   ├── noaa.html
+│   ├── ercot.html
+│   ├── capstone-three.html
+│   ├── amazon-pick-times.html
+│   └── weather-clothing.html
+├── work/
+│   ├── index.html
+│   └── unmc.html
+├── personal/
+│   ├── index.html
+│   ├── studio-s.html
+│   └── mini-bookmaker.html
+├── figures/                 # 4 original NOAA + 10 original ERCOT PNGs
+├── docs/                    # Setup, source and follow-up figure checklists
+├── tools/                   # Jupyter notebook PNG extraction utility
+├── project-noaa.html       # Legacy link redirect only
+├── project-ercot.html      # Legacy link redirect only
+├── project-recycling.html  # Legacy link redirect to generic Project 3
+├── .nojekyll
+└── README.md
+```
+
+The three legacy root pages are small redirects to avoid breaking earlier bookmarks. `project-recycling.html` contains **no** recycling study or outcome claims; the redirect exists solely for backward compatibility.
+
+## Content credit
+
+DSC 450 is a Bellevue University Fall Capstone team course. On NOAA, the team roles were Matthew (Data Scientist), Andrea Barfield (Data Wrangler), and Hali Sarah Parsons (Visualizer/Presenter). On ERCOT, they were Sarah (Data Wrangler), Andrea (Data Scientist), and Matthew (Visualizer/Presenter). The team model series came from Andrea's predictions and Sarah's prepared demand data. ERCOT visual interpretation and exploratory blending reflect Matthew's notebook work.

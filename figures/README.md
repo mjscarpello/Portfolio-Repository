@@ -1,7 +1,10 @@
-# Figure files
+# Authentic figure library
 
-This folder contains four **original unmodified figures** embedded in the team's NOAA Milestone 3 presentation. See `../docs/FIGURE-SOURCES.md` for provenance.
+This folder contains **only original plots** from supplied team presentation and Jupyter notebook sources.
 
-The other projects do not currently contain charts; do not fabricate them. Export the real figures from the final notebooks, drop selected PNG/SVG image files here, and register them in `../portfolio-data.js`.
+- NOAA: `noaa-event-frequency.png`, `noaa-economic-damage.png`, `noaa-precision-recall.png`, `noaa-feature-importance.png` — exact images from the original DSC 450 team PowerPoint.
+- ERCOT: ten `ercot-*.png` figures extracted from the **saved outputs** of `DSC450_ERCOT_Visualization_FULLnotebook(1).ipynb` (no new data analysis or simulated points generated).
 
-Use meaningful lowercase filenames with hyphens. Do not add confidential/raw person-level data as publicly accessible assets.
+For per-figure provenance and evaluation caveats, see `../docs/FIGURE-SOURCES.md`.
+
+Future original exports belong here; add references in `../portfolio-data.js` only after uploading their actual files.

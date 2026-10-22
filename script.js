@@ -1,6 +1,9 @@
 (() => {
   'use strict';
   const data = window.PORTFOLIO_DATA;
+  // Detail pages are nested one directory below the repository root.
+  const siteRoot = document.body.dataset.root || '';
+  const asset = relativePath => siteRoot + relativePath;
   const $ = selector => document.querySelector(selector);
   const $$ = selector => [...document.querySelectorAll(selector)];
   const node = (tag, className, content) => {
@@ -49,8 +52,8 @@
   modal.addEventListener('close', () => lastActiveElement?.focus());
   function enlargeChart(chart) {
     lastActiveElement = document.activeElement;
-    modalImage.src = chart.src;
-    originalLink.href = chart.src;
+    modalImage.src = asset(chart.src);
+    originalLink.href = asset(chart.src);
     modalImage.alt = chart.alt;
     modalCaption.textContent = chart.title + ' — ' + chart.caption;
     if (typeof modal.showModal === 'function') modal.showModal();
@@ -60,7 +63,7 @@
   if (data?.projects && $('#project-options')) {
     let projectIndex = 0;
     let figureIndex = 0;
-    const projects = data.projects;
+    const projects = data.projects.filter(project => project.category === 'school');
     const optionsRoot = $('#project-options');
     const stage = $('#feature-figure-stage');
     const optionButtons = projects.map((project, index) => {
@@ -83,9 +86,9 @@
         const empty = node('div', 'figure-empty');
         empty.append(node('span', 'small-label', 'FIGURE LIBRARY'),
           node('h4', '', 'Original research visuals are being prepared.'),
-          node('p', '', 'This project will display charts exported from the team’s actual analysis. No invented or decorative figures are used.'),
+          node('p', '', project.id === 'capstone-three' ? 'This is a course placeholder. No research topic or figures have been assigned yet.' : 'Original project figures and approved work samples will be added when available.'),
           node('a', 'underlined-link', 'Read the case study →'));
-        empty.querySelector('a').href = project.page;
+        empty.querySelector('a').href = asset(project.page);
         stage.append(empty);
         return;
       }
@@ -94,7 +97,7 @@
       open.type = 'button';
       open.setAttribute('aria-label', `Enlarge original figure: ${item.title}`);
       const image = node('img');
-      image.src = item.src;
+      image.src = asset(item.src);
       image.alt = item.alt;
       image.loading = 'lazy';
       open.append(image, node('span', 'chart-zoom-hint', 'Enlarge figure ↗'));
@@ -115,7 +118,7 @@
       $('#project-role').textContent = p.role;
       $('#project-date').textContent = p.period;
       $('#project-takeaway').textContent = p.takeaway;
-      $('#project-link').href = p.page;
+      $('#project-link').href = asset(p.page);
       const tags = $('#project-tags');
       tags.replaceChildren(...p.skills.map(skill => node('span', 'tag', skill)));
       optionButtons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === projectIndex)));
@@ -170,8 +173,8 @@
       });
     } else {
       const empty = node('div', 'case-gallery-empty');
-      empty.append(node('h3', '', 'Original figures will appear here.'),
-        node('p', '', 'This section is intentionally empty until the actual charts have been exported from the project notebook and reviewed.'));
+      empty.append(node('h3', '', project.id === 'capstone-three' ? 'Project 3 is reserved.' : 'Work samples will appear here.'),
+        node('p', '', project.id === 'capstone-three' ? 'This is a placeholder for the third DSC 450 Fall Capstone project at Bellevue University.' : 'Original charts, screenshots, or approved examples have not been added yet. No fabricated visuals are displayed.'));
       gallery.append(empty);
     }
   }

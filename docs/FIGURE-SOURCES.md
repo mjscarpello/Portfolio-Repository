@@ -1,37 +1,41 @@
-# Authentic figure inventory and provenance
+# Image provenance and interpretation notes
 
-This portfolio uses **original project charts**, not decorative placeholder illustrations.
+All chart assets in `figures/` were copied from actual research artifacts. None were generated to decorate the portfolio.
 
-## Project 1 — NOAA Storm Events (included now)
+## DSC 450 / NOAA Storm Events (four real figures)
 
-Source: `DSC450_Milestone3_Presentation.pptx` by DSC 450 Group 1 (Matthew Scarpello, Andrea Barfield, Sarah Parsons), October 2026. These files were copied as the **unmodified PNG bytes embedded in the presentation** using the corresponding `ppt/media` entries; they were not recreated from guessed data.
+**Source:** Group 1 Milestone 3 presentation `DSC450_Milestone3_Presentation.pptx` (Matthew Scarpello, Andrea Barfield, Hali Sarah Parsons), Fall 2026. Image bytes were extracted from the PowerPoint package. The original reported period was 2020–2025. The figures were not redrawn.
 
-| Portfolio image | Original media item | What it actually depicts |
+| File | Presentation evidence | Subject |
 | --- | --- | --- |
-| `figures/noaa-event-frequency.png` | `ppt/media/image4.png` | Most frequent storm event categories, with count of events having recorded economic damage |
-| `figures/noaa-economic-damage.png` | `ppt/media/image5.png` | Top ten event types by aggregate recorded economic damage |
-| `figures/noaa-precision-recall.png` | `ppt/media/image6.png` | Precision–recall comparison of Logistic Regression and Random Forest |
-| `figures/noaa-feature-importance.png` | `ppt/media/image7.png` | Random Forest permutation importance by predictor group |
+| `noaa-event-frequency.png` | Research question section / slide 4 | Most common event types versus count with recorded economic damage |
+| `noaa-economic-damage.png` | Damage comparison / slide 5 | Aggregate recorded damage by storm type |
+| `noaa-precision-recall.png` | Model evaluation | Precision and recall trade-offs |
+| `noaa-feature-importance.png` | Model interpretation | Permutation feature importance |
 
-Report statistics included on the case-study page: 410,311 event records; ~23% positive class; 0.880 ROC-AUC and 0.669 Average Precision for Random Forest. These are **reported team results**, not a claim that the portfolio independently reran the training.
+Reported Random Forest scores in team presentation: ROC-AUC **0.880**, Average Precision **0.669**. The grouping used storm episodes to reduce correlated train/test records. These are documented reported results, not rerun model training in this package.
 
-Limitations: NOAA's presence/absence of recorded economic damage differs from true realized damage; reporting completeness varies by storm type and region. Predictor importance should not be treated as causal effect.
+## DSC 450 / ERCOT (ten real figures)
 
-## Project 2 — ERCOT demand forecasting (figures not yet included)
+**Source:** User-uploaded `DSC450_ERCOT_Visualization_FULLnotebook(1).ipynb`, prepared by Matthew Scarpello (visualization / presenter). The `.ipynb` contained 38 distinct saved PNG output images. Ten chosen figures were copied byte-for-byte from cell outputs; **the website did not regenerate the charts**. Notebook uses Sarah Parsons's cleaned EIA-930/ERCOT data and Andrea Barfield's exported hourly model predictions. The executed notebook explicitly states that these figures are computed from supplied team CSVs, not simulated values.
 
-The research narrative is based on the team's DSC 450 Project 2 material and the user's visual-analysis work. No original chart binary was available to incorporate in the package. The `figures` list for this project in `portfolio-data.js` is deliberately empty.
+The cell numbers below are **zero-indexed** positions in the notebook JSON, not the notebook's displayed `In [ ]` execution counts.
 
-Need the actual exported figures or an **executed and saved** notebook. Preferred chart examples, only if present in real notebook outputs: monthly/hourly demand heatmap; demand vs. temperature bands; a model-comparison graphic that respects common evaluation timestamps; observed vs. predicted curves for the actual holdout; peak-period error analysis. All numerical claims need final report verification.
+| PNG in website | Notebook code cell | Original notebook theme |
+| --- | ---: | --- |
+| `ercot-demand-month-hour.png` | 16 | F03, observed-demand heatmap by month and local hour |
+| `ercot-seasonal-daily-heatmaps.png` | 20 | F03A, four full-season day/hour heatmaps |
+| `ercot-historical-monthly-demand.png` | 10 | F01, monthly demand history |
+| `ercot-actual-vs-operator-forecast.png` | 45 | Observed demand and operator forecast overlay |
+| `ercot-seven-models-mae.png` | 56 | F14, seven forecast series on 8,640 matched evaluation hours |
+| `ercot-model-error-correlation.png` | 74 | F20, signed residual relationship between Rolling SARIMA and Weather XGBoost |
+| `ercot-blend-validation-weights.png` | 78 | F21, earlier-window blend-weight experiment |
+| `ercot-later-period-blend-mae.png` | 80 | F22, 4,320-hour later-window MAE comparison |
+| `ercot-peak-week-comparison.png` | 85 | F24, summer-week observed/forecast time series |
+| `ercot-model-error-heatmap.png` | 94 | F30, month/hour model error versus each model's own average |
 
-## Project 3 — recycling contamination (figures not yet included)
+Important: The ERCOT benchmark is **not** a model developed by the students. The seven-series matched-hour comparison reports ERCOT MAE **1,134.80 MWh**, and Weather XGBoost MAE **2,476.68 MWh**. The later 4,320-hour comparison reports ERCOT **1,088.54**, 50/50 blend **1,946.88**, Rolling SARIMA **2,563.89**, and Weather XGBoost **2,690.83 MWh**. The blend combines model predictions *after* fitting; it does not reflect a newly retrained model. The notebook warns that different prediction generation schedules and information availability need an issuance-time audit before operational claims are made.
 
-Project planned. No data-derived original figures were available, and no metrics have been claimed. Only add figures once the data analysis exists, including its data-quality or label distributions and defensible model evaluation.
+## Not yet sourced
 
-## Rule for future changes
-
-1. Obtain the original notebook, image, or chart output from the project owner/team.
-2. Prefer original `fig.savefig(..., dpi=200, bbox_inches='tight')` or saved notebook output over cropping screenshots.
-3. Add the exported file to `figures/` and add a corresponding image object under the correct `figures` array in `portfolio-data.js`.
-4. Write accessible alt text describing the actual plot, a grounded caption, and any important limitations.
-5. Inspect the image after deployment; keep axes, units, legends, and baselines readable.
-6. For group-generated figures, credit the group and do not claim sole authorship.
+No figure files are currently supplied for Amazon pick times, weather/clothing predictor, UNMC, Studio S, Mini Bookmaker, or the reserved Capstone Project 3. These project galleries intentionally stay empty until authentic material is available and appropriately shareable.
