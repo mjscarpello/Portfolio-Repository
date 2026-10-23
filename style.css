@@ -1,4 +1,4 @@
-/* Matthew Scarpello / Ordinary i
+/* Matthew Scarpello / Matthew Scarpello
    A quiet layout for original data science figures — no stock imagery or generated project art. */
 :root {
   color-scheme: light;
@@ -354,4 +354,53 @@ h4 { font-size: 1.1rem; letter-spacing: -.018em; }
   .directory-card-body { padding:20px; }
   .collection-feature-card { padding:25px; }
   .hero-copy h1 { font-size:clamp(3.2rem,14vw,5rem); }
+}
+
+/* Portfolio photography and genuine project thumbnails — release 8 */
+.hero-grid { grid-template-columns: minmax(0, 1.15fr) minmax(280px, .7fr); gap: clamp(30px,4vw,65px); align-items:start; }
+.hero-copy { align-self:center; }
+.hero-portrait { margin:0; border:1px solid var(--line); background:var(--paper); padding:8px; overflow:hidden; }
+.hero-portrait img { display:block; width:100%; height:420px; object-fit:cover; object-position:50% 37%; border-radius:2px; }
+.hero-portrait figcaption { display:flex; justify-content:space-between;flex-wrap:wrap;gap:7px;padding:12px 5px 4px;font-size:12px;font-weight:800; }
+.hero-portrait figcaption span { color:var(--muted);font-weight:500; }
+.hero-grid>.note { grid-column:1/-1; display:grid; grid-template-columns:minmax(140px,.35fr) minmax(200px,.65fr) 1fr;gap:24px;align-items:start;padding-top:22px;margin-top:4px; }
+.hero-grid>.note .note-heading { margin:0; }
+.hero-grid>.note h2 { margin:0; }
+.hero-grid>.note p { margin:0 0 13px; }
+.hero-grid>.note .experience-tags { grid-column:3; }
+.about-hero { position:relative; min-height:460px; padding-right:min(37%,390px); }
+.about-hero h1 { max-width:850px; }
+.about-photo { margin:0; position:absolute;top:8px;right:0;width:min(33%,345px); }
+.about-photo img { width:100%;height:365px;object-fit:cover;object-position:50% 35%; border:8px solid var(--paper); box-shadow:var(--shadow); }
+.about-photo figcaption {font-size:11px;line-height:1.5;color:var(--muted);margin-top:10px;}
+.about-photo figcaption span { display:block; }
+.collection-card-preview { position:absolute;inset:0 0 0 auto;width:25%;height:100%;opacity:.16;pointer-events:none; }
+.collection-card-preview img {width:100%;height:100%;object-fit:cover;}
+.personal-card-image {width:100%;height:170px;object-fit:cover;object-position:top;border:1px solid var(--line);margin:18px 0 8px;}
+.source-note {margin:24px 0 0;color:var(--muted);font-size:14px;}
+.source-note a {color:var(--teal);text-underline-offset:3px;font-weight:700;}
+.footer-github {font-weight:700;}
+.directory-visual img {object-fit:contain; padding:10px;background:#fff;}
+.directory-card:focus-visible,.personal-card:focus-visible,.collection-feature-card:focus-visible {outline:3px solid var(--teal);outline-offset:3px;}
+.case-figure img {background:white;}
+@media(max-width:900px) {
+ .hero-grid {grid-template-columns:minmax(0,1fr) minmax(230px,.68fr);gap:30px;}
+ .hero-grid>.note {grid-template-columns:1fr 2fr;gap:16px;}
+ .hero-grid>.note .experience-tags {grid-column:2;}
+ .hero-grid>.note h2 {grid-column:2;}
+ .hero-grid>.note p {grid-column:2;}
+ .about-hero {min-height:390px;padding-right:36%;}
+}
+@media(max-width:670px) {
+ .hero-grid {grid-template-columns:1fr;gap:28px;}
+ .hero-portrait {max-width:430px;}
+ .hero-portrait img {height:420px;}
+ .hero-grid>.note {display:block;max-width:none;}
+ .hero-grid>.note .note-heading {margin-bottom:20px;}
+ .hero-grid>.note h2 {margin-bottom:14px;}
+ .hero-grid>.note p {margin-bottom:14px;}
+ .about-hero {padding-right:0;min-height:0;}
+ .about-photo {position:static;width:min(100%,360px);margin-top:32px;}
+ .about-photo img {height:400px;}
+ .collection-card-preview {width:48%;opacity:.09;}
 }

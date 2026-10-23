@@ -1,4 +1,4 @@
-/* Project descriptions, authentic figure paths, and captions. Edit here first. */
+/* Single source of truth for project cards and authentic figure galleries. */
 window.PORTFOLIO_DATA = {
   "projects": [
     {
@@ -55,11 +55,11 @@ window.PORTFOLIO_DATA = {
       "shortTitle": "ERCOT grid demand",
       "title": "Forecasting Regional Electricity Demand",
       "label": "Bellevue University · DSC 450 · Fall Capstone · Project 02",
-      "status": "Milestone 2 visual analysis",
+      "status": "Capstone visualization & model evaluation",
       "role": "Data Visualizer & Presenter · Group 1",
       "period": "Fall 2026",
-      "summary": "I visualized when Texas electricity demand peaks and where forecasting models succeed or struggle across season, hour, and demand level.",
-      "takeaway": "Weather XGBoost was the strongest individual team model on 8,640 matched hours; the operator forecast remained more accurate. A post-hoc SARIMA/XGBoost blend provided an additional testable insight.",
+      "summary": "I built a visual evaluation of hourly Texas electricity demand and forecast error, comparing team models with ERCOT’s published benchmark.",
+      "takeaway": "Summer peak demand is predictable in pattern but difficult to forecast precisely. Weather XGBoost led our individual models; blending forecasts helped in an exploratory retrospective test, while ERCOT remained the stronger benchmark.",
       "skills": [
         "Python",
         "Time series",
@@ -70,63 +70,63 @@ window.PORTFOLIO_DATA = {
       "figures": [
         {
           "src": "figures/ercot-demand-month-hour.png",
-          "title": "Demand by month and hour",
-          "alt": "Heatmap of observed ERCOT demand in thousands of MWh by month and local hour, with strong summer-afternoon peaks.",
-          "caption": "F03 · Saved notebook output. Summer afternoon and evening hours consistently carry higher demand."
+          "title": "When demand peaks",
+          "alt": "ERCOT mean hourly demand heatmap by month, Central Time.",
+          "caption": "Summer afternoons and evenings reach the highest demand; seasonal and hour features are important."
         },
         {
-          "src": "figures/ercot-seasonal-daily-heatmaps.png",
-          "title": "Daily patterns across four seasons",
-          "alt": "Four-panel seasonal heatmaps of individual calendar days against local hour of day, displayed on a shared demand scale.",
-          "caption": "F03A · A shared color scale reveals variation that monthly averages can hide."
+          "src": "figures/ercot-seven-models-mape.png",
+          "title": "Benchmark before complexity",
+          "alt": "Matched-sample forecast MAPE for ERCOT and six approaches, with operator benchmark at 2.00%.",
+          "caption": "F15 · ERCOT day-ahead led at 2.00% MAPE; Weather XGBoost led team models at 4.18%. This is a retrospective comparison."
         },
         {
-          "src": "figures/ercot-historical-monthly-demand.png",
-          "title": "The long view of electricity demand",
-          "alt": "Line graph of average reported hourly ERCOT demand by month from 2022 through 2026.",
-          "caption": "F01 · Historical trend and recurring seasonality suggest useful calendar structure."
+          "src": "figures/ercot-accuracy-by-demand.png",
+          "title": "Accuracy under high demand",
+          "alt": "Grouped model mean absolute errors across demand percentile bands, showing large errors for XGBoost at top demand levels.",
+          "caption": "F17 · The best model changes with demand conditions. The operator forecast remained most consistent."
         },
         {
-          "src": "figures/ercot-actual-vs-operator-forecast.png",
-          "title": "Observed demand versus reported forecast",
-          "alt": "One-week time-series comparison of observed ERCOT demand and the published operator forecast.",
-          "caption": "F11 · The forecast shown is ERCOT’s published benchmark, not a team-developed model."
-        },
-        {
-          "src": "figures/ercot-seven-models-mae.png",
-          "title": "Seven approaches, common evaluation hours",
-          "alt": "Horizontal bar chart of mean absolute forecast error for seven forecast series on a matched 8,640-hour sample.",
-          "caption": "F14 · ERCOT had the lowest MAE; Weather XGBoost led the team-model series. Forecast vintages require additional comparability auditing."
+          "src": "figures/ercot-mae-by-hour.png",
+          "title": "The hourly error pattern",
+          "alt": "Bar chart of ERCOT forecast MAE in thousand MWh by local hour.",
+          "caption": "F11 · Even the operator forecast has a clear daily pattern in absolute error."
         },
         {
           "src": "figures/ercot-model-error-correlation.png",
-          "title": "Do two models make the same mistakes?",
-          "alt": "Scatterplot of signed forecasting errors from Rolling SARIMA and Weather XGBoost.",
-          "caption": "F20 · Unequal error patterns motivated an exploratory combination of existing predictions."
-        },
-        {
-          "src": "figures/ercot-blend-validation-weights.png",
-          "title": "Choosing an exploratory blend weight",
-          "alt": "Line chart of forecast MAE versus SARIMA blend weight on an earlier evaluation period.",
-          "caption": "F21 · We explored weights using an earlier period, reserving later hours for a separate assessment."
+          "title": "Why try a blend?",
+          "alt": "Scatterplot of signed Weather XGBoost and Rolling SARIMA forecast errors.",
+          "caption": "F20 · Error differences motivated an exploratory hybrid rather than assuming the models make identical mistakes."
         },
         {
           "src": "figures/ercot-later-period-blend-mae.png",
-          "title": "Testing the blend on later hours",
-          "alt": "Bar chart of later-period mean absolute errors for ERCOT day-ahead, a 50/50 blend, a weighted blend, Rolling SARIMA, and Weather XGBoost.",
-          "caption": "F22 · On 4,320 later hours, the simple 50/50 blend lowered MAE versus its components, but still trailed ERCOT."
+          "title": "Test the hybrid on later hours",
+          "alt": "Later-period mean absolute errors for simple and weighted blends versus component models and ERCOT.",
+          "caption": "F22 · A 50/50 blend beat its components on this retrospective period, but did not surpass ERCOT."
         },
         {
-          "src": "figures/ercot-peak-week-comparison.png",
-          "title": "A real high-demand week",
-          "alt": "Original notebook case study showing multiple forecasts against observed hourly demand over a summer week.",
-          "caption": "F24 · A real week makes timing and peak-miss patterns visible beyond one aggregate score."
+          "src": "figures/ercot-blend-by-demand.png",
+          "title": "Where the blend helps",
+          "alt": "Comparative MAE of Rolling SARIMA, Weather XGBoost, and two blends across later-period demand bins.",
+          "caption": "F23 · A blend trades strengths across load levels; the benefit is not uniform."
         },
         {
-          "src": "figures/ercot-model-error-heatmap.png",
-          "title": "Where model error departs from usual",
-          "alt": "Paired month-by-hour heatmaps showing where Rolling SARIMA and Weather XGBoost errors are above or below their respective overall MAE.",
-          "caption": "F30 · These are relative within-model differences, not a direct ranking of the two models."
+          "src": "figures/ercot-hourly-model-mae.png",
+          "title": "Different weaknesses at different hours",
+          "alt": "Two-panel within-model MAE by hour for Weather XGBoost and Rolling SARIMA.",
+          "caption": "F26 · Weather XGBoost and Rolling SARIMA have different time-of-day performance patterns."
+        },
+        {
+          "src": "figures/ercot-season-hour-improvement.png",
+          "title": "Season meets time of day",
+          "alt": "Paired heatmaps of improvement relative to each model’s own overall error by season and hour.",
+          "caption": "F31 · These are within-model deviations, not a direct cross-model scorecard."
+        },
+        {
+          "src": "figures/ercot-actual-vs-operator-forecast.png",
+          "title": "Measured demand versus published forecast",
+          "alt": "ERCOT observed load and operator predicted load through a week.",
+          "caption": "Original notebook output · A close look at the official benchmark and actual hourly demand."
         }
       ]
     },
@@ -155,42 +155,93 @@ window.PORTFOLIO_DATA = {
       "number": "04",
       "category": "school",
       "page": "school/amazon-pick-times.html",
-      "shortTitle": "Amazon package pick times",
-      "title": "Finding the Package: A Driver’s Data",
+      "shortTitle": "Amazon pick-time analysis",
+      "title": "Amazon Package Pick-Time Efficiency",
       "label": "Bellevue University · Applied visualization project",
-      "status": "Case study in preparation",
+      "status": "Completed visual report",
       "role": "Researcher & Visualizer",
-      "period": "Coursework / firsthand observations",
-      "summary": "I turned my experience as an Amazon delivery driver into timing data, examining how package type and organization affect the time needed to find a delivery.",
-      "takeaway": "The useful insight is not only average pick time, but variability: different packages and storage conditions create different levels of friction.",
+      "period": "January 2026 analysis",
+      "summary": "I measured package search times during my own delivery work and visualized how package type, bag density, and familiarity affected the workflow.",
+      "takeaway": "Boxes averaged 4.2 seconds per pick versus 5.6 for envelopes. Across the month, searches became faster as bags emptied; the results describe my observed workflow, not a controlled causal test.",
       "skills": [
-        "R",
-        "ggplot2",
-        "Observed workflow data",
-        "Exploratory visualization"
+        "R & ggplot2",
+        "Violin plots",
+        "Rolling averages",
+        "Operational data"
       ],
-      "figures": []
+      "figures": [
+        {
+          "src": "figures/amazon-pick-distribution.png",
+          "title": "Boxes versus envelopes",
+          "alt": "Original violin plots with raw points of pick times, one for boxes and one for envelopes.",
+          "caption": "Original report · Average box pick 4.2 s; envelope 5.6 s, with wider variability for envelopes."
+        },
+        {
+          "src": "figures/amazon-pick-weekly-comparison.png",
+          "title": "How searches changed by week",
+          "alt": "Original four-panel mirrored histograms of box and envelope pick-time counts in weeks one to four.",
+          "caption": "Original report · Shifts toward faster picks across weeks suggest experience and organization matter."
+        },
+        {
+          "src": "figures/amazon-pick-rolling-dashboard.png",
+          "title": "A route-level performance signal",
+          "alt": "Original line chart of rolling mean pick time over one delivery route, with a 6-second reference and 3.9-second final rolling mean.",
+          "caption": "Original report · A twelve-pick rolling mean reached 3.9 s on the highlighted route versus a 6 s reference."
+        }
+      ]
     },
     {
       "id": "amazon-clothing",
       "number": "05",
       "category": "school",
       "page": "school/weather-clothing.html",
-      "shortTitle": "Weather → clothing predictor",
-      "title": "Weather-Based Delivery Clothing Predictor",
+      "shortTitle": "Weather-based driver gear",
+      "title": "Driver Gear Performance Lab",
       "label": "Bellevue University · DSC 355 · Predictive Analytics",
-      "status": "Course project · prototype",
-      "role": "Predictive modeling & application",
-      "period": "Bellevue University coursework",
-      "summary": "A classification prototype explored how weather and delivery conditions could inform clothing choices for a driver before a shift.",
-      "takeaway": "The modeling workflow demonstrates feature design and evaluation, but its user-created synthetic training data cannot validate real-world accuracy.",
+      "status": "Streamlit prototype · Milestone 5",
+      "role": "End-to-end model & app developer",
+      "period": "DSC 355 · Spring 2026",
+      "summary": "I deployed a tuned Random Forest in Streamlit to recommend a driver shirt category from route and weather conditions, with a transparent explanation of the prediction.",
+      "takeaway": "The saved model uses 34 engineered features and reached 0.682 accuracy and 0.662 macro F1 on its held-out evaluation. The synthetic training sample limits real-world claims.",
       "skills": [
-        "Predictive analytics",
-        "Classification",
-        "Feature engineering",
-        "Synthetic data"
+        "Python",
+        "Streamlit",
+        "Random Forest",
+        "Weather APIs",
+        "Model deployment"
       ],
-      "figures": []
+      "figures": [
+        {
+          "src": "figures/driver-gear-recommendation.jpg",
+          "title": "Clothing recommendation in context",
+          "alt": "Screenshot of Driver Gear Performance Lab showing live weather and a Short Sleeve clothing recommendation.",
+          "caption": "Actual Streamlit prototype · Prediction, confidence, and a practical gear match."
+        },
+        {
+          "src": "figures/driver-gear-route-weather.jpg",
+          "title": "Enter route and live weather",
+          "alt": "Screenshot showing ZIP code, delivery area, date, and weather condition inputs in Streamlit.",
+          "caption": "Actual interface · Users can load weather or test a manual scenario."
+        },
+        {
+          "src": "figures/driver-gear-probabilities.jpg",
+          "title": "What the model considered",
+          "alt": "Screenshot of multiclass probabilities and an explanation for a recommended shirt type.",
+          "caption": "Prototype · Probability output supports transparent, inspectable model recommendations."
+        },
+        {
+          "src": "figures/driver-gear-feature-check.jpg",
+          "title": "Leakage and feature verification",
+          "alt": "Screenshot of feature coverage, ordering checks, and evaluation metrics in the app.",
+          "caption": "Validation · 34 model inputs are checked; post-outcome clothing fields are excluded."
+        },
+        {
+          "src": "figures/driver-gear-historical-lookup.jpg",
+          "title": "Historical route lookup",
+          "alt": "Screenshot of filters and bar chart showing comparable route and clothing-choice records.",
+          "caption": "Explore training context with route, season, comfort-risk, and clothing filters."
+        }
+      ]
     },
     {
       "id": "unmc",
@@ -200,18 +251,55 @@ window.PORTFOLIO_DATA = {
       "shortTitle": "UNMC e-learning",
       "title": "Learning Media & Collaboration at UNMC",
       "label": "University of Nebraska Medical Center · E-Learning Internship",
-      "status": "Portfolio material being collected",
+      "status": "Internship project samples",
       "role": "E-Learning Intern",
       "period": "Professional experience",
-      "summary": "A work portfolio documenting instructional animation, educational media, collaboration, and technical contributions from my UNMC internship.",
-      "takeaway": "The focus is on how communication, teamwork, and technology help turn complex information into useful learning experiences.",
+      "summary": "At UNMC, I worked with educational animation and interactive learning media, combining visual communication, feedback, teamwork, and technical problem-solving.",
+      "takeaway": "The goal was clear educational experiences: ideas need to be understandable, interactive when helpful, and usable by real learners.",
       "skills": [
-        "Animation",
-        "Instructional media",
-        "Team collaboration",
-        "Creative technology"
+        "Vyond & animation",
+        "Articulate 360",
+        "Learning media",
+        "Team collaboration"
       ],
-      "figures": []
+      "figures": [
+        {
+          "src": "figures/unmc-animated-analytics.jpg",
+          "title": "Animated data storytelling",
+          "alt": "Still from a UNMC-branded educational animation featuring charts and an animated presenter.",
+          "caption": "Work sample · Educational animation combining narration-friendly visuals and data storytelling."
+        },
+        {
+          "src": "figures/unmc-occupational-therapy.jpg",
+          "title": "Occupational therapy animation",
+          "alt": "Animated occupational therapy scene showing an instructor and child.",
+          "caption": "Work sample · Complex health topics explained through approachable visual sequences."
+        },
+        {
+          "src": "figures/unmc-lymph-node-animation.jpg",
+          "title": "Lymph node locations",
+          "alt": "UNMC instructional animation explaining lymph node locations through labeled diagrams.",
+          "caption": "Work sample · Visual simplification for medical and health-science learning."
+        },
+        {
+          "src": "figures/unmc-lab-rat-interface.jpg",
+          "title": "Lab Rat Escape learning game",
+          "alt": "Screenshot of an interactive medical terminology game menu titled Lab Rat Escape.",
+          "caption": "Work sample · A game interface designed around medical terminology practice."
+        },
+        {
+          "src": "figures/unmc-lab-rat-question.jpg",
+          "title": "Practice through interaction",
+          "alt": "Screenshot of Lab Rat Escape multiple-choice question explaining anemia.",
+          "caption": "Work sample · Feedback and quiz interaction inside a game-like scenario."
+        },
+        {
+          "src": "figures/unmc-lab-rat-gameplay.jpg",
+          "title": "Game-based learning scene",
+          "alt": "Screenshot of a rat and human character in a medical-themed arcade gameplay environment.",
+          "caption": "Work sample · Interactive gameplay introduces a different way to approach memorization."
+        }
+      ]
     },
     {
       "id": "studio-s",
@@ -224,15 +312,28 @@ window.PORTFOLIO_DATA = {
       "status": "Active prototype development",
       "role": "Designer & Developer",
       "period": "Independent work",
-      "summary": "I am building a presentation editor where code, timelines, narration, and visual elements work together to make reproducible audiovisual presentations.",
-      "takeaway": "The core engineering challenge is synchronizing assets and animations to one authoritative timeline while keeping projects editable.",
+      "summary": "I am developing a desktop presentation editor that coordinates code-defined scenes, visuals, narration, captions, and a shared timeline.",
+      "takeaway": "Real prototype screenshots show a multitrack timeline, editable scene inspector, and graph-backed presentation design. More ambitious AI orchestration remains in development.",
       "skills": [
         "Electron",
         "JavaScript",
         "Canvas",
         "Timeline orchestration"
       ],
-      "figures": []
+      "figures": [
+        {
+          "src": "figures/studio-s-timeline.jpg",
+          "title": "Visual editor and timeline",
+          "alt": "Studio S application interface showing a scene composition, named cues, multitrack timeline, and scene inspector.",
+          "caption": "Working prototype · Scenes, named cues, and audiovisual timing share one timeline."
+        },
+        {
+          "src": "figures/studio-s-forecast-scene.jpg",
+          "title": "A real ERCOT presentation scene",
+          "alt": "Studio S editing interface showing a forecasting model comparison slide within a multitrack timeline.",
+          "caption": "Working prototype · The editor is used to assemble visuals from the DSC 450 ERCOT project."
+        }
+      ]
     },
     {
       "id": "mini-bookmaker",
@@ -242,18 +343,31 @@ window.PORTFOLIO_DATA = {
       "shortTitle": "Mini Bookmaker",
       "title": "Mini Bookmaker",
       "label": "Personal project · Creative publishing",
-      "status": "Work in progress",
+      "status": "Working prototype · v2.1",
       "role": "Creative design & prototyping",
       "period": "Independent work",
-      "summary": "A personal experiment in small-format publishing, exploring how ideas, text, and imagery can become printable miniature books.",
-      "takeaway": "The design problem is both visual and practical: making a small collection of pages easy to arrange, print, and share.",
+      "summary": "I built a desktop tool for rearranging PDF pages into printable miniature books, with sheet previews, page selection, and print-ready layouts.",
+      "takeaway": "The difficult part is imposition: mapping logical reading order onto physical sheets, front and back, so pages assemble correctly after cutting and stacking.",
       "skills": [
+        "PDF imposition",
         "Page layout",
-        "Creative tools",
-        "Printable media",
-        "Prototyping"
+        "Desktop UI",
+        "Print workflow"
       ],
-      "figures": []
+      "figures": [
+        {
+          "src": "figures/minibook-imposition-preview.jpg",
+          "title": "Print-ready sheet preview",
+          "alt": "MiniBook Maker 2.1 shows a front sheet with four mini pages arranged for printing, cutting, and assembly.",
+          "caption": "Working prototype · A physical imposition preview with front/back sheet navigation."
+        },
+        {
+          "src": "figures/minibook-page-selector.jpg",
+          "title": "Select and arrange pages",
+          "alt": "MiniBook Maker 2.1 shows a visual page picker with selected PDF page thumbnails.",
+          "caption": "Working prototype · Page selection and order control before building the booklet."
+        }
+      ]
     }
   ]
 };

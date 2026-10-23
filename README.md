@@ -1,74 +1,51 @@
-# Ordinary i | Matthew Scarpello's data science and creative portfolio
+# Matthew Scarpello — Data Science & Creative Technology Portfolio
 
-A lightweight, static portfolio for GitHub Pages, organized into three **actual directories**:
+A GitHub Pages portfolio organized around original figures and real software screenshots. The site preserves the personal introduction **Question. Analyze. Enjoy.** and the **Note 01** work-experience story.
 
-- `school/` — Five school and applied-learning projects, including **all three DSC 450 Fall Capstone entries** and two Amazon-related projects.
-- `work/` — UNMC educational media, animation, teamwork, and technical experience.
-- `personal/` — Studio S audiovisual presentation software and Mini Bookmaker.
+**Repository:** https://github.com/mjscarpello/Portfolio-Repository  
+**Expected GitHub Pages URL:** https://mjscarpello.github.io/Portfolio-Repository/ (confirm in repository Settings → Pages)
 
-The homepage and About page retain the original **Question. Analyze. Enjoy.** line, **Note 01**, and the UNMC / Amazon / healthcare experience bubbles.
+## Collections
 
-## What is real, and what isn't
+**School (5):** NOAA storm economic-damage prediction, ERCOT electricity-demand forecasting, DSC 450 Project 3 placeholder, Amazon package pick-time efficiency, and DSC 355 Driver Gear Performance Lab.
 
-The 4 NOAA charts come from Group 1's DSC 450 Milestone 3 PowerPoint. The 10 ERCOT charts are unmodified PNG output bytes from `DSC450_ERCOT_Visualization_FULLnotebook(1).ipynb` supplied by Matthew. Sources and descriptions are in `docs/FIGURE-SOURCES.md`. The other projects deliberately show no invented graphs or screenshots. DSC 450 Project 3 is a neutral placeholder with **no recycling-project details**.
+**Work (1):** UNMC E-Learning internship — animation, interactive medical-terminology game, and instructional media screenshots.
 
-Modeling and evaluation captions deliberately distinguish reported evidence from operational guarantees. The ERCOT ensemble is a retrospective combination of exported model predictions, not a newly trained production forecast model.
+**Personal (2):** Studio S presentation editor and Mini Bookmaker desktop publishing software.
 
-## Quick upload to GitHub using Chrome (no Desktop required)
+### Featured data, honestly presented
+- **NOAA:** Four PNGs extracted from the team's Milestone 3 presentation. Random Forest results reported by the team: ROC-AUC 0.880, average precision 0.669. Association, not causality.
+- **ERCOT:** Ten original notebook / user-provided figures. ERCOT's official forecast is a benchmark. Some retrospective team forecasts differ in forecast horizon, information availability, and update schedule; do not claim operational forecasting superiority.
+- **Amazon pick-time study:** Three real visualizations from firsthand observations. Includes downloadable final PDF report.
+- **Driver Gear:** Five screenshots from the DSC 355 Streamlit deployment; the model was trained with user-created synthetic data, so internal evaluation is not field validation.
+- **UNMC, Studio S, and Mini Bookmaker:** Real screenshots, not generic stock illustrations.
 
-1. Download and unzip the latest complete site ZIP.
-2. Open `https://github.com/theOrdinaryi/Portfolio-Repository` and make sure you are at the **root** of the `main` branch.
-3. Save a backup from **Code → Download ZIP**.
-4. Choose **Add file → Upload files**. Drag **the CONTENTS of the extracted folder**, not the folder itself. This must put `index.html`, `style.css`, `portfolio-data.js`, `school/`, `work/`, `personal/`, and `figures/` beside each other.
-5. Review the file paths; commit with `Organize portfolio collections and add original ERCOT figures`.
-6. Check the GitHub Pages deployment at `https://theordinaryi.github.io/Portfolio-Repository/`.
+## Architecture
+- `index.html`: homepage, hero photo, selectors and featured projects.
+- `about.html`: personal story and photo.
+- `school/`, `work/`, `personal/`: separate collection index pages and individual project case studies.
+- `portfolio-data.js`: canonical project information and image list. Add or rearrange figures here first.
+- `script.js`: interactive school selector, theme toggle, zoomable figure galleries.
+- `style.css`: responsive, neutral design.
+- `figures/`: original project PNGs and optimized screenshots.
+- `assets/`: personal portrait.
+- `downloads/`: final Amazon workflow report.
+- `docs/INSTALLATION.md`: browser-only full-site upload and deployment checklist.
+- `docs/PROJECT-REPORT.md`: implementation and quality report.
+- `docs/ASSET-MANIFEST.md`: figure provenance and descriptions.
 
-Read **`docs/GITHUB-INSTALLATION.md`** for every step and a verification checklist.
+## Local preview
 
-## Edit projects
+Run from the repository folder:
 
-- Edit project labels, summaries, tags, status, and chart captions in `portfolio-data.js`.
-- Edit the short interpretation paragraphs in the individual HTML file for each project.
-- Use `figures/` for actual notebook-exported charts and approved work screenshots.
-- Add a `{ "src": "figures/filename.png", ... }` object to the right project's `figures` list in `portfolio-data.js` only **after** that exact filename is present.
-- `script.js` renders the school-project selector and all project-gallery figures. No build step or external JavaScript dependency.
-- `style.css` controls responsive layout, typography, and light/dark themes.
-
-## Main directory tree
-
-```text
-Portfolio-Repository/
-├── index.html               # Homepage: School / Work / Personal collections
-├── about.html               # Personal profile and experience
-├── portfolio-data.js        # All 8 projects, including real chart references
-├── script.js                # Interactions and actual-image zoom dialog
-├── style.css                # Responsive design
-├── school/
-│   ├── index.html
-│   ├── noaa.html
-│   ├── ercot.html
-│   ├── capstone-three.html
-│   ├── amazon-pick-times.html
-│   └── weather-clothing.html
-├── work/
-│   ├── index.html
-│   └── unmc.html
-├── personal/
-│   ├── index.html
-│   ├── studio-s.html
-│   └── mini-bookmaker.html
-├── figures/                 # 4 original NOAA + 10 original ERCOT PNGs
-├── docs/                    # Setup, source and follow-up figure checklists
-├── tools/                   # Jupyter notebook PNG extraction utility
-├── project-noaa.html       # Legacy link redirect only
-├── project-ercot.html      # Legacy link redirect only
-├── project-recycling.html  # Legacy link redirect to generic Project 3
-├── .nojekyll
-└── README.md
+```bash
+python3 -m http.server 8000
 ```
 
-The three legacy root pages are small redirects to avoid breaking earlier bookmarks. `project-recycling.html` contains **no** recycling study or outcome claims; the redirect exists solely for backward compatibility.
+Visit `http://localhost:8000/` and check images and navigation, especially `school/noaa.html` and the new collection galleries. GitHub Desktop is **not required**: the browser-only procedure is in `docs/INSTALLATION.md`.
 
-## Content credit
+## Maintenance
 
-DSC 450 is a Bellevue University Fall Capstone team course. On NOAA, the team roles were Matthew (Data Scientist), Andrea Barfield (Data Wrangler), and Hali Sarah Parsons (Visualizer/Presenter). On ERCOT, they were Sarah (Data Wrangler), Andrea (Data Scientist), and Matthew (Visualizer/Presenter). The team model series came from Andrea's predictions and Sarah's prepared demand data. ERCOT visual interpretation and exploratory blending reflect Matthew's notebook work.
+Update `portfolio-data.js` and place corresponding media under `figures/`. Case-study galleries resolve paths from the root via `data-root="../"` on subpages; do not use browser-relative `school/figures` paths. Resize screenshots for load performance; preserve chart values. After updating CSS or JS, increment the asset query version in all HTML pages to avoid stale cached code.
+
+**Privacy and ownership:** Verify permission to publicly display the institutional work samples, logos, and game screenshots. Team work is credited by role. The portfolio does not upload any training dataset, model file, API keys, or sensitive records.

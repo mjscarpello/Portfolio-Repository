@@ -14,7 +14,7 @@
   };
 
   // Local appearance preference. Light is the default to retain the original site's look.
-  const preferenceKey = 'ordinaryi-portfolio-theme';
+  const preferenceKey = 'matthew-scarpello-portfolio-theme';
   let theme = 'light';
   try { theme = localStorage.getItem(preferenceKey) === 'dark' ? 'dark' : 'light'; } catch (_) {}
   const updateTheme = () => {
@@ -57,7 +57,7 @@
     modalImage.alt = chart.alt;
     modalCaption.textContent = chart.title + ' — ' + chart.caption;
     if (typeof modal.showModal === 'function') modal.showModal();
-    else window.open(chart.src, '_blank', 'noopener');
+    else window.open(asset(chart.src), '_blank', 'noopener');
   }
 
   if (data?.projects && $('#project-options')) {
@@ -163,7 +163,8 @@
         const button = node('button', 'case-chart-button');
         button.type = 'button';
         button.setAttribute('aria-label', `Expand original figure ${index + 1}: ${chart.title}`);
-        const img = node('img'); img.src = chart.src; img.alt = chart.alt; img.loading = 'lazy';
+        const img = node('img'); img.src = asset(chart.src); img.alt = chart.alt; img.loading = 'lazy';
+        img.addEventListener('error', () => { img.alt = 'This image did not load; please check the project figure path.'; });
         button.append(img);
         button.addEventListener('click', () => enlargeChart(chart));
         const caption = node('figcaption');
