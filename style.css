@@ -404,3 +404,96 @@ h4 { font-size: 1.1rem; letter-spacing: -.018em; }
  .about-photo img {height:400px;}
  .collection-card-preview {width:48%;opacity:.09;}
 }
+
+/* Lab Rat Revolt interactive work feature — release 9 */
+#work-projects > .collection-feature-card + .collection-feature-card {margin-top:16px;}
+.game-case-hero {padding-bottom:38px;}
+.game-showcase {border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:42px 0 54px;}
+.game-showcase-heading {display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:24px;}
+.game-showcase-heading h2 {font-size:clamp(28px,3.8vw,46px);margin:0;}
+.game-showcase-heading > p {max-width:350px;color:var(--muted);font-size:14px;}
+.game-host {position:relative;aspect-ratio:16/10;min-height:340px;background:#0f1b2a;border:1px solid var(--line);overflow:hidden;}
+.game-poster,.game-frame {position:absolute;inset:0;width:100%;height:100%;}
+.game-poster img {width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(.54);}
+.game-poster-panel {position:absolute;inset:auto 4% 5%;max-width:510px;padding:28px;background:rgba(15,27,42,.96);color:#f6faf9;box-shadow:var(--shadow);}
+.game-poster-panel .small-label {color:#74dcce;}
+.game-poster-panel h3 {color:#fff;font-size:clamp(28px,4vw,46px);margin:10px 0 8px;}
+.game-poster-panel p {font-size:14px;line-height:1.55;color:#d5e2e6;}
+.game-load {padding:13px 20px;margin-top:8px;background:#69e1cc;color:#062527;font-weight:850;border:0;border-radius:4px;cursor:pointer;}
+.game-load:focus-visible {outline:3px solid #fff;outline-offset:3px;}
+.game-frame {border:0;background:#0f1b2a;}
+.game-actions {display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;padding:16px 0 0;}
+.game-actions > span {font-size:12px;color:var(--muted);}
+.game-logic-section {padding:58px 0 54px;border-bottom:1px solid var(--line);}
+.game-logic-section .section-heading {margin-bottom:24px;}
+.game-logic-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;}
+.game-logic-grid article {padding:27px 24px;background:var(--paper);border:1px solid var(--line);}
+.game-logic-grid h3 {font-size:24px;margin:12px 0;}
+.game-logic-grid p {color:var(--muted);font-size:14px;line-height:1.6;}
+.game-logic-grid code {display:inline-block;white-space:normal;overflow-wrap:anywhere;margin:5px 3px 0 0;padding:5px 7px;color:var(--teal);border:1px solid var(--line);font-size:12px;}
+.unmc-feature {display:grid;grid-template-columns:1.2fr 1fr;align-items:center;gap:32px;padding:37px;margin:40px 0;background:var(--paper);border:1px solid var(--line);}
+.unmc-feature h2 {font-size:clamp(29px,3.4vw,45px);margin:8px 0;}
+.unmc-feature p:not(.eyebrow) {color:var(--muted);font-size:15px;}
+.unmc-feature img {width:100%;height:260px;object-fit:contain;background:white;}
+@media(max-width:760px) {
+ .game-showcase-heading,.game-actions {display:block;}
+ .game-actions > span {display:block;margin-top:11px;}
+ .game-host {min-height:270px;aspect-ratio:4/5;}
+ .game-poster-panel {padding:19px;}
+ .game-logic-grid,.unmc-feature {grid-template-columns:1fr;}
+ .unmc-feature {padding:22px;}
+}
+
+
+/* V6 — extraordinary home experiences section + Amazon report breakdown */
+.hero-simple .hero-grid-simple { grid-template-columns: minmax(0,1.15fr) minmax(280px,.85fr); align-items:end; }
+.hero-simple .note { display:none; }
+.experiences-home { padding: 78px 0 84px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.experience-heading { align-items:flex-end; }
+.experience-card-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; margin-top:28px; }
+.experience-card { display:flex; flex-direction:column; text-decoration:none; border:1px solid var(--line); background:var(--paper); overflow:hidden; transition:transform .24s,border-color .24s, box-shadow .24s; }
+.experience-card:hover { transform:translateY(-4px); border-color:var(--teal); box-shadow:0 20px 44px rgba(23,39,39,.08); }
+.experience-preview { position:relative; aspect-ratio:1.18; overflow:hidden; background:#d8d4cb; }
+.experience-preview img { width:100%; height:100%; object-fit:cover; display:block; transform:scale(1.02); filter:saturate(.92) contrast(1.03); }
+.smoke-preview::before, .smoke-preview::after { content:""; position:absolute; inset:auto; pointer-events:none; border-radius:50%; filter:blur(18px); opacity:.95; }
+.smoke-preview::before { width:220px; height:220px; right:-40px; top:-40px; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.84), rgba(255,255,255,.28) 40%, rgba(255,255,255,0) 72%); }
+.smoke-preview::after { width:280px; height:220px; left:-40px; bottom:-60px; background:radial-gradient(circle at 60% 40%, rgba(20,110,115,.24), rgba(255,255,255,.5) 40%, rgba(255,255,255,0) 72%); }
+.experience-preview::marker { display:none; }
+.experience-preview-caption { position:absolute; left:18px; right:18px; bottom:16px; z-index:2; background:linear-gradient(180deg, rgba(244,241,234,.2), rgba(244,241,234,.88)); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.65); padding:14px 15px; }
+.experience-preview-caption span { display:block; font-size:10px; font-weight:800; letter-spacing:.18em; color:var(--teal); margin-bottom:6px; }
+.experience-preview-caption strong { display:block; font-size:18px; line-height:1.2; color:var(--ink); }
+.experience-card-body { padding:22px 22px 24px; display:flex; flex-direction:column; gap:10px; }
+.experience-card-body h3 { font-size:clamp(2rem,3vw,2.65rem); margin:0; }
+.experience-card-body p:not(.small-label) { color:var(--muted); font-size:15px; }
+.experience-project-list { list-style:none; margin:4px 0 10px; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
+.experience-project-list li { font-size:12px; font-weight:700; color:var(--ink); background:var(--paper-2); border:1px solid var(--line); padding:7px 10px; border-radius:999px; }
+.report-overview { padding:56px 0 30px; border-top:1px solid var(--line); }
+.report-overview-grid { display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); gap:22px; align-items:start; margin-top:28px; }
+.report-cover-card, .report-summary-box, .pdf-embed-card { border:1px solid var(--line); background:var(--paper); }
+.report-cover-card { overflow:hidden; }
+.report-cover-card img { display:block; width:100%; height:auto; background:#fff; }
+.report-cover-card figcaption { display:flex; flex-direction:column; gap:6px; padding:18px 20px 12px; }
+.report-cover-card figcaption span { color:var(--muted); font-size:14px; }
+.report-actions { display:flex; flex-wrap:wrap; gap:10px; padding:0 20px 20px; }
+.report-summary-box { padding:24px; }
+.report-summary-box h3 { margin:6px 0 10px; font-size:clamp(1.55rem,2.4vw,2.15rem); }
+.report-summary-box p { color:var(--muted); }
+.pdf-embed-card { margin-top:22px; overflow:hidden; }
+.report-embed { width:100%; height:760px; border:0; background:#fff; display:block; }
+.report-breakdown-section { padding:30px 0 58px; }
+.report-breakdown-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:24px; }
+.report-breakdown-grid article { padding:22px; border:1px solid var(--line); background:var(--paper); }
+.report-breakdown-grid h3 { margin:8px 0 9px; font-size:1.18rem; }
+.report-breakdown-grid p { margin:0; color:var(--muted); font-size:15px; }
+@media (max-width: 980px) {
+  .experience-card-grid { grid-template-columns:1fr; }
+  .hero-simple .hero-grid-simple { grid-template-columns:1fr; }
+  .report-overview-grid, .report-breakdown-grid { grid-template-columns:1fr; }
+  .report-embed { height:620px; }
+}
+@media (max-width: 720px) {
+  .experience-card-body { padding:18px; }
+  .experience-preview-caption strong { font-size:16px; }
+  .report-actions { flex-direction:column; }
+  .report-embed { height:520px; }
+}

@@ -1,4 +1,4 @@
-/* Single source of truth for project cards and authentic figure galleries. */
+/* Project descriptions, authentic media, and captions. This file also includes the Lab Rat Revolt playable-game entry. */
 window.PORTFOLIO_DATA = {
   "projects": [
     {
@@ -298,6 +298,47 @@ window.PORTFOLIO_DATA = {
           "title": "Game-based learning scene",
           "alt": "Screenshot of a rat and human character in a medical-themed arcade gameplay environment.",
           "caption": "Work sample · Interactive gameplay introduces a different way to approach memorization."
+        }
+      ]
+    },
+    {
+      "id": "lab-rat",
+      "number": "02",
+      "category": "work",
+      "page": "work/lab-rat-revolt.html",
+      "shortTitle": "Lab Rat Revolt",
+      "title": "Lab Rat Revolt — Medical Terminology Game",
+      "label": "UNMC · Interactive Learning Media",
+      "status": "Playable game export",
+      "role": "E-learning development",
+      "period": "2024–2025 project materials",
+      "summary": "An interactive medical terminology game combining assessment, game state, and object-based interaction logic.",
+      "takeaway": "My first experience thinking about how named objects, variables, and event-driven logic can organize a larger interactive system.",
+      "skills": [
+        "Storyline 360",
+        "Interactive learning",
+        "Game-state logic",
+        "JavaScript animations",
+        "Medical education"
+      ],
+      "figures": [
+        {
+          "src": "figures/unmc-lab-rat-gameplay.jpg",
+          "title": "Game-based learning scene",
+          "alt": "Gameplay screen featuring an animated rat and human character with game elements.",
+          "caption": "Original game frame · Character-based interaction in the medical terminology adventure."
+        },
+        {
+          "src": "figures/unmc-lab-rat-question.jpg",
+          "title": "Terminology challenge",
+          "alt": "Game screen displaying a multiple-choice question about anemia.",
+          "caption": "Original game frame · Medical terminology question with interactive answer options."
+        },
+        {
+          "src": "figures/unmc-lab-rat-interface.jpg",
+          "title": "Game menu and progression",
+          "alt": "Game interface with level and objectives displayed.",
+          "caption": "Original game frame · Progress-oriented interface for a learning adventure."
         }
       ]
     },

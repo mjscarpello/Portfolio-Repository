@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="Play an interactive medical terminology game developed during a UNMC e-learning internship, and explore the game-state logic behind its design." name="description"/><meta content="#f4f1ea" name="theme-color"/><title>Lab Rat Revolt — Play the Medical Terminology Game | Matthew Scarpello</title><link href="../style.css?v=9" rel="stylesheet"/><script defer="" src="../portfolio-data.js?v=9"></script><script defer="" src="../script.js?v=9"></script><link href="../favicon.svg" rel="icon" type="image/svg+xml"/></head><body data-root="../"><a class="skip-link" href="#main">Skip to content</a><header class="site-header wrap"><a class="brand" href="../index.html"><span aria-hidden="true" class="brand-circle">MS</span><span>Matthew Scarpello<small>DATA SCIENCE · CREATIVE TECHNOLOGY</small></span></a>
+<nav aria-label="Main navigation"><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../school/index.html">School</a><a aria-current="page" class="current" href="../work/index.html">Work</a><a href="../personal/index.html">Personal</a><a href="mailto:matthewscarpello@gmail.com">Contact ↗</a></nav></header>
+<main class="wrap case-page" id="main">
+<a class="back-link" href="../work/index.html">← Back to work projects</a>
+<header class="case-hero game-case-hero">
+<p class="eyebrow">UNMC E-LEARNING · INTERACTIVE GAME DEVELOPMENT</p>
+<h1>Lab Rat Revolt<span class="accent">.</span></h1>
+<p class="page-lede">An interactive medical terminology adventure built around challenges, feedback, and game-state logic. An early project where I explored object-based programming through educational media.</p>
+<div class="case-meta"><span><strong>Format</strong>Playable Storyline HTML5</span><span><strong>Focus</strong>Medical terminology</span><span><strong>Learning</strong>Interactive logic &amp; OOP concepts</span></div>
+</header>
+<section aria-labelledby="play-game-title" class="game-showcase">
+<div class="game-showcase-heading"><div><p class="eyebrow">TRY IT YOURSELF</p><h2 id="play-game-title">Play the game<span class="accent">.</span></h2></div><p>Start below or open the full experience in a new tab. Audio may be enabled.</p></div>
+<div class="game-host" id="game-host">
+<div class="game-poster" id="game-poster">
+<img alt="Screenshot of Lab Rat Revolt medical learning gameplay, with a rat and human character." loading="eager" src="../figures/unmc-lab-rat-gameplay.jpg"/>
+<div class="game-poster-panel"><span class="small-label">PUBLISHED INTERACTIVE GAME</span><h3>Ready to explore?</h3><p>Load the real HTML5 game, including its original activities and sound.</p><button class="game-load" id="game-load" type="button">▶ Start Lab Rat Revolt</button></div>
+</div>
+</div>
+<div class="game-actions"><a class="underlined-link" href="../demos/lab-rat-revolt/story.html" rel="noopener noreferrer" target="_blank">Open game in a new tab ↗</a><span>Best experienced on desktop · Allow sound when prompted · Player loads on demand</span></div>
+<noscript><p>JavaScript is disabled. <a href="../demos/lab-rat-revolt/story.html">Open the web-published game directly</a>.</p></noscript>
+</section>
+<section class="case-intro-section"><div><p class="eyebrow">THE IDEA</p><h2>Learning by doing<span class="accent">.</span></h2></div><div class="case-prose"><p>I wanted medical terminology practice to feel like an interactive challenge rather than a list of definitions. Players respond to questions and work through game-like scenarios where choices matter.</p><p>The project connected healthcare education, visual design, gameplay feedback, and my early understanding of program structure.</p></div></section>
+<section aria-labelledby="game-logic-title" class="game-logic-section"><div class="section-heading"><div><p class="eyebrow">BEHIND THE INTERACTION</p><h2 id="game-logic-title">Thinking in objects and state<span class="accent">.</span></h2></div><p>Examples below are real variable names found in the Storyline project source, not invented class definitions.</p></div>
+<div class="game-logic-grid">
+<article><span class="small-label">01 · GAME STATE</span><h3>Health and resources</h3><p>Player and boss state provide a way for the game to respond to actions and progress.</p><code>playerHEALTH</code> <code>BOSSHEALTH</code> <code>SHOPpts</code></article>
+<article><span class="small-label">02 · ASSESSMENT</span><h3>Answer and feedback logic</h3><p>Question flags and timers let the interaction react to learning tasks.</p><code>QUESTIONTIME</code> <code>WORDpartCORRECT</code> <code>meaningCORRECT</code></article>
+<article><span class="small-label">03 · PROGRESSION</span><h3>Levels and goals</h3><p>Tracked milestones connect separate challenges into one playable experience.</p><code>levelTRACKER</code> <code>PROGRESS</code> <code>RATSsaved</code></article>
+</div>
+<p class="source-note">This was one of my first experiences applying object-based programming ideas. The project uses Storyline variables and triggers; its published player includes JavaScript object animations. The inspected files do not independently establish handwritten ES6 classes, so the page describes the implementation as it appears in the source.</p>
+</section>
+<section class="case-gallery-section"><div class="section-heading"><div><p class="eyebrow">THE PROJECT IN ACTION</p><h2>Original game frames<span class="accent">.</span></h2></div><p>Selected screenshots from the medical terminology game. Select an image to enlarge it.</p></div><div class="case-gallery" data-case-gallery="lab-rat"></div></section>
+<section class="case-limitation"><p class="eyebrow">PROJECT NOTES</p><p>The web-published package is titled <strong>Lab Rat Revolt</strong> (published May 2025); the earlier Storyline source is titled <strong>Lab Rat Escape</strong> (September 2024). This portfolio features the supplied web export rather than claiming the two files are the same version. Institutional assets and game content should only be republished with permission from the rights holder.</p></section>
+<nav class="case-nav"><a href="../work/unmc.html">← Other UNMC work</a><a href="../work/index.html">Work collection ↗</a></nav>
+</main>
+<script>
+(() => {
+  const start = document.getElementById('game-load');
+  const host = document.getElementById('game-host');
+  if (!start || !host) return;
+  start.addEventListener('click', () => {
+    const frame = document.createElement('iframe');
+    frame.setAttribute('title', 'Lab Rat Revolt playable medical terminology game');
+    frame.setAttribute('allow', 'autoplay; fullscreen');
+    frame.setAttribute('allowfullscreen', '');
+    frame.setAttribute('loading', 'eager');
+    frame.src = '../demos/lab-rat-revolt/story.html';
+    frame.className = 'game-frame';
+    host.replaceChildren(frame);
+    frame.focus();
+  }, {once:true});
+})();
+</script>
+<footer class="site-footer wrap"><div><strong>Matthew Scarpello</strong><small>Data science · Software · Visual storytelling</small></div><a href="mailto:matthewscarpello@gmail.com">Get in touch ↗</a><button aria-pressed="false" data-theme-toggle="" type="button">Switch to dark</button><a class="footer-github" href="https://github.com/mjscarpello/Portfolio-Repository" rel="noopener noreferrer" target="_blank">GitHub ↗</a><span class="footer-meta">Science · Technology · Creativity</span></footer></body></html>
