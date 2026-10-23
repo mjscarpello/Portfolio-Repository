@@ -558,3 +558,35 @@ html[data-theme="dark"] .experience-card { background:var(--paper); }
 .resume-chips span { display:inline-block; border:1px solid var(--line); background:var(--background); padding:6px 10px; border-radius:30px; font-size:12px; font-weight:650; }
 .resume-link { margin-top:22px; }
 @media(max-width:760px) { .resume-grid {grid-template-columns:1fr;} .mini-resume {padding:48px 0;} .resume-pane {padding:20px;} }
+
+
+/* About page: resume-style overview, matched to light and dark themes */
+.mini-resume { padding:76px 0 82px; border-bottom:1px solid var(--line); }
+.mini-resume-heading { display:flex; justify-content:space-between; align-items:end; gap:36px; margin-bottom:27px; }
+.mini-resume-heading .eyebrow { margin-bottom:12px; }
+.mini-resume-heading h2 { max-width:620px; margin:0; font-size:clamp(2.25rem,4vw,3.55rem); }
+.mini-resume-heading > p { max-width:340px; margin:0; color:var(--muted); font-size:15px; line-height:1.6; }
+.mini-resume-grid { display:grid; grid-template-columns:minmax(0,1.43fr) minmax(285px,.9fr); gap:18px; align-items:start; }
+.mini-resume-panel { min-width:0; border:1px solid var(--line); background:var(--paper); padding:clamp(23px,3.1vw,37px); }
+.mini-resume-panel > .small-label { color:var(--teal); margin:0 0 8px; }
+.mini-resume-job { padding:21px 0 23px; border-bottom:1px solid var(--line); }
+.mini-resume-job:last-child { border-bottom:0; padding-bottom:0; }
+.mini-resume-job-top { display:flex; align-items:start; justify-content:space-between; gap:14px; }
+.mini-resume-job h3 { margin:0 0 5px; font-size:clamp(1.25rem,2.1vw,1.65rem); letter-spacing:-.035em; }
+.mini-resume-years { flex-shrink:0; font-size:11px; font-weight:750; color:var(--teal); border:1px solid var(--line); padding:5px 9px; white-space:nowrap; }
+.mini-resume-org { margin:0 0 11px; font-size:13px; font-weight:750; color:var(--ink); }
+.mini-resume-job > p:last-child,.mini-resume-side-section > p:not(.small-label):not(.mini-resume-org) { font-size:14px; color:var(--muted); line-height:1.65; margin-bottom:0; }
+.mini-resume-job a { color:var(--teal); text-decoration:underline; text-underline-offset:3px; font-weight:650; }
+.mini-resume-side-section + .mini-resume-side-section { padding-top:24px; margin-top:24px; border-top:1px solid var(--line); }
+.mini-resume-side-section > .small-label { margin:0 0 14px; color:var(--teal); }
+.mini-resume-side-section h3 { margin:0 0 6px; font-size:1.4rem; }
+.mini-resume-degree { font-size:.8rem; font-weight:650; color:var(--muted); letter-spacing:0; }
+.mini-resume-school-note { margin-top:10px; }
+.mini-resume-skills { display:flex; flex-wrap:wrap; gap:7px; }
+.mini-resume-skills span { display:inline-flex; align-items:center; padding:6px 10px; border:1px solid var(--line); border-radius:99px; background:var(--background); font-size:11px; font-weight:700; color:var(--ink); line-height:1.3; }
+.mini-resume-project-link { display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-bottom:1px solid var(--line); text-decoration:none; font-size:13px; font-weight:700; }
+.mini-resume-project-link:last-child { border-bottom:0; }
+.mini-resume-project-link:hover { color:var(--teal); }
+@media(max-width:920px) { .mini-resume-grid { grid-template-columns:1fr; } .mini-resume-heading { align-items:start; } }
+@media(max-width:620px) { .mini-resume { padding:56px 0 62px; } .mini-resume-heading { flex-direction:column; gap:14px; } .mini-resume-job-top { flex-direction:column; gap:5px; } .mini-resume-years { align-self:start; } }
+
