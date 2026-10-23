@@ -55,7 +55,7 @@ h4 { font-size: 1.1rem; letter-spacing: -.018em; }
 .site-header { display: flex; gap: 25px; justify-content: space-between; align-items: center; padding: 27px 0; border-bottom: 1px solid var(--line); }
 .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-size: 14px; font-weight: 760; line-height: 1.23; }
 .brand small { display: block; margin-top: 5px; font-size: 9px; font-weight: 750; letter-spacing: .15em; color: var(--muted); }
-.brand-circle { display: grid; place-items: center; flex: 0 0 42px; width: 42px; height: 42px; border: 1.5px solid var(--ink); border-radius: 50%; font-size: 11px; letter-spacing: -.05em; }
+.brand-circle { display: grid; place-items: center; flex: 0 0 42px; width: 42px; height: 42px; border: 1.5px solid var(--ink); border-radius: 50%; overflow: hidden; font-size: 0; color: transparent; background-color: #fff; background-image: url('assets/brand-avatar.jpg'); background-position: center 24%; background-size: cover; background-repeat: no-repeat; }
 .site-header nav { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
 .site-header nav a { text-decoration: none; font-size: 13px; font-weight: 550; color: var(--muted); }
 .site-header nav a:hover,.site-header nav a.current { color: var(--ink); }
