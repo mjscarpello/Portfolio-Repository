@@ -60,97 +60,88 @@
     else window.open(asset(chart.src), '_blank', 'noopener');
   }
 
-  if (data?.projects && $('#project-options')) {
-    let projectIndex = 0;
-    let figureIndex = 0;
-    const projects = data.projects.filter(project => project.category === 'school');
-    const optionsRoot = $('#project-options');
-    const stage = $('#feature-figure-stage');
-    const optionButtons = projects.map((project, index) => {
-      const button = node('button', 'project-option');
-      button.type = 'button';
-      button.setAttribute('aria-controls', 'project-detail');
-      button.append(node('span', 'project-option-number', project.number), node('span', 'project-option-text', project.shortTitle));
-      button.addEventListener('click', () => selectProject(index));
-      optionsRoot.append(button);
-      return button;
-    });
-    function renderFigure() {
-      const project = projects[projectIndex];
-      stage.replaceChildren();
-      const hasFigures = project.figures.length > 0;
-      $('#figure-prev').hidden = !hasFigures || project.figures.length <= 1;
-      $('#figure-next').hidden = !hasFigures || project.figures.length <= 1;
-      $('#figure-progress').textContent = hasFigures ? `${figureIndex + 1} / ${project.figures.length}` : 'Original plots pending';
-      if (!hasFigures) {
-        const empty = node('div', 'figure-empty');
-        empty.append(node('span', 'small-label', 'FIGURE LIBRARY'),
-          node('h4', '', 'Original research visuals are being prepared.'),
-          node('p', '', project.id === 'capstone-three' ? 'This is a course placeholder. No research topic or figures have been assigned yet.' : 'Original project figures and approved work samples will be added when available.'),
-          node('a', 'underlined-link', 'Read the case study →'));
-        empty.querySelector('a').href = asset(project.page);
-        stage.append(empty);
-        return;
-      }
-      const item = project.figures[figureIndex];
-      const open = node('button', 'feature-chart-button');
-      open.type = 'button';
-      open.setAttribute('aria-label', `Enlarge original figure: ${item.title}`);
-      const image = node('img');
-      image.src = asset(item.src);
-      image.alt = item.alt;
-      image.loading = 'lazy';
-      open.append(image, node('span', 'chart-zoom-hint', 'Enlarge figure ↗'));
-      open.addEventListener('click', () => enlargeChart(item));
-      const caption = node('div', 'figure-caption');
-      caption.append(node('strong', '', item.title), node('p', '', item.caption));
-      stage.append(open, caption);
+  // Reusable three-pillar explorer, driven by the central project records.
+  const explorer = $('#pillar-explorer');
+  if (explorer && data?.pillars && data?.projects) {
+    const tabs = $$('[data-pillar]');
+    const list = $('#pillar-project-list');
+    let pillarIndex = 0, projectIndex = 0;
+    const projects = () => data.projects.filter(p => p.category === data.pillars[pillarIndex].id);
+    const selected = () => projects()[projectIndex];
+    function showProject(announce = true) {
+      const p = selected(), all = projects();
+      if (!p) return;
+      const number = String(projectIndex + 1).padStart(2, '0') + ' / ' + String(all.length).padStart(2, '0');
+      $('#pillar-count').textContent = number;
+      $('#pillar-project-position').textContent = number;
+      $$('.pillar-project-option').forEach((b,i)=>b.setAttribute('aria-pressed', String(i === projectIndex)));
+      $('#pillar-project-label').textContent = p.status;
+      $('#pillar-project-title').textContent = p.title;
+      $('#pillar-project-summary').textContent = p.summary;
+      $('#pillar-project-role').textContent = p.role;
+      $('#pillar-project-link').href = asset(p.page);
+      $('#pillar-media-link').href = asset(p.page);
+      const figure = p.figures?.[0], img = $('#pillar-image'), empty = $('#pillar-media-empty');
+      img.hidden = !figure; empty.hidden = !!figure;
+      if (figure) { img.src = asset(figure.src); img.alt = figure.alt; }
+      else { img.removeAttribute('src'); empty.textContent = 'Project overview available; figures are in progress.'; }
+      $('#pillar-prev').disabled = projectIndex === 0;
+      $('#pillar-next').disabled = projectIndex === all.length - 1;
+      if (announce) $('#pillar-live').textContent = 'Showing ' + p.title;
     }
-    function selectProject(index, announce = true) {
-      projectIndex = Math.max(0, Math.min(projects.length - 1, index));
-      figureIndex = 0;
-      const p = projects[projectIndex];
-      $('#project-count').textContent = `${p.number} / ${String(projects.length).padStart(2, '0')}`;
-      $('#project-kicker').textContent = p.label;
-      $('#project-status').textContent = p.status;
-      $('#project-title').textContent = p.title;
-      $('#project-summary').textContent = p.summary;
-      $('#project-role').textContent = p.role;
-      $('#project-date').textContent = p.period;
-      $('#project-takeaway').textContent = p.takeaway;
-      $('#project-link').href = asset(p.page);
-      const tags = $('#project-tags');
-      tags.replaceChildren(...p.skills.map(skill => node('span', 'tag', skill)));
-      optionButtons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === projectIndex)));
-      $('#project-prev').disabled = projectIndex === 0;
-      $('#project-next').disabled = projectIndex === projects.length - 1;
-      renderFigure();
-      if (announce) $('#project-live').textContent = `Selected project ${p.number}: ${p.title}`;
+    function chooseProject(index) { projectIndex = Math.max(0, Math.min(projects().length-1, index)); showProject(); }
+    function choosePillar(index, announce = true) {
+      pillarIndex = Math.max(0, Math.min(data.pillars.length-1,index));
+      const p = data.pillars[pillarIndex], all = projects();
+      const initial = all.findIndex(item => item.id === p.featured);
+      projectIndex = initial >= 0 ? initial : 0;
+      tabs.forEach((tab,i)=>{const active=i===pillarIndex;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;});
+      $('#pillar-panel').setAttribute('aria-labelledby',tabs[pillarIndex].id);
+      $('#pillar-number').textContent=p.number+' / '+p.name.toUpperCase();
+      $('#pillar-heading').textContent=p.heading;
+      $('#pillar-description').textContent=p.description;
+      $('#pillar-collection-link').href=asset(p.collection);
+      $('#pillar-collection-link').textContent='View all '+p.name.toLowerCase()+' projects ↗';
+      list.replaceChildren(...all.map((item,i)=>{
+        const b=node('button','pillar-project-option');b.type='button';
+        b.append(node('span','pillar-project-number',String(i+1).padStart(2,'0')),node('span','',item.shortTitle||item.title));
+        b.addEventListener('click',()=>chooseProject(i));return b;
+      }));
+      showProject(announce);
     }
-    $('#project-prev').addEventListener('click', () => selectProject(projectIndex - 1));
-    $('#project-next').addEventListener('click', () => selectProject(projectIndex + 1));
-    $('#figure-prev').addEventListener('click', () => { figureIndex = (figureIndex - 1 + projects[projectIndex].figures.length) % projects[projectIndex].figures.length; renderFigure(); });
-    $('#figure-next').addEventListener('click', () => { figureIndex = (figureIndex + 1) % projects[projectIndex].figures.length; renderFigure(); });
-    $('#project-selector').addEventListener('keydown', event => {
-      if (!['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
+    tabs.forEach((tab,i)=>tab.addEventListener('click',()=>choosePillar(i)));
+    $('.pillar-tabs').addEventListener('keydown',event=>{
+      if (!['ArrowRight','ArrowLeft','Home','End'].includes(event.key))return;
       event.preventDefault();
-      const next = event.key === 'Home' ? 0 : event.key === 'End' ? projects.length - 1 : projectIndex + (event.key === 'ArrowDown' ? 1 : -1);
-      selectProject(next);
-      optionButtons[projectIndex].focus({ preventScroll: true });
+      const i=event.key==='Home'?0:event.key==='End'?tabs.length-1:(pillarIndex+tabs.length+(event.key==='ArrowRight'?1:-1))%tabs.length;
+      choosePillar(i);tabs[i].focus();
     });
-    let lastScroll = 0;
-    $('#project-selector').addEventListener('wheel', event => {
-      if (event.ctrlKey || event.metaKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
-      const move = Math.sign(event.deltaY);
-      const next = projectIndex + move;
-      if (!move || next < 0 || next >= projects.length) return; // Allow normal page scroll at ends.
+    list.addEventListener('keydown',event=>{
+      if(!['ArrowDown','ArrowUp','Home','End'].includes(event.key))return;
       event.preventDefault();
-      const current = performance.now();
-      if (current - lastScroll < 550) return;
-      lastScroll = current;
-      selectProject(next);
-    }, { passive: false });
-    selectProject(0, false);
+      const i=event.key==='Home'?0:event.key==='End'?projects().length-1:projectIndex+(event.key==='ArrowDown'?1:-1);
+      chooseProject(i);list.children[projectIndex]?.focus();
+    });
+    $('#pillar-prev').addEventListener('click',()=>chooseProject(projectIndex-1));
+    $('#pillar-next').addEventListener('click',()=>chooseProject(projectIndex+1));
+    choosePillar(0,false);
+  }
+  // Scroll-snap About-page reel with original project figures.
+  const reel = $('#about-reel-track');
+  if (reel && data?.projects) {
+    const ids=['ercot','amazon-pick','lab-rat','studio-s','noaa','mini-bookmaker'];
+    ids.map(id=>data.projects.find(p=>p.id===id)).filter(Boolean).forEach(p=>{
+      const card=node('a','about-reel-card');card.href=asset(p.page);
+      const visual=node('div','about-reel-media'), figure=p.figures?.[0];
+      if(figure){const img=node('img');img.src=asset(figure.src);img.alt=figure.alt;img.loading='lazy';visual.append(img);}
+      const copy=node('div','about-reel-copy');
+      copy.append(node('span','small-label',p.category.toUpperCase()),node('h3','',p.title),node('p','',p.summary),node('span','underlined-link','Explore project ↗'));
+      card.append(visual,copy);reel.append(card);
+    });
+    const move=sign=>{const width=reel.querySelector('.about-reel-card')?.getBoundingClientRect().width||320;
+      reel.scrollBy({left:sign*(width+18),behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});};
+    $('#reel-prev')?.addEventListener('click',()=>move(-1));
+    $('#reel-next')?.addEventListener('click',()=>move(1));
   }
 
   // Case-study galleries are generated ONLY for figures listed in portfolio-data.js.
@@ -174,8 +165,8 @@
       });
     } else {
       const empty = node('div', 'case-gallery-empty');
-      empty.append(node('h3', '', project.id === 'capstone-three' ? 'Project 3 is reserved.' : 'Work samples will appear here.'),
-        node('p', '', project.id === 'capstone-three' ? 'This is a placeholder for the third DSC 450 Fall Capstone project at Bellevue University.' : 'Original charts, screenshots, or approved examples have not been added yet. No fabricated visuals are displayed.'));
+      empty.append(node('h3', '', project.id === 'capstone-three' ? 'Project 3 is in progress.' : 'Work samples will appear here.'),
+        node('p', '', project.id === 'capstone-three' ? 'Data wrangling is in progress; no unverified findings are shown.' : 'Original charts, screenshots, or approved examples have not been added yet. No fabricated visuals are displayed.'));
       gallery.append(empty);
     }
   }
