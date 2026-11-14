@@ -31,7 +31,7 @@
     <div class="noaa-section-intro">
       <p class="eyebrow">01 / THE RESEARCH QUESTION</p>
       <h2 id="noaa-question-title">What were we trying to predict?</h2>
-      <p class="noaa-copy">The target was whether a storm record included reported economic damage, not the dollar amount or the full extent of harm. That distinction shaped the classification problem.</p>
+      <p class="noaa-copy">We predicted whether a storm record included reported economic damage, not its dollar amount or all harm caused. This defined our classification target.</p>
     </div>
     <div class="noaa-skill-note"><strong>Technique in context</strong><span>Defining a binary prediction target from recorded events</span></div>
   </section>
@@ -40,14 +40,14 @@
     <div class="noaa-section-intro">
       <p class="eyebrow">02 / WHAT THE ANALYSIS REVEALED</p>
       <h2 id="noaa-discovery-title">Frequency and damage tell different stories.</h2>
-      <p class="noaa-copy">I examined the distribution of storm types alongside their documented damage. This comparison helped separate how often an event is recorded from its reported impact.</p>
+      <p class="noaa-copy">I compared storm frequency with documented damage to distinguish how often events occur from the losses they report.</p>
     </div>
 
     <article class="noaa-exhibit" aria-labelledby="noaa-frequency-title">
       <div class="noaa-exhibit-guide">
         <p class="noaa-exhibit-index">EXHIBIT 01 · EXPLORATORY ANALYSIS</p>
         <h3 id="noaa-frequency-title">Which storm types appear most often?</h3>
-        <p class="noaa-copy">Event counts and damaging-event counts are different measures. Comparing them helps clarify the prediction target.</p>
+        <p class="noaa-copy">Event counts and damage-report counts provide different views of storm frequency.</p>
       </div>
       <figure class="noaa-figure">
         <a href="../figures/noaa-event-frequency.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA event-frequency figure">
@@ -61,7 +61,7 @@
       <div class="noaa-exhibit-guide">
         <p class="noaa-exhibit-index">EXHIBIT 02 · DATA INTERPRETATION</p>
         <h3 id="noaa-damage-title">Which events account for recorded losses?</h3>
-        <p class="noaa-copy">Less frequent storm types can account for substantial damage totals. Frequency alone does not explain recorded economic impact.</p>
+        <p class="noaa-copy">Less frequent storm types can represent substantial damage totals. Frequency is not impact.</p>
       </div>
       <figure class="noaa-figure">
         <a href="../figures/noaa-economic-damage.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA recorded-damage figure">
@@ -82,7 +82,7 @@
       <div class="noaa-exhibit-guide">
         <p class="noaa-exhibit-index">EXHIBIT 03 · MODEL EVALUATION</p>
         <h3 id="noaa-pr-title">The precision–recall tradeoff</h3>
-        <p class="noaa-copy">The curves show how precision and recall change with the classification threshold. A single accuracy score would hide this tradeoff.</p>
+        <p class="noaa-copy">The precision–recall curves show threshold tradeoffs that a single accuracy score might obscure.</p>
       </div>
       <figure class="noaa-figure">
         <a href="../figures/noaa-precision-recall.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA precision-recall figure">
@@ -94,7 +94,7 @@
     <div class="noaa-evaluation-results" aria-label="Reported team model evaluation">
       <div class="noaa-result-intro">
         <p class="noaa-kicker">REPORTED TEAM EVALUATION</p>
-        <p class="noaa-copy">The team's Random Forest results were reported using both measures, rather than relying on one performance score.</p>
+        <p class="noaa-copy">Our team reported both measures for the Random Forest model.</p>
       </div>
       <div class="noaa-result"><span class="noaa-result-name">ROC-AUC</span><strong>0.880</strong></div>
       <div class="noaa-result"><span class="noaa-result-name">Average Precision</span><strong>0.669</strong></div>
@@ -112,13 +112,13 @@
     <div class="noaa-section-intro">
       <p class="eyebrow">04 / INTERPRETING THE MODEL</p>
       <h2 id="noaa-interpretation-title">What influenced the predictions?</h2>
-      <p class="noaa-copy">Permutation importance identified event type as the strongest predictive signal. Importance describes the model's behavior, not what caused a storm's damage.</p>
+      <p class="noaa-copy">Event type was the strongest predictive signal. That describes model behavior, not the cause of damage.</p>
     </div>
     <article class="noaa-exhibit" aria-labelledby="noaa-feature-title">
       <div class="noaa-exhibit-guide">
         <p class="noaa-exhibit-index">EXHIBIT 04 · MODEL INTERPRETABILITY</p>
         <h3 id="noaa-feature-title">A closer look at model inputs</h3>
-        <p class="noaa-copy">Event type, region, duration, and season contributed differently to prediction. The chart helps explain what the model used.</p>
+        <p class="noaa-copy">Event type, region, duration, and season contributed differently to the model's predictions.</p>
       </div>
       <figure class="noaa-figure">
         <a href="../figures/noaa-feature-importance.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA feature-importance figure">
@@ -133,7 +133,7 @@
     <div class="noaa-section-intro">
       <p class="eyebrow">05 / THE APPROACH AND MY CONTRIBUTION</p>
       <h2 id="noaa-methods-title">How I worked through the problem</h2>
-      <p class="noaa-copy">As the data scientist, I focused on classification modeling and evaluation. Our team used storm-episode grouping, then interpreted performance and feature importance with the limits of recorded damage in mind.</p>
+      <p class="noaa-copy">As the data scientist, I worked on classification modeling and evaluation. Our team grouped storm episodes and interpreted findings with the limitations of reported damage in mind.</p>
     </div>
     <ol class="noaa-process" aria-label="Research process">
       <li><span>01</span><strong>Frame the target</strong><small>Reported damage: yes or no</small></li>
@@ -155,7 +155,7 @@
     <div class="noaa-section-intro">
       <p class="eyebrow">06 / GO FURTHER</p>
       <h2 id="noaa-resources-title">Explore the source material</h2>
-      <p class="noaa-copy">The original project figures and NOAA data source are available below. The team's model notebook and full report have not yet been linked in this repository.</p>
+      <p class="noaa-copy">Explore the original figures and NOAA source data. The team's notebook and report are not yet linked here.</p>
     </div>
     <div class="noaa-resource-grid">
       <a href="https://github.com/mjscarpello/Portfolio-Repository/tree/main/figures" target="_blank" rel="noopener noreferrer"><span>PORTFOLIO EVIDENCE</span><strong>Original analysis figures</strong><small>Four team-created NOAA charts preserved in the repository</small><em aria-hidden="true">↗</em></a>
