@@ -1,0 +1,22 @@
+name: Verify portfolio changes
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source links and project data
+        run: python3 tools/validate_portfolio.py
+      - name: Check JavaScript syntax
+        run: |
+          node --check script.js
+          node --check portfolio-data.js
+      - name: Build static site and playable game
+        run: python3 tools/build_portfolio.py
+      - name: Validate built site
+        run: python3 tools/validate_portfolio.py _site

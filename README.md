@@ -11,13 +11,12 @@ A personal portfolio documenting my work across **data science, educational tech
 
 ## Overview
 
-The homepage introduces my background and then brings together three dimensions of my experience. Its **Experiences** section uses an intentionally atmospheric visual preview for each collection:
+> **November 2026 refinement:** The homepage was consolidated into a single three-pillar explorer, the About page became a concise résumé with project-linked skills, and Project 3 was updated to reflect ongoing NYC dry-recycling data wrangling. The existing project findings, figures, and playable game are preserved. The color palette now uses warm terracotta accents in light and dark themes.
 
-- **School — Testing ideas:** the opening page of my Amazon Package Pick-Time Efficiency report.
-- **Work — Learning from people:** an educational animation scene from my UNMC e-learning internship.
-- **Personal — Building for curiosity:** a working scene in my Studio S audiovisual presentation editor.
 
-The rest of the site includes an interactive school-project selector, dedicated case studies, expandable original figures, a dark-mode toggle, and a playable medical-terminology game. The homepage keeps my professional photograph and an introduction rooted in neuroscience, civic impact, creativity, and practical experience.
+The homepage introduces my background and then brings together three dimensions of my experience. Its **Experiences** section uses one interactive explorer for three collections: School, Work, and Personal. Visitors can select a pillar, browse individual projects, inspect an original project figure or screenshot, and open either the selected case study or its full collection.
+
+The homepage now focuses on the work, while the About & Résumé page retains the personal portrait, a concise professional history, demonstrated skills linked to project evidence, and a horizontally browsable project reel. The case studies retain their original evidence, sources, and limitations.
 
 ## Projects
 
@@ -27,7 +26,7 @@ The rest of the site includes an interactive school-project selector, dedicated 
 | --- | --- | --- |
 | [Predicting Economic Damage from Severe Weather](school/noaa.html) | Used NOAA storm-event characteristics to predict whether an event had recorded economic damage. I served as Data Scientist on the DSC 450 Group 1 team. | Bellevue University **DSC 450 Fall Capstone, Project 1**. Team Random Forest evaluation: **0.880 ROC-AUC** and **0.669 Average Precision**; four original presentation figures. |
 | [Forecasting Regional Electricity Demand](school/ercot.html) | Developed visual analyses of ERCOT demand, seasonality, model errors, and an exploratory SARIMA/XGBoost blend. I served as Data Visualizer and Presenter. | Bellevue University **DSC 450 Fall Capstone, Project 2**. Ten original figures; ERCOT's published forecast remained the stronger retrospective benchmark. |
-| [DSC 450 — Project 3](school/capstone-three.html) | Reserved space for the third team capstone project. | Bellevue University **DSC 450 Fall Capstone, Project 3**. **Intentional placeholder**: no unconfirmed topic or results. |
+| [NYC Dry Recycling Across Communities](school/capstone-three.html) | Preparing NYC collection and community-indicator datasets for analysis as Group 1's Data Wrangler. | Bellevue University **DSC 450 Fall Capstone, Project 3**. **In progress:** no unverified model findings are presented. |
 | [Amazon Package Pick-Time Efficiency](school/amazon-pick-times.html) | Collected and visualized package search times from my own Amazon delivery workflow, comparing package type, week, route sequence, and bag density. | Completed visual report with original charts, a report breakdown, and a full downloadable/embedded PDF. |
 | [Driver Gear Performance Lab](school/weather-clothing.html) | Built a Streamlit app that uses weather and route inputs with a tuned Random Forest pipeline to recommend a driver shirt category. | Bellevue University **DSC 355 Predictive Analytics**. **34 model features**, **0.682 accuracy**, **0.662 macro F1** in the supplied evaluation; five actual app screenshots. |
 
@@ -63,8 +62,8 @@ These are **observational data from my own workflow**, not an official Amazon da
 
 ## Features
 
-- **Experience-first homepage:** school, work, and personal pathways with authentic visual previews.
-- **Interactive school-project browser:** project navigation by click, keyboard, or wheel within the selector.
+- **Unified three-pillar explorer:** School, Work, and Personal projects with authentic visual previews and direct case-study links.
+- **Category and project navigation:** selectable category tabs, a per-category project list, previous/next buttons, and keyboard navigation.
 - **Original figure galleries:** captions, accessible image descriptions, and enlarged views of the actual source images.
 - **Case-study pages:** concise questions, contributions, reported results, and limitations.
 - **Full Amazon report:** downloadable PDF, embedded reader, and written figure-by-figure breakdown.
@@ -82,8 +81,8 @@ The included projects use other technologies, including **Python**, **R/ggplot2*
 
 | Path | Purpose |
 | --- | --- |
-| `index.html` | Homepage, introduction, combined Experiences section, and interactive school-project selection. |
-| `about.html` | Personal background, perspective, and skills. |
+| `index.html` | Concise introduction and unified interactive School / Work / Personal project explorer. |
+| `about.html` | Background, portrait, résumé, evidence-linked skills, and horizontal project reel. |
 | `school/` | Five academic/applied project pages and collection overview. |
 | `work/` | UNMC work samples and the playable Lab Rat project page. |
 | `personal/` | Studio S and Mini Bookmaker project pages. |
@@ -91,7 +90,7 @@ The included projects use other technologies, including **Python**, **R/ggplot2*
 | `assets/` | Personal portrait and other site media. |
 | `downloads/` | Full Amazon report PDF. |
 | `portfolio-data.js` | Project titles, roles, summaries, status, tags, figure paths, and captions. |
-| `script.js` | Project selector, gallery and image dialog, and appearance toggle. |
+| `script.js` | Pillar explorer, project reel, figure dialogs, and appearance toggle. |
 | `style.css` | Visual design, responsive layouts, atmosphere effects, and component styling. |
 | `game-source/lab-rat-revolt-web.zip` | Packaged, web-published Storyline game files. |
 | `.github/workflows/pages.yml` | GitHub Actions build and Pages deployment workflow. |
@@ -99,7 +98,7 @@ The included projects use other technologies, including **Python**, **R/ggplot2*
 | `tools/validate_portfolio.py` | Checks project pages, gallery assets, local HTML references, and old-branding strings. |
 | `docs/` | Installation, game implementation, media provenance, and release information. |
 
-Legacy top-level `project-noaa.html`, `project-ercot.html`, and `project-recycling.html` routes are retained for compatibility and redirect visitors to the current case-study locations. The third capstone project is intentionally a neutral placeholder rather than a recycling analysis.
+Legacy top-level `project-noaa.html`, `project-ercot.html`, and `project-recycling.html` routes are retained for compatibility and redirect visitors to the current case-study locations. The third capstone page describes current NYC recycling data-wrangling responsibilities without asserting final results.
 
 ## Run locally
 
@@ -135,7 +134,7 @@ The workflow checks out the source, runs `tools/build_portfolio.py`, uploads `_s
 
 ### Deployment checks
 
-- Homepage displays the three preview images: **Amazon report / UNMC animation / Studio S**.
+- Homepage displays all three pillars and shows original project figures when selecting projects.
 - NOAA and ERCOT galleries load their original graphs without broken-image icons.
 - Amazon case study displays its report cover, PDF link, in-page reader (if supported), and report breakdown.
 - Lab Rat game starts, plays audio, registers choices, progresses between activities, and works after a page reload.
