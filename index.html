@@ -27,7 +27,15 @@
   <div class="pillar-panel" id="pillar-panel" role="tabpanel" aria-labelledby="pillar-tab-school">
    <div class="pillar-intro"><div><p class="small-label" id="pillar-number">01 / SCHOOL</p><h3 id="pillar-heading">Testing ideas</h3><p id="pillar-description">Research, modeling, and data visualization.</p></div><a class="underlined-link" id="pillar-collection-link" href="school/index.html">View all school projects ↗</a></div>
    <div class="pillar-browser">
-    <div class="pillar-browser-nav"><p class="small-label">CHOOSE A PROJECT <span id="pillar-count">01 / 05</span></p><div class="pillar-project-list" id="pillar-project-list" aria-label="Projects in selected category"></div></div>
+    <div class="pillar-browser-nav">
+      <div class="pillar-browser-heading"><p class="small-label">BROWSE PROJECTS <span id="pillar-count">01 / 05</span></p><p class="pillar-scroll-hint" id="pillar-scroll-hint">Swipe or scroll sideways to explore more <span aria-hidden="true">↔</span></p></div>
+      <div class="pillar-project-scroll-frame"><div class="pillar-project-list" id="pillar-project-list" aria-label="Projects in selected category" tabindex="0"></div></div>
+      <div class="pillar-scroll-controls" id="pillar-scroll-controls" aria-label="Scroll the project list" hidden>
+        <button type="button" id="pillar-scroll-prev" aria-label="Scroll project list left" disabled>← Earlier</button>
+        <span aria-hidden="true">SWIPE / SCROLL ↔</span>
+        <button type="button" id="pillar-scroll-next" aria-label="Scroll project list right">More →</button>
+      </div>
+     </div>
     <article class="pillar-preview" aria-labelledby="pillar-project-title">
      <a class="pillar-media" id="pillar-media-link" href="school/ercot.html"><img id="pillar-image" src="figures/ercot-demand-month-hour.png" alt="" loading="lazy"/><span id="pillar-media-empty" class="pillar-media-empty" hidden>Project materials in progress</span></a>
      <div class="pillar-preview-body"><p class="small-label" id="pillar-project-label">PROJECT PREVIEW</p><h4 id="pillar-project-title">Forecasting Regional Electricity Demand</h4><p id="pillar-project-summary"></p>

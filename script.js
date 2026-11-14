@@ -65,6 +65,32 @@
   if (explorer && data?.pillars && data?.projects) {
     const tabs = $$('[data-pillar]');
     const list = $('#pillar-project-list');
+    const scrollHint = $('#pillar-scroll-hint');
+    const scrollControls = $('#pillar-scroll-controls');
+    const scrollPrev = $('#pillar-scroll-prev');
+    const scrollNext = $('#pillar-scroll-next');
+    const smallScreen = () => window.matchMedia('(max-width:760px)').matches;
+    function updateScrollControls() {
+      const scrollable = smallScreen() && list.scrollWidth > list.clientWidth + 5;
+      scrollHint.hidden = !scrollable;
+      scrollControls.hidden = !scrollable;
+      list.classList.toggle('has-overflow', scrollable);
+      scrollPrev.disabled = !scrollable || list.scrollLeft <= 5;
+      scrollNext.disabled = !scrollable || list.scrollLeft + list.clientWidth >= list.scrollWidth - 5;
+    }
+    function scrollProjects(direction) {
+      const width = Math.max(175, Math.round(list.clientWidth * 0.68));
+      list.scrollBy({ left: direction * width, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+    }
+    function revealProjectButton() {
+      if (!smallScreen()) return;
+      const button = list.children[projectIndex];
+      if (!button) return;
+      const bounds = button.getBoundingClientRect(), container = list.getBoundingClientRect();
+      const overflow = bounds.left < container.left ? bounds.left - container.left - 8 :
+        bounds.right > container.right ? bounds.right - container.right + 8 : 0;
+      if (overflow) list.scrollBy({ left: overflow, behavior: 'smooth' });
+    }
     let pillarIndex = 0, projectIndex = 0;
     const projects = () => data.projects.filter(p => p.category === data.pillars[pillarIndex].id);
     const selected = () => projects()[projectIndex];
@@ -86,15 +112,29 @@
       if (figure) { img.src = asset(figure.src); img.alt = figure.alt; }
       else { img.removeAttribute('src'); empty.textContent = 'Project overview available; figures are in progress.'; }
       $('#pillar-prev').disabled = projectIndex === 0;
-      $('#pillar-next').disabled = projectIndex === all.length - 1;
+      const atEnd = projectIndex === all.length - 1;
+      const forward = $('#pillar-next');
+      const nextPillar = data.pillars[(pillarIndex + 1) % data.pillars.length];
+      const forwardLabel = atEnd
+        ? (pillarIndex === data.pillars.length - 1 ? 'Start over: ' + nextPillar.name + ' ↻' : 'Next pillar: ' + nextPillar.name + ' →')
+        : 'Next project →';
+      forward.textContent = forwardLabel;
+      forward.setAttribute('aria-label', forwardLabel);
+      forward.classList.toggle('pillar-transition', atEnd);
+      forward.disabled = false;
       if (announce) $('#pillar-live').textContent = 'Showing ' + p.title;
     }
-    function chooseProject(index) { projectIndex = Math.max(0, Math.min(projects().length-1, index)); showProject(); }
-    function choosePillar(index, announce = true) {
-      pillarIndex = Math.max(0, Math.min(data.pillars.length-1,index));
+    function chooseProject(index) {
+      projectIndex = Math.max(0, Math.min(projects().length - 1, index));
+      showProject();
+      revealProjectButton();
+      updateScrollControls();
+    }
+    function choosePillar(index, announce = true, startAtFirst = false) {
+      pillarIndex = Math.max(0, Math.min(data.pillars.length - 1, index));
       const p = data.pillars[pillarIndex], all = projects();
       const initial = all.findIndex(item => item.id === p.featured);
-      projectIndex = initial >= 0 ? initial : 0;
+      projectIndex = startAtFirst ? 0 : initial >= 0 ? initial : 0;
       tabs.forEach((tab,i)=>{const active=i===pillarIndex;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;});
       $('#pillar-panel').setAttribute('aria-labelledby',tabs[pillarIndex].id);
       $('#pillar-number').textContent=p.number+' / '+p.name.toUpperCase();
@@ -107,7 +147,9 @@
         b.append(node('span','pillar-project-number',String(i+1).padStart(2,'0')),node('span','',item.shortTitle||item.title));
         b.addEventListener('click',()=>chooseProject(i));return b;
       }));
+      list.scrollLeft = 0;
       showProject(announce);
+      window.requestAnimationFrame(updateScrollControls);
     }
     tabs.forEach((tab,i)=>tab.addEventListener('click',()=>choosePillar(i)));
     $('.pillar-tabs').addEventListener('keydown',event=>{
@@ -117,13 +159,31 @@
       choosePillar(i);tabs[i].focus();
     });
     list.addEventListener('keydown',event=>{
-      if(!['ArrowDown','ArrowUp','Home','End'].includes(event.key))return;
+      const mobile = smallScreen();
+      const keys = mobile ? ['ArrowRight','ArrowLeft','Home','End'] : ['ArrowDown','ArrowUp','Home','End'];
+      if (!keys.includes(event.key)) return;
       event.preventDefault();
-      const i=event.key==='Home'?0:event.key==='End'?projects().length-1:projectIndex+(event.key==='ArrowDown'?1:-1);
-      chooseProject(i);list.children[projectIndex]?.focus();
+      const forward = mobile ? 'ArrowRight' : 'ArrowDown';
+      const i = event.key === 'Home' ? 0 : event.key === 'End' ? projects().length - 1 :
+        projectIndex + (event.key === forward ? 1 : -1);
+      chooseProject(i);
+      list.children[projectIndex]?.focus({preventScroll: true});
     });
+    list.addEventListener('scroll', updateScrollControls, {passive:true});
+    window.addEventListener('resize', updateScrollControls);
+    scrollPrev.addEventListener('click',()=>scrollProjects(-1));
+    scrollNext.addEventListener('click',()=>scrollProjects(1));
     $('#pillar-prev').addEventListener('click',()=>chooseProject(projectIndex-1));
-    $('#pillar-next').addEventListener('click',()=>chooseProject(projectIndex+1));
+    $('#pillar-next').addEventListener('click',()=>{
+      if (projectIndex < projects().length - 1) {
+        chooseProject(projectIndex + 1);
+      } else {
+        const nextIndex = (pillarIndex + 1) % data.pillars.length;
+        choosePillar(nextIndex, true, true);
+        tabs[nextIndex].focus({preventScroll: true});
+        $('#pillar-live').textContent = 'Now browsing ' + data.pillars[nextIndex].name + ' projects';
+      }
+    });
     choosePillar(0,false);
   }
   // Scroll-snap About-page reel with original project figures.
