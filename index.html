@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="Selected school, professional, and personal projects with original data-science charts and working software." name="description"/><meta content="#f4f1ea" name="theme-color"/><title>Matthew Scarpello | Questions worth exploring</title><link href="style.css?v=20" rel="stylesheet"/><script defer src="portfolio-data.js?v=20"></script><script defer src="script.js?v=20"></script><link rel="icon" href="favicon.ico" sizes="any">
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="Selected school, professional, and personal projects with original data-science charts and working software." name="description"/><meta content="#f4f1ea" name="theme-color"/><title>Matthew Scarpello | Questions worth exploring</title><link href="style.css?v=21" rel="stylesheet"/><script defer src="portfolio-data.js?v=21"></script><script defer src="script.js?v=21"></script><link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -27,7 +27,15 @@
   <div class="pillar-panel" id="pillar-panel" role="tabpanel" aria-labelledby="pillar-tab-school">
    <div class="pillar-intro"><div><p class="small-label" id="pillar-number">01 / SCHOOL</p><h3 id="pillar-heading">Testing ideas</h3><p id="pillar-description">Research, modeling, and data visualization.</p></div><a class="underlined-link" id="pillar-collection-link" href="school/index.html">View all school projects ↗</a></div>
    <div class="pillar-browser">
-    <div class="pillar-browser-nav"><p class="small-label">CHOOSE A PROJECT <span id="pillar-count">01 / 05</span></p><div class="pillar-project-list" id="pillar-project-list" aria-label="Projects in selected category"></div></div>
+    <div class="pillar-browser-nav">
+      <div class="pillar-browser-heading"><p class="small-label">BROWSE PROJECTS <span id="pillar-count">01 / 05</span></p><p class="pillar-scroll-hint" id="pillar-scroll-hint">Swipe or scroll sideways to explore more <span aria-hidden="true">↔</span></p></div>
+      <div class="pillar-project-scroll-frame"><div class="pillar-project-list" id="pillar-project-list" aria-label="Projects in selected category" tabindex="0"></div></div>
+      <div class="pillar-scroll-controls" id="pillar-scroll-controls" aria-label="Scroll the project list" hidden>
+        <button type="button" id="pillar-scroll-prev" aria-label="Scroll project list left" disabled>← Earlier</button>
+        <span aria-hidden="true">SWIPE / SCROLL ↔</span>
+        <button type="button" id="pillar-scroll-next" aria-label="Scroll project list right">More →</button>
+      </div>
+     </div>
     <article class="pillar-preview" aria-labelledby="pillar-project-title">
      <a class="pillar-media" id="pillar-media-link" href="school/ercot.html"><img id="pillar-image" src="figures/ercot-demand-month-hour.png" alt="" loading="lazy"/><span id="pillar-media-empty" class="pillar-media-empty" hidden>Project materials in progress</span></a>
      <div class="pillar-preview-body"><p class="small-label" id="pillar-project-label">PROJECT PREVIEW</p><h4 id="pillar-project-title">Forecasting Regional Electricity Demand</h4><p id="pillar-project-summary"></p>

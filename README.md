@@ -63,7 +63,7 @@ These are **observational data from my own workflow**, not an official Amazon da
 ## Features
 
 - **Unified three-pillar explorer:** School, Work, and Personal projects with authentic visual previews and direct case-study links.
-- **Category and project navigation:** selectable category tabs, a per-category project list, previous/next buttons, and keyboard navigation.
+- **Category and project navigation:** selectable category tabs, a per-category project list, keyboard navigation and previous/next buttons. On narrow screens the project list includes swipe/scroll cues and horizontal scrolling controls. At the end of a category, the Next button advances to the next pillar (School → Work → Personal → School).
 - **Original figure galleries:** captions, accessible image descriptions, and enlarged views of the actual source images.
 - **Case-study pages:** concise questions, contributions, reported results, and limitations.
 - **Full Amazon report:** downloadable PDF, embedded reader, and written figure-by-figure breakdown.
