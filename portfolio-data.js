@@ -135,18 +135,19 @@ window.PORTFOLIO_DATA = {
       "number": "03",
       "category": "school",
       "page": "school/capstone-three.html",
-      "shortTitle": "Capstone project three",
-      "title": "DSC 450 — Project 3",
+      "shortTitle": "NYC dry recycling",
+      "title": "NYC Dry Recycling Across Communities",
       "label": "Bellevue University · DSC 450 · Fall Capstone · Project 03",
-      "status": "Project placeholder",
-      "role": "Group 1 · Role to be confirmed",
+      "status": "In progress · Data wrangling",
+      "role": "Data Wrangler · Group 1",
       "period": "Fall 2026",
-      "summary": "Reserved for the third project in Bellevue University’s DSC 450 Fall Capstone course. Topic, methods, and results will be added when confirmed.",
-      "takeaway": "Project details and original figures will appear here after the project begins.",
+      "summary": "Our team is studying how community characteristics relate to dry recycling share in New York City. I prepare and reconcile the collection and neighborhood data for analysis.",
+      "takeaway": "Community district and socioeconomic geographies do not align one-to-one. Geographic reconciliation and careful definitions are necessary before modeling; results are not yet final.",
       "skills": [
-        "DSC 450",
-        "Fall capstone",
-        "Coming soon"
+        "Python",
+        "Data wrangling",
+        "Data validation",
+        "Geographic reconciliation"
       ],
       "figures": []
     },
@@ -409,6 +410,35 @@ window.PORTFOLIO_DATA = {
           "caption": "Working prototype · Page selection and order control before building the booklet."
         }
       ]
+    }
+  ],
+  "pillars": [
+    {
+      "id": "school",
+      "number": "01",
+      "name": "School",
+      "heading": "Testing ideas",
+      "description": "Models, data preparation, and visual explanations developed through coursework and practical questions.",
+      "collection": "school/index.html",
+      "featured": "ercot"
+    },
+    {
+      "id": "work",
+      "number": "02",
+      "name": "Work",
+      "heading": "Learning from people",
+      "description": "Healthcare learning media, interactive education, and hands-on experience with how people use systems.",
+      "collection": "work/index.html",
+      "featured": "unmc"
+    },
+    {
+      "id": "personal",
+      "number": "03",
+      "name": "Personal",
+      "heading": "Building for curiosity",
+      "description": "Independent software and creative tools developed through building, testing, and revising.",
+      "collection": "personal/index.html",
+      "featured": "studio-s"
     }
   ]
 };
