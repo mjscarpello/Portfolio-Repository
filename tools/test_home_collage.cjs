@@ -9,7 +9,7 @@ const classes = new Set();
 const properties = new Map();
 const stored = new Map();
 const callbacks = [];
-let heroBottom = 810;
+let heroTop = 80, heroHeight = 650;
 let nextFrame = 0;
 const toggleListeners = {};
 const hero = {
@@ -17,7 +17,7 @@ const hero = {
     add: x => classes.add(x),
     toggle(x, value) { if (value) classes.add(x); else classes.delete(x); }
   },
-  getBoundingClientRect() { return { bottom: heroBottom }; }
+  getBoundingClientRect() { return { top: heroTop, height: heroHeight, bottom: heroTop + heroHeight }; }
 };
 const collage = {
   style: {
@@ -66,14 +66,14 @@ assert.equal(properties.get("--hero-exit-opacity"), "0.660", "Collage should sta
 assert.equal(properties.get("--hero-exit-blur"), "0.0px", "Collage should start unblurred");
 assert(!classes.has("home-collage-paused"), "Collage should drift when visible");
 
-heroBottom=360;
+heroTop=-450;
 listeners.scroll();
 flush();
 assert(classes.has("home-collage-paused"), "Approaching pillars should settle collage");
 assert(Number(properties.get("--hero-exit-opacity")) < .66, "Should fade during exit");
 assert(Number.parseFloat(properties.get("--hero-exit-blur")) > 0, "Should blur during exit");
 
-heroBottom=810;
+heroTop=80;
 listeners.scroll();
 flush();
 assert(!classes.has("home-collage-paused"), "Scrolling back up should resume collage");

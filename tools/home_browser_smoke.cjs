@@ -58,13 +58,15 @@ async function main() {
   assert(await desktopPage.locator(".home-hero").evaluate(el => el.classList.contains("home-collage-paused")));
   await pause.click();
   assert.equal(await pause.getAttribute("aria-pressed"),"false");
-  await desktopPage.evaluate(()=>{
+  const transition = await makeContext(1440,900);
+  const transitionPage = await openPage(transition);
+  await transitionPage.evaluate(()=>{
     const hero = document.querySelector(".home-hero");
-    const bottom = hero.getBoundingClientRect().bottom+window.scrollY;
-    window.scrollTo({top:bottom-window.innerHeight*.30,behavior:"instant"});
+    const bounds = hero.getBoundingClientRect();
+    window.scrollTo({top:bounds.top+window.scrollY+bounds.height*.68,behavior:"instant"});
   });
-  await desktopPage.waitForTimeout(300);
-  const scroll = await desktopPage.evaluate(()=>{
+  await transitionPage.waitForTimeout(300);
+  const scroll = await transitionPage.evaluate(()=>{
     const collage=document.querySelector("[data-home-collage]");
     const hero=document.querySelector(".home-hero");
     const h1=document.querySelector("#hero-title");
@@ -74,7 +76,8 @@ async function main() {
   assert(scroll.opacity<.66,"Collage must fade on exit");
   assert(scroll.blur!=="none","Collage must blur before the pillars");
   assert.equal(scroll.headlineFilter,"none","Headline must remain sharp");
-  await screenshot(desktopPage,"home-transition.png");
+  await screenshot(transitionPage,"home-transition.png");
+  await transition.close();
   await desktopPage.locator("#pillar-tab-work").click();
   assert.equal(await desktopPage.locator("#pillar-tab-work").getAttribute("aria-selected"),"true");
   await desktopPage.locator("#pillar-project-list button").last().click();

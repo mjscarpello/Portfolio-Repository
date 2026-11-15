@@ -16,8 +16,7 @@
   let lastOpacity = "";
   let lastBlur = "";
 
-  function refresh() {
-    frame = 0;
+  function updateToggle() {
     if (motionToggle) {
       motionToggle.hidden = motion.matches;
       const paused = String(manuallyPaused);
@@ -28,6 +27,11 @@
         motionToggle.innerHTML = manuallyPaused ? 'Resume motion <span aria-hidden="true">▶</span>' : 'Pause motion <span aria-hidden="true">Ⅱ</span>';
       }
     }
+  }
+
+  function refresh() {
+    frame = 0;
+    updateToggle();
     if (motion.matches) {
       hero.classList.add("home-collage-paused");
       collage.style.removeProperty("--hero-exit-opacity");
@@ -35,12 +39,12 @@
       return;
     }
     const bounds = hero.getBoundingClientRect();
-    const height = window.innerHeight || document.documentElement.clientHeight || 800;
-    // Enter the visual transition only as the hero's lower edge approaches the
-    // browsing section. Never intercept or change the visitor's scrolling.
-    const from = height * 0.66;
-    const to = height * 0.21;
-    const progress = Math.max(0, Math.min(1, (from - bounds.bottom) / (from - to)));
+    // Tie the transition to how far the hero itself has scrolled, not to
+    // viewport height. This avoids prematurely blurring on tall monitors.
+    const traveled = Math.max(0, -bounds.top);
+    const from = bounds.height * 0.42;
+    const to = bounds.height * 0.79;
+    const progress = Math.max(0, Math.min(1, (traveled - from) / Math.max(1, to - from)));
     const opacity = (0.66 * (1 - progress * 0.94)).toFixed(3);
     const blur = (progress * 9).toFixed(1) + "px";
     if (opacity !== lastOpacity) {
@@ -71,6 +75,7 @@
     motionToggle.addEventListener("click", () => {
       manuallyPaused = !manuallyPaused;
       try { localStorage.setItem(storageKey, String(manuallyPaused)); } catch (_) {}
+      updateToggle();
       schedule();
     });
   }
