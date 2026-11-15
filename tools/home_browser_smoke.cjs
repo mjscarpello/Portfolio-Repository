@@ -82,6 +82,16 @@ async function main() {
   await loadedImages(desktopPage);
   const secondOrder=await desktopPage.evaluate(()=>[...document.querySelectorAll(".home-collage-lane")].map(l=>[...l.children[0].querySelectorAll("img")].map(img=>img.getAttribute("src")).join("|")).join("||"));
   assert.notEqual(firstOrder,secondOrder,"The image selection and order should change with a page reload");
+
+  // Real frames of the moving collage, captured from headless Chrome.
+  const movingCollage=desktopPage.locator(".home-hero-visual");
+  for(let i=0;i<12;i++){
+    await movingCollage.screenshot({
+      path:path.join(OUTPUT,"home-motion-"+String(i).padStart(2,"0")+".png"),
+      animations:"allow"
+    });
+    await desktopPage.waitForTimeout(400);
+  }
   const transition = await makeContext(1440,900);
   const transitionPage = await openPage(transition);
   await transitionPage.evaluate(()=>{
