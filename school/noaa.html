@@ -1,12 +1,169 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="We tested whether recorded storm characteristics can predict any documented economic damage, rather than confusing frequent storms with costly ones." name="description"/><meta content="#f4f1ea" name="theme-color"/><title>Predicting Economic Damage from Severe Weather | Matthew Scarpello</title><link href="../style.css?v=21" rel="stylesheet"/><script defer="" src="../portfolio-data.js?v=21"></script><script defer="" src="../script.js?v=21"></script><link rel="icon" href="../favicon.ico" sizes="any">
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="A guided NOAA storm-damage classification case study: original figures, modeling decisions, careful evaluation, and documented limitations." name="description"/><meta content="#f4f1ea" name="theme-color"/><title>Predicting Economic Damage from Severe Weather | Matthew Scarpello</title><link href="../style.css?v=21" rel="stylesheet"/><link href="../noaa-exhibit.css?v=1" rel="stylesheet"/><script defer="" src="../portfolio-data.js?v=21"></script><script defer="" src="../script.js?v=21"></script><link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link rel="manifest" href="../site.webmanifest"></head><body data-root="../"><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header wrap"><a class="brand" href="../index.html"><span aria-hidden="true" class="brand-circle">MS</span><span>Matthew Scarpello<small>DATA SCIENCE · CREATIVE TECHNOLOGY</small></span></a>
-<nav aria-label="Main navigation"><a href="../index.html">Home</a><a href="../about.html">About</a><a aria-current="page" class="current" href="../school/index.html">School</a><a href="../work/index.html">Work</a><a href="../personal/index.html">Personal</a><a href="mailto:matthewscarpello@gmail.com">Contact ↗</a></nav></header><main class="wrap case-page" id="main"><a class="back-link" href="../school/index.html">← Back to school projects</a><header class="case-hero"><p class="eyebrow">Bellevue University · DSC 450 · Fall Capstone · Project 01</p><h1>Predicting Economic Damage from Severe Weather<span class="accent">.</span></h1><p class="page-lede">We tested whether recorded storm characteristics can predict any documented economic damage, rather than confusing frequent storms with costly ones.</p><div class="case-meta"><span><strong>Role</strong>Data Scientist · Group 1</span><span><strong>Status</strong> Milestone 3 presented</span><span><strong>Collection</strong>School</span></div></header><div class="metrics-row"><div><span>0.880</span><p>Random Forest · ROC-AUC</p></div><div><span>0.669</span><p>Random Forest · Average Precision</p></div><div><span>2020–25</span><p>NOAA event coverage</p></div></div>
-<section class="case-intro-section"><div><p class="eyebrow">THE QUESTION</p><h2>Why this project?</h2></div><div class="case-prose"><p>The question was not simply which storms happen most often, but which recorded characteristics help predict whether economic damage is reported.</p><p>We modeled 2020–2025 NOAA events using event type, region, season, and storm duration. Splitting by storm episode reduced the chance of near-duplicate events appearing in both training and testing.</p></div></section><section class="compact-findings"><div><span class="card-index">INSIGHT</span><h2>What the work shows</h2><p>Random Forest reached 0.880 ROC-AUC and 0.669 Average Precision in the team’s reported evaluation. Event type was most influential, but these results describe recorded damage associations, not causation or individual-property risk.</p></div><div><span class="card-index">CONTRIBUTION</span><h2>My role</h2><p>Group 1: Matthew Scarpello (Data Scientist), Andrea Barfield (Data Wrangler), Hali Sarah Parsons (Data Visualizer / Presenter). Original figures are extracted from the team’s Milestone 3 presentation.</p></div></section>
-<section class="case-gallery-section"><div class="section-heading"><div><p class="eyebrow">EVIDENCE, NOT DECORATION</p><h2>Original analysis figures<span class="accent">.</span></h2></div><p>The graphs below are saved PNG outputs from the team work and notebooks; click a figure to enlarge it.</p></div><div class="case-gallery" data-case-gallery="noaa"></div></section>
-<section class="case-limitation"><p class="eyebrow">WHAT TO KEEP IN MIND</p><p>Reported damage may be missing or inconsistently recorded. Model outputs should not be used to allocate or withhold emergency assistance.</p></section><nav class="case-nav"><a href="../school/index.html">← School collection</a><a href="../index.html#experiences">Explore more projects ↗</a></nav></main><footer class="site-footer wrap"><div><strong>Matthew Scarpello</strong><small>Data science · Software · Visual storytelling</small></div><a href="mailto:matthewscarpello@gmail.com">Get in touch ↗</a><button aria-pressed="false" data-theme-toggle="" type="button">Switch to dark</button><a class="footer-github" href="https://github.com/mjscarpello/Portfolio-Repository" rel="noopener noreferrer" target="_blank">GitHub ↗</a><span class="footer-meta">Science · Technology · Creativity</span></footer></body></html>
+<nav aria-label="Main navigation"><a href="../index.html">Home</a><a href="../about.html">About</a><a aria-current="page" class="current" href="../school/index.html">School</a><a href="../work/index.html">Work</a><a href="../personal/index.html">Personal</a><a href="mailto:matthewscarpello@gmail.com">Contact ↗</a></nav></header><main class="wrap case-page noaa-page" id="main">
+  <a class="back-link" href="../school/index.html">← School projects</a>
+  <header class="noaa-hero" id="noaa-start">
+    <div class="noaa-hero-copy">
+      <p class="eyebrow">BELLEVUE UNIVERSITY · DSC 450 · PROJECT 01</p>
+      <h1>Predicting Economic Damage from Severe Weather<span class="accent">.</span></h1>
+      <p class="noaa-lede noaa-copy">In this team project, I worked as the data scientist to investigate whether information already recorded about severe weather could help predict reported economic damage. I applied classification modeling and evaluation to examine useful storm characteristics while considering what documented damage can and cannot tell us.</p>
+      <div class="noaa-meta" aria-label="Project details">
+        <span><strong>My role</strong> Data Scientist</span>
+        <span><strong>Team</strong> Group 1</span>
+        <span><strong>Data</strong> NOAA Storm Events, 2020–2025</span>
+      </div>
+      <a class="noaa-next-step" href="#noaa-question">Start with the question <span aria-hidden="true">↓</span></a>
+    </div>
+    <!-- The original vintage-style storm illustration is not available yet.
+         Once the user supplies the exact image, publish it at ../assets/noaa-hero.webp
+         and place an <img> with measured width/height inside this figure. Do not replace
+         it with a different illustration or misrepresent it as NOAA evidence. -->
+    <figure class="noaa-hero-art" id="noaa-hero-art" hidden aria-label="Reserved for the original vintage storm illustration"></figure>
+  </header>
+
+  <section class="noaa-section noaa-question" id="noaa-question" aria-labelledby="noaa-question-title">
+    <div class="noaa-section-intro">
+      <p class="eyebrow">01 / THE RESEARCH QUESTION</p>
+      <h2 id="noaa-question-title">What were we trying to predict?</h2>
+      <p class="noaa-copy">We predicted whether a storm record included reported economic damage, not its dollar amount or all harm caused. This defined our classification target.</p>
+    </div>
+    <div class="noaa-skill-note"><strong>Technique in context</strong><span>Defining a binary prediction target from recorded events</span></div>
+  </section>
+
+  <section class="noaa-section" id="noaa-discovery" aria-labelledby="noaa-discovery-title">
+    <div class="noaa-section-intro">
+      <p class="eyebrow">02 / WHAT THE ANALYSIS REVEALED</p>
+      <h2 id="noaa-discovery-title">Frequency and damage tell different stories.</h2>
+      <p class="noaa-copy">I compared storm frequency with documented damage to distinguish how often events occur from the losses they report.</p>
+    </div>
+
+    <article class="noaa-exhibit" aria-labelledby="noaa-frequency-title">
+      <div class="noaa-exhibit-guide">
+        <p class="noaa-exhibit-index">EXHIBIT 01 · EXPLORATORY ANALYSIS</p>
+        <h3 id="noaa-frequency-title">Which storm types appear most often?</h3>
+        <p class="noaa-copy">Event counts and damage-report counts provide different views of storm frequency.</p>
+      </div>
+      <figure class="noaa-figure">
+        <a href="../figures/noaa-event-frequency.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA event-frequency figure">
+          <img src="../figures/noaa-event-frequency.png" alt="Original horizontal chart comparing the fifteen most frequent storm types with counts of events reporting damage." loading="lazy" decoding="async"/>
+        </a>
+        <figcaption>Original team figure · <a href="../figures/noaa-event-frequency.png" target="_blank" rel="noopener noreferrer">View full size ↗</a></figcaption>
+      </figure>
+    </article>
+
+    <article class="noaa-exhibit" aria-labelledby="noaa-damage-title">
+      <div class="noaa-exhibit-guide">
+        <p class="noaa-exhibit-index">EXHIBIT 02 · DATA INTERPRETATION</p>
+        <h3 id="noaa-damage-title">Which events account for recorded losses?</h3>
+        <p class="noaa-copy">Less frequent storm types can represent substantial damage totals. Frequency is not impact.</p>
+      </div>
+      <figure class="noaa-figure">
+        <a href="../figures/noaa-economic-damage.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA recorded-damage figure">
+          <img src="../figures/noaa-economic-damage.png" alt="Original horizontal chart ranking storm types by total recorded property and crop damage in billions of dollars." loading="lazy" decoding="async"/>
+        </a>
+        <figcaption>Original team figure · <a href="../figures/noaa-economic-damage.png" target="_blank" rel="noopener noreferrer">View full size ↗</a></figcaption>
+      </figure>
+    </article>
+  </section>
+
+  <section class="noaa-section" id="noaa-evaluation" aria-labelledby="noaa-evaluation-title">
+    <div class="noaa-section-intro">
+      <p class="eyebrow">03 / EVALUATING THE PREDICTION</p>
+      <h2 id="noaa-evaluation-title">How well did the model distinguish damage reports?</h2>
+      <p class="noaa-copy">ROC-AUC measures ranking across decision thresholds. Average Precision summarizes precision–recall performance when the reported-damage class is relatively uncommon.</p>
+    </div>
+    <article class="noaa-exhibit" aria-labelledby="noaa-pr-title">
+      <div class="noaa-exhibit-guide">
+        <p class="noaa-exhibit-index">EXHIBIT 03 · MODEL EVALUATION</p>
+        <h3 id="noaa-pr-title">The precision–recall tradeoff</h3>
+        <p class="noaa-copy">The precision–recall curves show threshold tradeoffs that a single accuracy score might obscure.</p>
+      </div>
+      <figure class="noaa-figure">
+        <a href="../figures/noaa-precision-recall.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA precision-recall figure">
+          <img src="../figures/noaa-precision-recall.png" alt="Original precision–recall curves from the team’s storm damage classification models." loading="lazy" decoding="async"/>
+        </a>
+        <figcaption>Original team figure · <a href="../figures/noaa-precision-recall.png" target="_blank" rel="noopener noreferrer">View full size ↗</a></figcaption>
+      </figure>
+    </article>
+    <div class="noaa-evaluation-results" aria-label="Reported team model evaluation">
+      <div class="noaa-result-intro">
+        <p class="noaa-kicker">REPORTED TEAM EVALUATION</p>
+        <p class="noaa-copy">Our team reported both measures for the Random Forest model.</p>
+      </div>
+      <div class="noaa-result"><span class="noaa-result-name">ROC-AUC</span><strong>0.880</strong></div>
+      <div class="noaa-result"><span class="noaa-result-name">Average Precision</span><strong>0.669</strong></div>
+    </div>
+    <details class="noaa-details">
+      <summary>Why did the evaluation group storm episodes?</summary>
+      <div class="noaa-details-body">
+        <p>Related NOAA event records can belong to the same storm episode. Grouping episodes during evaluation reduces the chance of closely related records appearing in both training and testing, which could overstate generalization.</p>
+        <p>These reported scores are retained from the existing portfolio. The underlying evaluation notebook and report are not included in this repository, so independent reproduction is still pending.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="noaa-section" id="noaa-interpretation" aria-labelledby="noaa-interpretation-title">
+    <div class="noaa-section-intro">
+      <p class="eyebrow">04 / INTERPRETING THE MODEL</p>
+      <h2 id="noaa-interpretation-title">What influenced the predictions?</h2>
+      <p class="noaa-copy">Event type was the strongest predictive signal. That describes model behavior, not the cause of damage.</p>
+    </div>
+    <article class="noaa-exhibit" aria-labelledby="noaa-feature-title">
+      <div class="noaa-exhibit-guide">
+        <p class="noaa-exhibit-index">EXHIBIT 04 · MODEL INTERPRETABILITY</p>
+        <h3 id="noaa-feature-title">A closer look at model inputs</h3>
+        <p class="noaa-copy">Event type, region, duration, and season contributed differently to the model's predictions.</p>
+      </div>
+      <figure class="noaa-figure">
+        <a href="../figures/noaa-feature-importance.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA feature-importance figure">
+          <img src="../figures/noaa-feature-importance.png" alt="Original permutation-importance chart comparing storm type, region, duration, and season as model inputs." loading="lazy" decoding="async"/>
+        </a>
+        <figcaption>Original team figure · <a href="../figures/noaa-feature-importance.png" target="_blank" rel="noopener noreferrer">View full size ↗</a></figcaption>
+      </figure>
+    </article>
+  </section>
+
+  <section class="noaa-section noaa-methods" id="noaa-methods" aria-labelledby="noaa-methods-title">
+    <div class="noaa-section-intro">
+      <p class="eyebrow">05 / THE APPROACH AND MY CONTRIBUTION</p>
+      <h2 id="noaa-methods-title">How I worked through the problem</h2>
+      <p class="noaa-copy">As the data scientist, I worked on classification modeling and evaluation. Our team grouped storm episodes and interpreted findings with the limitations of reported damage in mind.</p>
+    </div>
+    <ol class="noaa-process" aria-label="Research process">
+      <li><span>01</span><strong>Frame the target</strong><small>Reported damage: yes or no</small></li>
+      <li><span>02</span><strong>Examine inputs</strong><small>Event type, region, season, duration</small></li>
+      <li><span>03</span><strong>Evaluate models</strong><small>Grouped episodes and classification metrics</small></li>
+      <li><span>04</span><strong>Interpret the evidence</strong><small>Performance, feature importance, limitations</small></li>
+    </ol>
+    <details class="noaa-details">
+      <summary>Roles, methods and limitations</summary>
+      <div class="noaa-details-body">
+        <p><strong>Team roles:</strong> Matthew Scarpello, Data Scientist; Andrea Barfield, Data Wrangler; Hali Sarah Parsons, Data Visualizer and Presenter. This page identifies team-wide methods separately from my individual modeling role.</p>
+        <p><strong>Methods documented on the portfolio:</strong> NOAA Storm Events records for 2020–2025; event type, region, season, and duration as predictors; grouped storm-episode evaluation; Random Forest results and precision–recall analysis. The portfolio also lists logistic regression among project skills, but its exact implementation is not described here without the modeling notebook.</p>
+        <p><strong>Limits:</strong> Missing or inconsistent damage reports affect the target. Results describe associations in documented records, not causation, specific-property risk, or the full scope of actual damage. They should not be used alone to allocate or withhold emergency assistance.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="noaa-section noaa-resources" id="noaa-resources" aria-labelledby="noaa-resources-title">
+    <div class="noaa-section-intro">
+      <p class="eyebrow">06 / GO FURTHER</p>
+      <h2 id="noaa-resources-title">Explore the source material</h2>
+      <p class="noaa-copy">Explore the original figures and NOAA source data. The team's notebook and report are not yet linked here.</p>
+    </div>
+    <div class="noaa-resource-grid">
+      <a href="https://github.com/mjscarpello/Portfolio-Repository/tree/main/figures" target="_blank" rel="noopener noreferrer"><span>PORTFOLIO EVIDENCE</span><strong>Original analysis figures</strong><small>Four team-created NOAA charts preserved in the repository</small><em aria-hidden="true">↗</em></a>
+      <a href="https://www.ncei.noaa.gov/access/storm-events-database/" target="_blank" rel="noopener noreferrer"><span>DATA SOURCE</span><strong>NOAA Storm Events Database</strong><small>Explore the source of the underlying event records</small><em aria-hidden="true">↗</em></a>
+    </div>
+  </section>
+  <nav class="case-nav" aria-label="Project navigation">
+    <a href="../school/index.html">← School collection</a>
+    <a href="../school/ercot.html">Next project: ERCOT ↗</a>
+  </nav>
+</main><footer class="site-footer wrap"><div><strong>Matthew Scarpello</strong><small>Data science · Software · Visual storytelling</small></div><a href="mailto:matthewscarpello@gmail.com">Get in touch ↗</a><button aria-pressed="false" data-theme-toggle="" type="button">Switch to dark</button><a class="footer-github" href="https://github.com/mjscarpello/Portfolio-Repository" rel="noopener noreferrer" target="_blank">GitHub ↗</a><span class="footer-meta">Science · Technology · Creativity</span></footer></body></html>

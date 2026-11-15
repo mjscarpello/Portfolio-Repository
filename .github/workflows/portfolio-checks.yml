@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate source links and project data
         run: python3 tools/validate_portfolio.py
+      - name: Validate NOAA guided exhibit
+        run: python3 tools/test_noaa_exhibit.py
       - name: Check JavaScript syntax
         run: |
           node --check script.js
