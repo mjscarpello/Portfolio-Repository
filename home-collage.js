@@ -41,6 +41,8 @@
     (project.figures || [])
       .filter(fig => eligibleSources.has(fig.src))
       .map(fig => ({src:fig.src, category:project.category, title:project.title,
+        figureTitle:fig.title, projectPage:project.page,
+        figureAnchor:"figure-" + fig.src.split("/").pop().replace(/\.[^.]+$/, "").toLowerCase(),
         ratio:fig.src.endsWith(".png") ? 1.38 : 1.42}))
   ).map(item => [item.src, item])).values()];
 
@@ -60,15 +62,45 @@
     tile.style.setProperty("--tile-ratio", item.ratio);
     tile.dataset.project = item.title;
     tile.dataset.category = item.category;
+    tile.dataset.figure = item.src;
+
+    // Two destinations: case study and this exact figure inside it.
+    const imageLink = document.createElement("a");
+    imageLink.className = "home-collage-image-link";
+    imageLink.href = item.projectPage + "#" + item.figureAnchor;
+    imageLink.setAttribute("aria-label","Find " + item.figureTitle + " in " + item.title);
     const img = document.createElement("img");
     img.src = item.src;
-    img.alt = ""; // Decorative duplicate of original evidence on project pages.
+    img.alt = ""; // The linked figure has a descriptive accessible name.
     img.width = 480;
     img.height = 300;
     img.decoding = "async";
     img.loading = "eager";
     img.draggable = false;
-    tile.append(img);
+    imageLink.append(img);
+
+    const caption = document.createElement("div");
+    caption.className = "home-collage-caption";
+    const kind = document.createElement("span");
+    kind.className = "home-collage-caption-kind";
+    kind.textContent = item.category;
+    const title = document.createElement("strong");
+    title.className = "home-collage-caption-title";
+    title.textContent = item.figureTitle;
+    const actions = document.createElement("div");
+    actions.className = "home-collage-caption-actions";
+    const projectLink = document.createElement("a");
+    projectLink.href = item.projectPage;
+    projectLink.textContent = "Project ↗";
+    projectLink.setAttribute("aria-label","Open project " + item.title);
+    const figureLink = document.createElement("a");
+    figureLink.href = item.projectPage + "#" + item.figureAnchor;
+    figureLink.textContent = "Find image ↗";
+    figureLink.setAttribute("aria-label",
+      "Go to original image " + item.figureTitle + " in " + item.title);
+    actions.append(projectLink,figureLink);
+    caption.append(kind,title,actions);
+    tile.append(imageLink,caption);
     return tile;
   }
 
@@ -92,7 +124,10 @@
       sequence.className = "home-collage-sequence";
       shuffle([...picks, ...extras]).forEach(item => sequence.append(makeTile(item)));
       const repeat = sequence.cloneNode(true);
+      // The visual duplicate is clickable by pointer but not a duplicate
+      // keyboard tab sequence or screen reader announcement.
       repeat.setAttribute("aria-hidden", "true");
+      repeat.querySelectorAll("a").forEach(link => { link.tabIndex = -1; });
       lane.replaceChildren(sequence, repeat);
     }
     collage.classList.add("home-collage-ready");

@@ -92,6 +92,70 @@ async function main() {
     });
     await desktopPage.waitForTimeout(400);
   }
+  // A genuine on-screen figure should pause on hover and offer two links.
+  const tileHandle=await desktopPage.evaluateHandle(()=>{
+    const scene=document.querySelector(".home-collage-scene").getBoundingClientRect();
+    return [...document.querySelectorAll(".home-collage-tile")].find(el=>{
+      const r=el.getBoundingClientRect();
+      return r.top>scene.top+40 && r.bottom<scene.bottom-40 &&
+        r.left>scene.left && r.right<scene.right && r.width>50;
+    });
+  });
+  const tile=tileHandle.asElement();
+  assert(tile,"Expected a fully visible, hoverable project figure");
+  // Playwright's elementHandle.hover waits for a stationary element.
+  // The collage is intentionally moving, so move the real pointer directly
+  // to the tile's current center; CSS then freezes that lane on hover.
+  const center=await tile.evaluate(el=>{
+    const r=el.getBoundingClientRect();
+    return {x:r.left+r.width/2,y:r.top+r.height/2};
+  });
+  await desktopPage.mouse.move(center.x,center.y);
+  await desktopPage.waitForTimeout(220);
+  const hoverState=await tile.evaluate(el=>{
+    const caption=el.querySelector(".home-collage-caption");
+    const actions=[...caption.querySelectorAll("a")];
+    const imageLink=el.querySelector(".home-collage-image-link");
+    return {opacity:Number(getComputedStyle(caption).opacity),
+      play:getComputedStyle(el.closest(".home-collage-lane")).animationPlayState,
+      project:actions[0]?.getAttribute("href"),figure:actions[1]?.getAttribute("href"),
+      image:imageLink?.getAttribute("href"),
+      colors:getComputedStyle(document.documentElement).getPropertyValue("--photo-cobalt").trim()};
+  });
+  assert.equal(hoverState.play,"paused","Hover must steady the moving image under the cursor");
+  assert(hoverState.opacity>.9,"Hover explanation and links should be visible");
+  assert(hoverState.project.endsWith(".html"),"Hover should link to a case study");
+  assert(hoverState.figure.includes("#figure-"),"Hover should link to the exact source figure");
+  assert.equal(hoverState.figure,hoverState.image,"Image and caption should target same figure");
+  assert.equal(hoverState.colors,"#2878b1","Photo-derived palette should load");
+  // Keep a real-browser screenshot of the temporary hover presentation.
+  await desktopPage.screenshot({path:path.join(OUTPUT,"home-hover.png"),animations:"allow",fullPage:false});
+  await desktopPage.mouse.move(16,16);
+  await desktopPage.waitForTimeout(120);
+  assert.equal(await laneLocator.evaluate(el=>getComputedStyle(el).animationPlayState),"running",
+    "Movement should resume when hover ends");
+  // Direct gallery deep links require client-side anchor creation.
+  const inspectPage=await desktop.newPage();
+  for (const dest of [
+    "/school/noaa.html#figure-noaa-event-frequency",
+    "/work/unmc.html#figure-unmc-animated-analytics",
+    "/personal/studio-s.html#figure-studio-s-timeline"
+  ]) {
+    await inspectPage.goto("http://127.0.0.1:8765"+dest,{waitUntil:"networkidle"});
+    await inspectPage.waitForTimeout(220);
+    const found=await inspectPage.evaluate(()=>{
+      const target=document.querySelector(":target");
+      if(!target)return null;
+      const r=target.getBoundingClientRect();
+      return {top:r.top,bottom:r.bottom,view:innerHeight,tag:target.tagName};
+    });
+    assert(found && found.tag==="FIGURE","Exact figure target missing: "+dest);
+    assert(found.top<found.view && found.bottom>0,"Deep link failed: "+dest+" "+JSON.stringify(found));
+    if(dest.includes("/school/noaa.html")) await inspectPage.screenshot({path:path.join(OUTPUT,"noaa-figure-target.png"),fullPage:false});
+    if(dest.includes("/work/unmc.html")) await inspectPage.screenshot({path:path.join(OUTPUT,"unmc-figure-target.png"),fullPage:false});
+  }
+  await inspectPage.close();
+
   const transition = await makeContext(1440,900);
   const transitionPage = await openPage(transition);
   await transitionPage.evaluate(()=>{

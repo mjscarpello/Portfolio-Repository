@@ -18,11 +18,16 @@ class Element {
  }
  append(...items){this.children.push(...items);}
  replaceChildren(...items){this.children=items;}
+ querySelectorAll(selector){
+  const out=[];
+  const walk=node=>{for(const child of node.children){if(selector==="a"&&child.tag==="a")out.push(child);walk(child);}};
+  walk(this);return out;
+ }
  setAttribute(k,v){this.attributes[k]=v;}
  cloneNode(deep){
   const n=new Element(this.tag);n.className=this.className;n.dataset={...this.dataset};
   n.style.data=new Map(this.style.data);
-  for(const k of ["src","alt","width","height","decoding","loading","draggable"])n[k]=this[k];
+  for(const k of ["src","alt","width","height","decoding","loading","draggable","href","tabIndex","textContent"])n[k]=this[k];
   if(deep)n.children=this.children.map(c=>c.cloneNode(true));
   return n;
  }
@@ -56,14 +61,23 @@ function run(seed){
  const flush=()=>{while(frames.length)frames.shift()();};
  assert(scene.classList.contains("home-collage-ready"),"Randomization should initialize");
  assert(lanes.every(lane=>lane.children.length===2),"Each lane needs two identical sequences");
- const first=lanes.map(lane=>lane.children[0].children.map(tile=>({src:tile.children[0].src,category:tile.dataset.category})));
+ const first=lanes.map(lane=>lane.children[0].children.map(tile=>({src:tile.children[0].children[0].src,category:tile.dataset.category})));
  for(let i=0;i<3;i++){
   assert.equal(first[i].length,5);
-  assert.deepEqual(first[i].map(x=>x.src),lanes[i].children[1].children.map(t=>t.children[0].src),"Loop copies must match");
+  assert.deepEqual(first[i].map(x=>x.src),lanes[i].children[1].children.map(t=>t.children[0].children[0].src),"Loop copies must match");
   assert.deepEqual(new Set(first[i].map(x=>x.category)),new Set(["school","work","personal"]));
  }
  const chosen=first.flat().map(x=>x.src);
  assert.equal(new Set(chosen).size,15,"Fifteen unique originals needed");
+ for(const lane of lanes){
+  const firstTile=lane.children[0].children[0];
+  const imageLink=firstTile.children[0],caption=firstTile.children[1];
+  assert(imageLink.href.includes("#figure-"),"Exact figure link needed");
+  assert(caption.children[2].children[0].href.endsWith(".html"),"Project link needed");
+  assert.equal(caption.children[2].children[1].href,imageLink.href,"Caption must locate same original image");
+  assert.equal(imageLink.attributes["aria-label"].includes("Find"),true);
+  assert(lane.children[1].querySelectorAll("a").every(a=>a.tabIndex===-1),"Repeat should not add tab stops");
+ }
  assert.equal(scene.style.data.get("--hero-exit-opacity"),"0.770");
  assert(!hero.classList.contains("home-collage-paused"),"Animation should be active immediately");
  top=-520;windowHandlers.scroll();flush();

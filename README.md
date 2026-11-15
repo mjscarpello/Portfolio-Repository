@@ -11,6 +11,9 @@ A personal portfolio documenting my work across **data science, educational tech
 
 ## Overview
 
+> **Portrait palette and interactive figures:** A navy-and-white foundation with independently applied sky, cobalt, copper, orange, coral, gold and foliage accents now spans the portfolio. Hover or focus a moving project figure to find links to its case study and exact original image. See [Photo palette and hover notes](docs/PHOTO-PALETTE-COLLAGE.md).
+
+
 > **Homepage redesign (November 2026, draft):** A smaller editable personal headline, ambient moving collage of real School / Work / Personal project images, and a distinct three-pillar browsing section. The collage scrolls continuously downward, selects real project figures randomly on each visit, and fades into the pillars. There is no pause button; system reduced-motion preferences remain respected. Implementation details and complete source map: [Homepage Collage Review](docs/HOME-COLLAGE-REVIEW.md).
 
 

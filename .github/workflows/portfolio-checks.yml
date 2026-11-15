@@ -18,6 +18,8 @@ jobs:
         run: python3 tools/test_home_collage.py
       - name: Verify randomized infinite downward motion and reduced motion
         run: node tools/test_home_collage.cjs
+      - name: Validate portrait-derived colors and source figure anchors
+        run: python3 tools/test_photo_palette.py
       - name: Check JavaScript syntax
         run: |
           node --check script.js
