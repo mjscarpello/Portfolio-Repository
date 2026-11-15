@@ -1,111 +1,89 @@
-/* Browser-free behavior tests for home-collage.js. Run with Node (no npm dependencies). */
+#!/usr/bin/env node
 "use strict";
-const fs = require("node:fs");
-const vm = require("node:vm");
-const assert = require("node:assert/strict");
+/* Deterministic tests for randomized images, uninterrupted downward flow and exit fade. */
+const assert=require("node:assert/strict");
+const fs=require("node:fs");
+const vm=require("node:vm");
+const path=require("node:path");
+const ROOT=path.join(__dirname,"..");
+const source=fs.readFileSync(path.join(ROOT,"home-collage.js"),"utf8");
+const raw=fs.readFileSync(path.join(ROOT,"portfolio-data.js"),"utf8");
+const projectData=JSON.parse(raw.slice(raw.indexOf("{"),raw.lastIndexOf("}")+1));
 
-const listeners = {}, docListeners = {}, motionListeners = {};
-const classes = new Set();
-const properties = new Map();
-const stored = new Map();
-const callbacks = [];
-let heroTop = 80, heroHeight = 650;
-let nextFrame = 0;
-const toggleListeners = {};
-const hero = {
-  classList: {
-    add: x => classes.add(x),
-    toggle(x, value) { if (value) classes.add(x); else classes.delete(x); }
-  },
-  getBoundingClientRect() { return { top: heroTop, height: heroHeight, bottom: heroTop + heroHeight }; }
-};
-const collage = {
-  style: {
-    setProperty(key, value) { properties.set(key, value); },
-    removeProperty(key) { properties.delete(key); }
-  }
-};
-const toggle = {
-  dataset: {},
-  hidden: false,
-  innerHTML: "",
-  attrs: {},
-  setAttribute(k, v) { this.attrs[k] = v; },
-  addEventListener(k, fn) { toggleListeners[k] = fn; }
-};
-const motion = {
-  matches: false,
-  addEventListener(k, fn) { motionListeners[k] = fn; }
-};
-const document = {
-  hidden: false,
-  querySelector(q) { return q === ".home-hero" ? hero : q === "[data-home-collage]" ? collage : q === "[data-home-motion-toggle]" ? toggle : null; },
-  addEventListener(k, fn) { docListeners[k] = fn; },
-  documentElement: {clientHeight:900}
-};
-const window = {
-  innerHeight: 900,
-  matchMedia() {return motion;},
-  addEventListener(k, fn) {listeners[k] = fn;},
-  requestAnimationFrame(fn) {callbacks.push(fn); return ++nextFrame; }
-};
-class IntersectionObserver {
-  constructor(fn) { this.callback = fn; globalThis.observer = this; }
-  observe(target) { assert.equal(target,hero); }
+class Element {
+ constructor(tag="div"){
+  this.tag=tag;this.children=[];this.className="";this.dataset={};this.attributes={};
+  this.style={data:new Map(),setProperty(k,v){this.data.set(k,String(v));},removeProperty(k){this.data.delete(k);}};
+  this.classList={values:new Set(),add(k){this.values.add(k);},toggle(k,on){if(on)this.values.add(k);else this.values.delete(k);},contains(k){return this.values.has(k);}};
+ }
+ append(...items){this.children.push(...items);}
+ replaceChildren(...items){this.children=items;}
+ setAttribute(k,v){this.attributes[k]=v;}
+ cloneNode(deep){
+  const n=new Element(this.tag);n.className=this.className;n.dataset={...this.dataset};
+  n.style.data=new Map(this.style.data);
+  for(const k of ["src","alt","width","height","decoding","loading","draggable"])n[k]=this[k];
+  if(deep)n.children=this.children.map(c=>c.cloneNode(true));
+  return n;
+ }
 }
-const localStorage = {
-  getItem(k) { return stored.get(k) || null; },
-  setItem(k,v) { stored.set(k,v); }
-};
-function flush() {
-  while (callbacks.length) callbacks.shift()();
+function run(seed){
+ let number=seed>>>0;
+ const random=()=>{number=(Math.imul(1664525,number)+1013904223)>>>0;return number/4294967296;};
+ const math={random,floor:Math.floor,max:Math.max,min:Math.min};
+ const lanes=[new Element(),new Element(),new Element()];
+ const scene=new Element();scene.querySelectorAll=q=>q===".home-collage-lane"?lanes:[];
+ let top=80,hidden=false,callback;
+ const hero=new Element();hero.getBoundingClientRect=()=>({top,height:650,bottom:top+650});
+ const windowHandlers={},documentHandlers={},motionHandlers={},frames=[];
+ const motion={matches:false,addEventListener(k,f){motionHandlers[k]=f;}};
+ const document={
+  querySelector(q){return q===".home-hero"?hero:q==="[data-home-collage]"?scene:null;},
+  createElement(tag){return new Element(tag);},
+  addEventListener(k,f){documentHandlers[k]=f;},
+  get hidden(){return hidden;},set hidden(v){hidden=v;}
+ };
+ const window={
+  PORTFOLIO_DATA:projectData,matchMedia(){return motion;},
+  addEventListener(k,f){windowHandlers[k]=f;},
+  requestAnimationFrame(f){frames.push(f);return frames.length;}
+ };
+ class IntersectionObserver{
+  constructor(f){callback=f;}observe(node){assert.equal(node,hero);}
+ }
+ vm.runInNewContext(source,{Math:math,window,document,IntersectionObserver},{filename:"home-collage.js"});
+ const flush=()=>{while(frames.length)frames.shift()();};
+ assert(scene.classList.contains("home-collage-ready"),"Randomization should initialize");
+ assert(lanes.every(lane=>lane.children.length===2),"Each lane needs two identical sequences");
+ const first=lanes.map(lane=>lane.children[0].children.map(tile=>({src:tile.children[0].src,category:tile.dataset.category})));
+ for(let i=0;i<3;i++){
+  assert.equal(first[i].length,5);
+  assert.deepEqual(first[i].map(x=>x.src),lanes[i].children[1].children.map(t=>t.children[0].src),"Loop copies must match");
+  assert.deepEqual(new Set(first[i].map(x=>x.category)),new Set(["school","work","personal"]));
+ }
+ const chosen=first.flat().map(x=>x.src);
+ assert.equal(new Set(chosen).size,15,"Fifteen unique originals needed");
+ assert.equal(scene.style.data.get("--hero-exit-opacity"),"0.770");
+ assert(!hero.classList.contains("home-collage-paused"),"Animation should be active immediately");
+ top=-520;windowHandlers.scroll();flush();
+ assert(Number(scene.style.data.get("--hero-exit-opacity"))<.77,"Collage should fade near pillars");
+ assert(Number.parseFloat(scene.style.data.get("--hero-exit-blur"))>0,"Collage should blur on exit");
+ assert(!hero.classList.contains("home-collage-paused"),"Do not stop flow during fade");
+ top=80;windowHandlers.scroll();flush();
+ assert.equal(scene.style.data.get("--hero-exit-opacity"),"0.770");
+ callback([{isIntersecting:false}]);flush();
+ assert(hero.classList.contains("home-collage-paused"),"Offscreen movement should pause");
+ callback([{isIntersecting:true}]);flush();
+ assert(!hero.classList.contains("home-collage-paused"),"Returning to hero should resume");
+ document.hidden=true;documentHandlers.visibilitychange();flush();
+ assert(hero.classList.contains("home-collage-paused"),"Hidden tabs should pause");
+ document.hidden=false;documentHandlers.visibilitychange();flush();
+ motion.matches=true;motionHandlers.change();flush();
+ assert(hero.classList.contains("home-collage-paused"),"Reduced motion should pause");
+ assert.equal(scene.style.data.has("--hero-exit-blur"),false,"No animated blur in reduced motion");
+ return chosen.join("|");
 }
-const code = fs.readFileSync(require("node:path").join(__dirname, "..", "home-collage.js"), "utf8");
-vm.runInNewContext(code, {document, window, IntersectionObserver, localStorage}, {filename:"home-collage.js"});
-assert.equal(properties.get("--hero-exit-opacity"), "0.660", "Collage should start at low opacity");
-assert.equal(properties.get("--hero-exit-blur"), "0.0px", "Collage should start unblurred");
-assert(!classes.has("home-collage-paused"), "Collage should drift when visible");
-
-heroTop=-450;
-listeners.scroll();
-flush();
-assert(classes.has("home-collage-paused"), "Approaching pillars should settle collage");
-assert(Number(properties.get("--hero-exit-opacity")) < .66, "Should fade during exit");
-assert(Number.parseFloat(properties.get("--hero-exit-blur")) > 0, "Should blur during exit");
-
-heroTop=80;
-listeners.scroll();
-flush();
-assert(!classes.has("home-collage-paused"), "Scrolling back up should resume collage");
-
-toggleListeners.click();
-flush();
-assert(classes.has("home-collage-paused"), "Pause button should pause");
-assert.equal(toggle.attrs["aria-pressed"], "true", "Pause state should be accessible");
-assert.equal(stored.get("ordinary-i-collage-paused"), "true", "Manual pause should persist");
-
-toggleListeners.click();
-flush();
-assert(!classes.has("home-collage-paused"), "Resume button should resume");
-assert.equal(toggle.attrs["aria-pressed"], "false");
-
-document.hidden=true;
-docListeners.visibilitychange();
-flush();
-assert(classes.has("home-collage-paused"), "Background tab must pause");
-document.hidden=false;
-docListeners.visibilitychange();
-flush();
-
-motion.matches=true;
-motionListeners.change();
-flush();
-assert(classes.has("home-collage-paused"), "Reduced-motion mode must pause");
-assert.equal(toggle.hidden, true, "Reduced-motion users should not see pause control");
-assert.equal(properties.has("--hero-exit-blur"),false,"Reduced motion should not animate blur");
-
-motion.matches=false;
-motionListeners.change();
-flush();
-assert.equal(toggle.hidden, false);
-console.log("PASS: ambient drift, scroll settle/blur, reverse scroll, manual pause, background-tab pause and reduced motion.");
+assert.notEqual(run(42),run(99),"Separate visits should produce different image selections");
+const html=fs.readFileSync(path.join(ROOT,"index.html"),"utf8");
+assert(!html.includes("data-home-motion-toggle"),"Pause button must be removed");
+console.log("PASS: 15 unique authentic images, 3 balanced lanes, duplicated seamless loops, random selection, fade while moving, visibility and reduced motion.");
