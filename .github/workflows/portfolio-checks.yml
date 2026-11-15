@@ -43,7 +43,7 @@ jobs:
           site=Path("_site")
           source=(site/"index.html").read_text(encoding="utf-8")
           dark='<script>document.addEventListener("DOMContentLoaded",function(){document.documentElement.dataset.theme="dark"})</script>'
-          transition='<script>document.addEventListener("DOMContentLoaded",function(){window.scrollTo({top:650,behavior:"instant"})})</script>'
+          transition='<script>document.addEventListener("DOMContentLoaded",function(){window.addEventListener("load",function(){setTimeout(function(){window.scrollTo({top:650,behavior:"instant"})},250)})})</script>'
           (site/"preview-dark.html").write_text(source.replace("</head>",dark+"</head>",1),encoding="utf-8")
           (site/"preview-transition.html").write_text(source.replace("</head>",transition+"</head>",1),encoding="utf-8")
           PY
@@ -51,10 +51,10 @@ jobs:
           SERVER_PID=$!
           trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
           sleep 2
-          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=1100 --window-size=1440,1650 --screenshot="$PWD/review-screenshots/home-desktop.png" "http://127.0.0.1:8765/index.html" >/tmp/chrome-desktop.log 2>&1
-          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=1100 --window-size=1440,1650 --screenshot="$PWD/review-screenshots/home-dark.png" "http://127.0.0.1:8765/preview-dark.html" >/tmp/chrome-dark.log 2>&1
-          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=1100 --window-size=430,1300 --screenshot="$PWD/review-screenshots/home-mobile.png" "http://127.0.0.1:8765/index.html" >/tmp/chrome-mobile.log 2>&1
-          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=1100 --window-size=1440,1400 --screenshot="$PWD/review-screenshots/home-transition.png" "http://127.0.0.1:8765/preview-transition.html" >/tmp/chrome-transition.log 2>&1
+          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=4500 --window-size=1440,1650 --screenshot="$PWD/review-screenshots/home-desktop.png" "http://127.0.0.1:8765/index.html" >/tmp/chrome-desktop.log 2>&1
+          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=4500 --window-size=1440,1650 --screenshot="$PWD/review-screenshots/home-dark.png" "http://127.0.0.1:8765/preview-dark.html" >/tmp/chrome-dark.log 2>&1
+          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=4500 --window-size=430,1300 --screenshot="$PWD/review-screenshots/home-mobile.png" "http://127.0.0.1:8765/index.html" >/tmp/chrome-mobile.log 2>&1
+          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=4500 --window-size=1440,1400 --screenshot="$PWD/review-screenshots/home-transition.png" "http://127.0.0.1:8765/preview-transition.html" >/tmp/chrome-transition.log 2>&1
           python3 - <<'PY'
           from pathlib import Path
           import struct
