@@ -16,7 +16,7 @@ jobs:
         run: python3 tools/test_noaa_exhibit.py
       - name: Validate homepage collage source and accessibility
         run: python3 tools/test_home_collage.py
-      - name: Exercise collage motion and pause behavior
+      - name: Verify randomized infinite downward motion and reduced motion
         run: node tools/test_home_collage.cjs
       - name: Check JavaScript syntax
         run: |

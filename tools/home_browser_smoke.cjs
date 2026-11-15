@@ -26,9 +26,9 @@ let browser;
 async function loadedImages(page) {
   await page.waitForFunction(() => {
     const imgs = [...document.querySelectorAll(".home-collage-tile img")];
-    return imgs.length === 9 && imgs.every(img => img.complete && img.naturalWidth > 0);
+    return imgs.length === 30 && imgs.every(img => img.complete && img.naturalWidth > 0);
   }, null, {timeout:20000});
-  assert.equal(await page.locator(".home-collage-tile img").count(),9);
+  assert.equal(await page.locator(".home-collage-tile img").count(),30);
 }
 async function openPage(context) {
   const page = await context.newPage();
@@ -52,12 +52,46 @@ async function main() {
   await screenshot(desktopPage,"home-desktop.png");
   assert.equal(await desktopPage.locator(".brand-circle").count(),1,"Original avatar must be present");
   assert.equal(await desktopPage.locator("#pillar-tab-school").getAttribute("aria-selected"),"true");
-  const pause = desktopPage.locator("[data-home-motion-toggle]");
-  await pause.click();
-  assert.equal(await pause.getAttribute("aria-pressed"),"true");
-  assert(await desktopPage.locator(".home-hero").evaluate(el => el.classList.contains("home-collage-paused")));
-  await pause.click();
-  assert.equal(await pause.getAttribute("aria-pressed"),"false");
+  assert.equal(await desktopPage.locator("[data-home-motion-toggle]").count(),0,"Pause motion button must be absent");
+  const lanes=await desktopPage.evaluate(()=>{
+    return [...document.querySelectorAll(".home-collage-lane")].map(lane=>{
+      const halves=[...lane.querySelectorAll(".home-collage-sequence")];
+      const images=halves.map(group=>[...group.querySelectorAll("img")].map(img=>img.getAttribute("src")));
+      const categories=[...halves[0].querySelectorAll("[data-category]")].map(el=>el.dataset.category);
+      return {images,categories,heights:halves.map(h=>h.getBoundingClientRect().height)};
+    });
+  });
+  assert.equal(lanes.length,3);
+  for(const lane of lanes){
+    assert.deepEqual(lane.images[0],lane.images[1],"Sequence halves must match for seamless wrap");
+    assert(Math.abs(lane.heights[0]-lane.heights[1])<1,"Loop halves must have equal heights");
+    assert.equal(new Set(lane.categories).size,3,"Each lane should show School, Work, Personal");
+  }
+  assert.equal(new Set(lanes.flatMap(l=>l.images[0])).size,15,"All 15 selected figures should be distinct");
+  const laneLocator=desktopPage.locator(".home-collage-lane--one");
+  const before=await laneLocator.evaluate(el=>({top:el.getBoundingClientRect().top,name:getComputedStyle(el).animationName,play:getComputedStyle(el).animationPlayState}));
+  assert(before.name.includes("home-collage-flow-down"),"New downward animation must be active");
+  assert.equal(before.play,"running","Animation must start without user input");
+  await desktopPage.waitForTimeout(2200);
+  const after=await laneLocator.evaluate(el=>({top:el.getBoundingClientRect().top,play:getComputedStyle(el).animationPlayState}));
+  const verticalTravel=after.top-before.top;
+  assert(verticalTravel>8 && verticalTravel<130,"Downward collage should travel visibly at medium-slow speed; traveled "+verticalTravel.toFixed(1)+"px in 2.2 seconds");
+  assert.equal(after.play,"running");
+  const firstOrder=lanes.map(l=>l.images[0].join("|")).join("||");
+  await desktopPage.reload({waitUntil:"networkidle"});
+  await loadedImages(desktopPage);
+  const secondOrder=await desktopPage.evaluate(()=>[...document.querySelectorAll(".home-collage-lane")].map(l=>[...l.children[0].querySelectorAll("img")].map(img=>img.getAttribute("src")).join("|")).join("||"));
+  assert.notEqual(firstOrder,secondOrder,"The image selection and order should change with a page reload");
+
+  // Real frames of the moving collage, captured from headless Chrome.
+  const movingCollage=desktopPage.locator(".home-hero-visual");
+  for(let i=0;i<12;i++){
+    await movingCollage.screenshot({
+      path:path.join(OUTPUT,"home-motion-"+String(i).padStart(2,"0")+".png"),
+      animations:"allow"
+    });
+    await desktopPage.waitForTimeout(400);
+  }
   const transition = await makeContext(1440,900);
   const transitionPage = await openPage(transition);
   await transitionPage.evaluate(()=>{
@@ -70,9 +104,10 @@ async function main() {
     const collage=document.querySelector("[data-home-collage]");
     const hero=document.querySelector(".home-hero");
     const h1=document.querySelector("#hero-title");
-    return {blur:getComputedStyle(collage).filter,opacity:Number.parseFloat(getComputedStyle(collage).opacity),paused:hero.classList.contains("home-collage-paused"),headlineFilter:getComputedStyle(h1).filter};
+    return {blur:getComputedStyle(collage).filter,opacity:Number.parseFloat(getComputedStyle(collage).opacity),paused:hero.classList.contains("home-collage-paused"),lanePlay:getComputedStyle(document.querySelector(".home-collage-lane")).animationPlayState,headlineFilter:getComputedStyle(h1).filter};
   });
-  assert(scroll.paused,"Drift must stop at end of hero");
+  assert(!scroll.paused,"The collage must keep moving while it fades into the pillars");
+  assert.equal(scroll.lanePlay,"running","Vertical image flow must remain active during the transition");
   assert(scroll.opacity<.66,"Collage must fade on exit");
   assert(scroll.blur!=="none","Collage must blur before the pillars");
   assert.equal(scroll.headlineFilter,"none","Headline must remain sharp");
@@ -100,13 +135,13 @@ async function main() {
   const reduced = await makeContext(430,900,{reducedMotion:"reduce"});
   const reducedPage = await openPage(reduced);
   const reducedState = await reducedPage.evaluate(()=>{
-    const lane=document.querySelector(".home-collage-lane"), toggle=document.querySelector("[data-home-motion-toggle]");
-    return {animation:getComputedStyle(lane).animationName,hidden:toggle.hidden};
+    const lane=document.querySelector(".home-collage-lane");
+    return {animation:getComputedStyle(lane).animationName};
   });
   assert.equal(reducedState.animation,"none","Reduced motion must disable drift");
-  assert.equal(reducedState.hidden,true,"Reduced motion should suppress pause control");
+  assert.equal(await reducedPage.locator("[data-home-motion-toggle]").count(),0,"No pause control on any device");
   await reduced.close();
-  console.log("PASS: real-image decoding, responsive widths, themes, fade, pause, reduced motion and pillar navigation");
+  console.log("PASS: 15 randomized genuine images, seamless loop halves, "+verticalTravel.toFixed(1)+"px downward travel, fade while running, responsive widths, reduced motion and pillar navigation");
   for (const f of fs.readdirSync(OUTPUT)) if(f.endsWith(".png")) console.log(f,fs.statSync(path.join(OUTPUT,f)).size,"bytes");
 }
 main().catch(e=>{console.error(e);process.exitCode=1}).finally(async()=>{

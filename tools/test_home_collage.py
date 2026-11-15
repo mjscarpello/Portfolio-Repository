@@ -58,7 +58,7 @@ check("class=\"brand-circle\"" in home, "Shared portrait/avatar header is missin
 check((ROOT / "assets/brand-avatar.jpg").is_file(), "Avatar image missing")
 check(any(x.get("href")=="#experiences" for x in scan.links), "Explore my work action changed")
 check(any(x.get("href")=="about.html#mini-resume" for x in scan.links), "Resume action changed")
-check(any("data-home-motion-toggle" in x for x in scan.buttons), "Missing pause-motion control")
+check(not any("data-home-motion-toggle" in x for x in scan.buttons), "Remove the pause-motion button")
 check(len(scan.collage_images)==9, f"Expected 9 original project images, found {len(scan.collage_images)}")
 check(all(x.get("alt") == "" for x in scan.collage_images), "Decorative collage images must have empty alt text")
 check(all(x.get("decoding")=="async" for x in scan.collage_images), "Collage images should decode asynchronously")
@@ -85,16 +85,31 @@ check(paths.issubset(registered_figures), "Collage contains unregistered or inve
 for category, ids in expected_categories.items():
     group_assets = {f["src"] for p in data["projects"] if p["id"] in ids for f in p.get("figures", [])}
     check(bool(paths.intersection(group_assets)), f"No verified {category} assets in collage")
-check(total <= 1600000, f"Collage image weight exceeds target: {total:,} bytes")
+check(total <= 1600000, f"Fallback collage image weight exceeds target: {total:,} bytes")
+pool_text=js.split('const eligibleSources = new Set([',1)[-1].split(']);',1)[0]
+sources=re.findall(r'"(figures/[^"]+\.(?:jpg|png|webp))"',pool_text)
+check(len(sources)>=18 and len(sources)==len(set(sources)), "Random asset pool must contain many unique originals")
+check(set(sources).issubset(registered_figures), "Random selection may use only registered figures")
+check(all((ROOT / path).is_file() for path in sources), "Image pool has a missing image")
+for cat in ["school","work","personal"]:
+    group={f["src"] for p in data["projects"] if p["category"]==cat for f in p.get("figures",[])}
+    check(len(set(sources)&group)>=3, "Too few project images for "+cat)
+check("cloneNode(true)" in js and "replaceChildren(sequence, repeat)" in js, "Infinite scroll requires identical sequence halves")
+check("reserved = lanes.map" in js and "Math.random()" in js, "Collage needs balanced random imagery")
+check("home-collage-flow-down" in css and "linear infinite" in css, "Continuous linear motion missing")
+check("from{transform:translate3d(0,-50%,0)}" in css, "Loop must start at negative half-track")
+check("to{transform:translate3d(0,0,0)}" in css, "Images must move top to bottom")
+check("localStorage" not in js and "home-motion-toggle" not in css, "Remove stored pause behavior and control")
+check('data-motion="downward-infinite"' in home, "Animation marker missing")
 check("prefers-reduced-motion" in css and "prefers-reduced-motion" in js, "Missing reduced-motion protection")
-check("home-collage-paused" in css and "home-collage-paused" in js, "Motion pause must work")
+check("home-collage-paused" in css and "home-collage-paused" in js, "Offscreen motion pause must work")
 check("IntersectionObserver" in js and "requestAnimationFrame" in js, "Motion must be visibility-aware and throttled")
 check("visibilitychange" in js, "Moving collage must pause in background tabs")
 check("home-hero-bridge" in home and "home-hero-bridge" in css, "Missing bridge into three pillars")
 check('id="experiences"' in home, "Pillar deep links must remain valid")
 check("home-pillar-section" in css and 'data-theme="dark"' in css, "Distinct pillar surface must work in both themes")
 check(not re.search(r'<video\b|<canvas\b', home), "Collage should not use distracting live video or animation canvases")
-print(f"Homepage collage: {len(paths)} real project images, {total/1024:.0f} KiB of existing figure assets.")
+print(f"Homepage collage: {len(paths)} initial assets; {len(sources)} verified sources in randomized downward loop pool.")
 if errors:
     for error in errors: print("FAIL:", error)
     raise SystemExit(1)

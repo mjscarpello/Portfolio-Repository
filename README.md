@@ -11,7 +11,7 @@ A personal portfolio documenting my work across **data science, educational tech
 
 ## Overview
 
-> **Homepage redesign (November 2026, draft):** A smaller editable personal headline, ambient moving collage of real School / Work / Personal project images, and a distinct three-pillar browsing section. Visitors can pause the ambient motion, and reduced-motion preferences are respected. Implementation details and complete source map: [Homepage Collage Review](docs/HOME-COLLAGE-REVIEW.md).
+> **Homepage redesign (November 2026, draft):** A smaller editable personal headline, ambient moving collage of real School / Work / Personal project images, and a distinct three-pillar browsing section. The collage scrolls continuously downward, selects real project figures randomly on each visit, and fades into the pillars. There is no pause button; system reduced-motion preferences remain respected. Implementation details and complete source map: [Homepage Collage Review](docs/HOME-COLLAGE-REVIEW.md).
 
 
 > **November 2026 refinement:** The homepage was consolidated into a single three-pillar explorer, the About page became a concise résumé with project-linked skills, and Project 3 was updated to reflect ongoing NYC dry-recycling data wrangling. The existing project findings, figures, and playable game are preserved. The color palette now uses warm terracotta accents in light and dark themes.
