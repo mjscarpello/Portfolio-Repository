@@ -36,6 +36,36 @@
 .home-collage-sequence .home-collage-tile:nth-child(4){width:96%;align-self:flex-start;transform:rotate(.8deg)}
 .home-collage-readable-edge{pointer-events:none;position:absolute;inset:0;background:linear-gradient(to right,rgba(33,30,36,.7),rgba(33,30,36,.20) 27%,rgba(33,30,36,.06) 80%)}
 .home-collage-paused .home-collage-lane{animation-play-state:paused}
+/* The actual moving images can now be explored by hover, pointer or keyboard. */
+.home-collage-scene{pointer-events:auto}
+.home-collage-tile{position:relative;isolation:isolate;pointer-events:auto}
+.home-collage-image-link{display:block;width:100%;height:100%;outline-offset:-3px}
+.home-collage-image-link img{width:100%;height:100%;display:block;object-fit:cover}
+.home-collage-caption{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:end;gap:7px;padding:clamp(8px,1vw,15px);background:linear-gradient(to top,rgba(12,24,44,.98) 0%,rgba(16,32,56,.88) 48%,rgba(16,32,56,.12) 100%);color:#fff;opacity:0;visibility:hidden;transform:translateY(6px);pointer-events:none;transition:opacity .2s,transform .2s,visibility .2s}
+.home-collage-caption-kind{text-transform:uppercase;letter-spacing:.13em;font-size:10px;font-weight:850;color:#adddf8}
+.home-collage-tile[data-category="work"] .home-collage-caption-kind{color:#ffb885}
+.home-collage-tile[data-category="personal"] .home-collage-caption-kind{color:#f4d66e}
+.home-collage-caption-title{font-size:clamp(10px,1.05vw,13px);line-height:1.3;letter-spacing:-.01em;max-height:3.8em;overflow:hidden}
+.home-collage-caption-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.home-collage-caption-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:27px;padding:5px 7px;text-decoration:none;font-size:10px;font-weight:780;line-height:1.3;border:1px solid rgba(255,255,255,.52);background:rgba(255,255,255,.12);color:#fff;border-radius:3px}
+.home-collage-caption-actions a:first-child{background:#f6f5f0;color:#182944;border-color:#f6f5f0}
+.home-collage-caption-actions a:hover{background:#b3def5;color:#102b48;border-color:#b3def5}
+.home-collage-caption-actions a:focus-visible,.home-collage-image-link:focus-visible{outline:3px solid #f7cd60;outline-offset:-3px}
+.home-collage-tile:hover,.home-collage-tile:focus-within{z-index:4;box-shadow:0 15px 34px rgba(0,0,0,.38);border-color:#b6dffa}
+.home-collage-tile:hover .home-collage-caption,.home-collage-tile:focus-within .home-collage-caption{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+.home-collage-ready .home-collage-lane:has(.home-collage-tile:hover),
+.home-collage-ready .home-collage-lane:focus-within{animation-play-state:paused}
+@media(max-width:740px){
+ .home-collage-caption{padding:6px;gap:3px}
+ .home-collage-caption-title{font-size:10px}
+ .home-collage-caption-kind{font-size:8px}
+ .home-collage-caption-actions a{font-size:9px;min-height:24px;padding:3px 5px}
+}
+@media(hover:none){
+ .home-collage-caption{opacity:1;visibility:visible;transform:none;pointer-events:auto;background:linear-gradient(to top,rgba(12,24,44,.9),transparent 76%)}
+}
+@media(prefers-reduced-motion:reduce){.home-collage-caption{transition:none}}
+
 @keyframes home-collage-flow-down{
   from{transform:translate3d(0,-50%,0)}
   to{transform:translate3d(0,0,0)}

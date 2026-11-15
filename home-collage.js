@@ -124,9 +124,10 @@
       sequence.className = "home-collage-sequence";
       shuffle([...picks, ...extras]).forEach(item => sequence.append(makeTile(item)));
       const repeat = sequence.cloneNode(true);
+      // The visual duplicate is clickable by pointer but not a duplicate
+      // keyboard tab sequence or screen reader announcement.
       repeat.setAttribute("aria-hidden", "true");
-      repeat.setAttribute("inert", "");
-      repeat.inert = true;
+      repeat.querySelectorAll("a").forEach(link => { link.tabIndex = -1; });
       lane.replaceChildren(sequence, repeat);
     }
     collage.classList.add("home-collage-ready");
