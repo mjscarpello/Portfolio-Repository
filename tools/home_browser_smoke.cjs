@@ -148,8 +148,8 @@ async function main() {
   assert(hoverState.labelWidth <= hoverState.tileWidth,"Label should fit the project image");
   assert(hoverState.labelRadius==="8px","Hover label should be a rounded rectangle");
   assert(hoverState.washGradient.includes("linear-gradient"),"Hover needs a graduated color overlay");
-  assert(/, 0\\.97\\)/.test(hoverState.washBottom),"Bottom of image should have a near-opaque pillar tint");
-  assert(/, 0\\.065\\)/.test(hoverState.washTop),"Top of image should retain a faint tint");
+  assert(hoverState.washBottom.includes("0.97"),"Bottom of image should have a near-opaque pillar tint");
+  assert(hoverState.washTop.includes("0.065"),"Top of image should retain a faint tint");
   assert.equal(hoverState.buttonCount,0,"No visual buttons allowed");
   assert.equal(hoverState.linkCount,1,"Only the image should link");
   assert(hoverState.labelTop<hoverState.tileHeight*.30,"Open project label must be at top");
