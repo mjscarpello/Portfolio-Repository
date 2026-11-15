@@ -211,6 +211,7 @@
     if (project && project.figures.length > 0) {
       project.figures.forEach((chart, index) => {
         const box = node('figure', 'case-figure');
+        box.id = 'figure-' + chart.src.split('/').pop().replace(/\.[^.]+$/, '').toLowerCase();
         const button = node('button', 'case-chart-button');
         button.type = 'button';
         button.setAttribute('aria-label', `Expand original figure ${index + 1}: ${chart.title}`);
@@ -223,6 +224,14 @@
         box.append(button, caption);
         gallery.append(box);
       });
+      // These figures are created after HTML parsing, so a direct #figure-...
+      // link must scroll once the gallery has actually been rendered.
+      const hash = decodeURIComponent(window.location.hash.slice(1));
+      if (hash.startsWith('figure-')) {
+        window.requestAnimationFrame(() => {
+          document.getElementById(hash)?.scrollIntoView({block:'center',behavior:'instant'});
+        });
+      }
     } else {
       const empty = node('div', 'case-gallery-empty');
       empty.append(node('h3', '', project.id === 'capstone-three' ? 'Project 3 is in progress.' : 'Work samples will appear here.'),
