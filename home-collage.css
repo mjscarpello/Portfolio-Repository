@@ -36,80 +36,64 @@
 .home-collage-sequence .home-collage-tile:nth-child(4){width:96%;align-self:flex-start;transform:rotate(.8deg)}
 .home-collage-readable-edge{pointer-events:none;position:absolute;inset:0;background:linear-gradient(to right,rgba(33,30,36,.7),rgba(33,30,36,.20) 27%,rgba(33,30,36,.06) 80%)}
 .home-collage-paused .home-collage-lane{animation-play-state:paused}
-/* The actual moving images can now be explored by hover, pointer or keyboard. */
+/* Clean single-link hover. The figure itself remains the visual focus. */
 .home-collage-scene{pointer-events:auto}
-.home-collage-tile{position:relative;isolation:isolate;pointer-events:auto}
-.home-collage-image-link{display:block;width:100%;height:100%;outline-offset:-3px}
+.home-collage-tile{
+  --tile-wash:rgba(40,120,177,.22);
+  --tile-pill:rgba(20,88,135,.87);
+  position:relative;isolation:isolate;pointer-events:auto
+}
+.home-collage-tile[data-category="work"]{
+  --tile-wash:rgba(190,106,66,.21);
+  --tile-pill:rgba(151,63,34,.88)
+}
+.home-collage-tile[data-category="personal"]{
+  --tile-wash:rgba(112,145,87,.23);
+  --tile-pill:rgba(70,98,48,.88)
+}
+.home-collage-image-link{
+  display:block;position:relative;width:100%;height:100%;
+  text-decoration:none;outline-offset:-3px;cursor:pointer
+}
 .home-collage-image-link img{width:100%;height:100%;display:block;object-fit:cover}
-.home-collage-caption{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:end;gap:7px;padding:clamp(8px,1vw,15px);background:linear-gradient(to top,rgba(12,24,44,.98) 0%,rgba(16,32,56,.88) 48%,rgba(16,32,56,.12) 100%);color:#fff;opacity:0;visibility:hidden;transform:translateY(6px);pointer-events:none;transition:opacity .2s,transform .2s,visibility .2s}
-.home-collage-caption-kind{text-transform:uppercase;letter-spacing:.13em;font-size:10px;font-weight:850;color:#adddf8}
-.home-collage-tile[data-category="work"] .home-collage-caption-kind{color:#ffb885}
-.home-collage-tile[data-category="personal"] .home-collage-caption-kind{color:#f4d66e}
-.home-collage-caption-title{font-size:clamp(10px,1.05vw,13px);line-height:1.3;letter-spacing:-.01em;max-height:3.8em;overflow:hidden}
-.home-collage-caption-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
-.home-collage-caption-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:27px;padding:5px 7px;text-decoration:none;font-size:10px;font-weight:780;line-height:1.3;border:1px solid rgba(255,255,255,.52);background:rgba(255,255,255,.12);color:#fff;border-radius:3px}
-.home-collage-caption-actions a:first-child{background:#f6f5f0;color:#182944;border-color:#f6f5f0}
-.home-collage-caption-actions a:hover{background:#b3def5;color:#102b48;border-color:#b3def5}
-.home-collage-caption-actions a:focus-visible,.home-collage-image-link:focus-visible{outline:3px solid #f7cd60;outline-offset:-3px}
-.home-collage-tile:hover,.home-collage-tile:focus-within{z-index:4;box-shadow:0 15px 34px rgba(0,0,0,.38);border-color:#b6dffa}
-.home-collage-tile:hover .home-collage-caption,.home-collage-tile:focus-within .home-collage-caption{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+.home-collage-hover-wash{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(196,204,211,.075),var(--tile-wash));
+  opacity:0;transition:opacity .22s ease
+}
+.home-collage-open-label{
+  position:absolute;z-index:2;top:9px;left:50%;max-width:calc(100% - 14px);
+  padding:6px 11px;border:1px solid rgba(255,255,255,.20);
+  border-radius:999px;background:var(--tile-pill);color:#fff;
+  box-shadow:0 3px 12px rgba(11,24,41,.12);
+  backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+  font-size:clamp(9px,.83vw,11px);font-weight:790;line-height:1.25;
+  text-align:center;white-space:nowrap;pointer-events:none;
+  opacity:0;visibility:hidden;transform:translate(-50%,-6px);
+  transition:opacity .22s ease,transform .22s ease,visibility .22s
+}
+.home-collage-tile:hover,.home-collage-tile:focus-within{
+  z-index:4;border-color:var(--photo-sky,#b2dff6)
+}
+.home-collage-tile:hover .home-collage-hover-wash,
+.home-collage-tile:focus-within .home-collage-hover-wash{opacity:1}
+.home-collage-tile:hover .home-collage-open-label,
+.home-collage-tile:focus-within .home-collage-open-label{
+  opacity:1;visibility:visible;transform:translate(-50%,0)
+}
+.home-collage-image-link:focus-visible{
+  outline:3px solid #f7cd60;outline-offset:-3px
+}
+/* Keep one image steady under the pointer/focus while the other lanes move. */
 .home-collage-ready .home-collage-lane:has(.home-collage-tile:hover),
 .home-collage-ready .home-collage-lane:focus-within{animation-play-state:paused}
 @media(max-width:740px){
- .home-collage-caption{padding:6px;gap:3px}
- .home-collage-caption-title{font-size:10px}
- .home-collage-caption-kind{font-size:8px}
- .home-collage-caption-actions a{font-size:9px;min-height:24px;padding:3px 5px}
+  .home-collage-open-label{top:5px;padding:4px 7px;font-size:9px}
 }
 @media(hover:none){
- .home-collage-caption{opacity:1;visibility:visible;transform:none;pointer-events:auto;background:linear-gradient(to top,rgba(12,24,44,.9),transparent 76%)}
-}
-@media(prefers-reduced-motion:reduce){.home-collage-caption{transition:none}}
-
-@keyframes home-collage-flow-down{
-  from{transform:translate3d(0,-50%,0)}
-  to{transform:translate3d(0,0,0)}
-}
-.home-hero-bridge{height:clamp(42px,4.5vw,64px);background:linear-gradient(to bottom,#211e24 0%,#6a6061 42%,#ebe0d4 100%);border-bottom:1px solid rgba(94,70,60,.12);pointer-events:none}
-html[data-theme="dark"] .home-hero-bridge{background:linear-gradient(to bottom,#211e24 0%,#29252c 50%,#322b33 100%);border-color:rgba(255,255,255,.08)}
-.home-pillar-section{background:#ebe0d4;border-top:0;padding:clamp(64px,6.4vw,90px) 0 clamp(90px,8vw,120px);position:relative}
-html[data-theme="dark"] .home-pillar-section{background:#322b33}
-.home-pillar-inner{max-width:1220px}
-.home-pillar-section .pillar-heading{align-items:end;margin-bottom:clamp(25px,3vw,42px);gap:30px}
-.home-pillar-section .pillar-heading .eyebrow{margin-bottom:13px;color:var(--teal);font-size:11px}
-.home-pillar-section .pillar-heading h2{font-size:clamp(2.55rem,4.5vw,4.6rem);letter-spacing:-.066em;line-height:1.05}
-.home-pillar-section .pillar-heading>p{max-width:385px;font-size:15px;line-height:1.7;color:var(--muted)}
-.home-pillar-section .pillar-explorer{box-shadow:0 18px 46px rgba(29,24,22,.1);border-color:var(--line)}
-html[data-theme="dark"] .home-pillar-section .pillar-explorer{box-shadow:0 18px 45px rgba(0,0,0,.16)}
-@media(max-width:1020px){
-  .home-hero-inner{min-height:580px}
-  .home-hero-copy{width:51%}
-  .home-hero h1{font-size:clamp(2.8rem,5.2vw,4.5rem)}
-  .home-hero-visual{width:55%}
-}
-@media(max-width:740px){
-  .home-hero-inner{display:flex;flex-direction:column;align-items:stretch;min-height:0;gap:0;padding-block:clamp(42px,7vw,62px) 0}
-  .home-hero-copy{width:100%}
-  .home-hero h1{font-size:clamp(2.75rem,9vw,4rem);max-width:590px;margin-bottom:20px}
-  .home-hero-copy .eyebrow{font-size:10px;margin-bottom:18px}
-  .home-hero-description{font-size:15px;line-height:1.65;max-width:570px;margin-bottom:22px}
-  .home-hero-visual{position:relative;inset:auto;width:100%;height:clamp(200px,40vw,280px);max-width:580px;margin:22px auto 0}
-  .home-collage-scene{mask-image:linear-gradient(to bottom,transparent,#000 12%,#000 55%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 12%,#000 55%,transparent 100%)}
-  .home-collage-sequence{gap:9px;padding:4.5px 0}
-  .home-collage-tile{border-radius:5px}
-  .home-collage-readable-edge{background:linear-gradient(to bottom,rgba(33,30,36,.09),rgba(33,30,36,.04))}
-  .home-hero-bridge{height:42px}
-  .home-pillar-section{padding:60px 0 85px}
-  .home-pillar-section .pillar-heading{align-items:start}
-  .home-pillar-section .pillar-heading h2{font-size:clamp(2.4rem,8vw,3.3rem)}
-}
-@media(max-width:420px){
- .home-hero h1{font-size:clamp(2.5rem,10vw,3.4rem)}
- .home-hero-visual{height:205px}
- .home-hero-actions .button{min-height:44px;padding:10px 12px;font-size:12px}
+  /* Touch visitors can tap the entire picture; focus still reveals the cue. */
+  .home-collage-open-label{font-size:9px}
 }
 @media(prefers-reduced-motion:reduce){
-  .home-collage-ready .home-collage-lane{animation:none!important;transform:translate3d(0,-50%,0)!important;will-change:auto}
-  .home-collage-scene{filter:none!important;opacity:.77!important;will-change:auto}
-  .home-hero .button{transition:none!important}
+  .home-collage-hover-wash,.home-collage-open-label{transition:none}
 }
