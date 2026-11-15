@@ -35,7 +35,7 @@ class Scan(HTMLParser):
         if tag == "div" and "data-home-collage" in a:
             self.in_collage = True
             self.collage_depth = 1
-            check(a.get("aria-hidden") == "true", "Collage should be decorative to assistive technology")
+            check(a.get("role") == "group" and bool(a.get("aria-label")), "Interactive collage should have an accessible group label")
         elif self.in_collage and tag == "div":
             self.collage_depth += 1
         if self.in_collage and tag == "img":
@@ -94,6 +94,13 @@ check(all((ROOT / path).is_file() for path in sources), "Image pool has a missin
 for cat in ["school","work","personal"]:
     group={f["src"] for p in data["projects"] if p["category"]==cat for f in p.get("figures",[])}
     check(len(set(sources)&group)>=3, "Too few project images for "+cat)
+check("figureAnchor" in js and "projectPage" in js, "Collage figures must map to original project pages and exact figure anchors")
+check('aria-label' in js and 'home-collage-caption' in js, "Interactive image navigation must have accessible names and descriptions")
+check('link.tabIndex = -1' in js, "Repeated animation halves should not double keyboard tab stops")
+check('box.id = ' in (ROOT / "script.js").read_text(encoding="utf-8"), "Project galleries must expose stable figure IDs")
+noaa=(ROOT / "school/noaa.html").read_text(encoding="utf-8")
+for name in ["noaa-event-frequency","noaa-economic-damage","noaa-precision-recall","noaa-feature-importance"]:
+    check('id="figure-'+name+'"' in noaa, "Missing direct NOAA image anchor: "+name)
 check("cloneNode(true)" in js and "replaceChildren(sequence, repeat)" in js, "Infinite scroll requires identical sequence halves")
 check("reserved = lanes.map" in js and "Math.random()" in js, "Collage needs balanced random imagery")
 check("home-collage-flow-down" in css and "linear infinite" in css, "Continuous linear motion missing")
