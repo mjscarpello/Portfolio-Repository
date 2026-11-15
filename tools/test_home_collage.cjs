@@ -79,7 +79,7 @@ function run(seed){
   assert(image.src.startsWith("figures/"),"Original figure must be retained");
   assert.equal(wash.className,"home-collage-hover-wash");
   assert.equal(label.className,"home-collage-open-label");
-  assert.equal(label.textContent,"Open project");
+  assert.equal(label.textContent,"Open: " + firstTile.dataset.project,"Label should use the actual project title");
   assert.equal(firstTile.children.length,1,"Only one linked visual, no duplicate action buttons");
   assert.equal(firstTile.querySelectorAll("a").length,1,"One link per visual");
   assert(lane.children[1].querySelectorAll("a").every(a=>a.tabIndex===-1),"Repeat should not add tab stops");
