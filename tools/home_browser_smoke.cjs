@@ -128,6 +128,8 @@ async function main() {
   assert(hoverState.figure.includes("#figure-"),"Hover should link to the exact source figure");
   assert.equal(hoverState.figure,hoverState.image,"Image and caption should target same figure");
   assert.equal(hoverState.colors,"#2878b1","Photo-derived palette should load");
+  // Keep a real-browser screenshot of the temporary hover presentation.
+  await desktopPage.screenshot({path:path.join(OUTPUT,"home-hover.png"),animations:"allow",fullPage:false});
   await desktopPage.mouse.move(16,16);
   await desktopPage.waitForTimeout(120);
   assert.equal(await laneLocator.evaluate(el=>getComputedStyle(el).animationPlayState),"running",
@@ -149,6 +151,8 @@ async function main() {
     });
     assert(found && found.tag==="FIGURE","Exact figure target missing: "+dest);
     assert(found.top<found.view && found.bottom>0,"Deep link failed: "+dest+" "+JSON.stringify(found));
+    if(dest.includes("/school/noaa.html")) await inspectPage.screenshot({path:path.join(OUTPUT,"noaa-figure-target.png"),fullPage:false});
+    if(dest.includes("/work/unmc.html")) await inspectPage.screenshot({path:path.join(OUTPUT,"unmc-figure-target.png"),fullPage:false});
   }
   await inspectPage.close();
 
