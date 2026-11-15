@@ -71,11 +71,17 @@ function run(seed){
  assert.equal(new Set(chosen).size,15,"Fifteen unique originals needed");
  for(const lane of lanes){
   const firstTile=lane.children[0].children[0];
-  const imageLink=firstTile.children[0],caption=firstTile.children[1];
-  assert(imageLink.href.includes("#figure-"),"Exact figure link needed");
-  assert(caption.children[2].children[0].href.endsWith(".html"),"Project link needed");
-  assert.equal(caption.children[2].children[1].href,imageLink.href,"Caption must locate same original image");
-  assert.equal(imageLink.attributes["aria-label"].includes("Find"),true);
+  const imageLink=firstTile.children[0];
+  const image=imageLink.children[0],wash=imageLink.children[1],label=imageLink.children[2];
+  assert(imageLink.href.includes("#figure-"),"Exact project figure link needed");
+  assert(imageLink.href.endsWith(".html")===false,"Image must keep its figure anchor");
+  assert(imageLink.attributes["aria-label"].includes("Open project"),"Accessible project action needed");
+  assert(image.src.startsWith("figures/"),"Original figure must be retained");
+  assert.equal(wash.className,"home-collage-hover-wash");
+  assert.equal(label.className,"home-collage-open-label");
+  assert.equal(label.textContent,"Open project");
+  assert.equal(firstTile.children.length,1,"Only one linked visual, no duplicate action buttons");
+  assert.equal(firstTile.querySelectorAll("a").length,1,"One link per visual");
   assert(lane.children[1].querySelectorAll("a").every(a=>a.tabIndex===-1),"Repeat should not add tab stops");
  }
  assert.equal(scene.style.data.get("--hero-exit-opacity"),"0.770");

@@ -92,7 +92,8 @@ async function main() {
     });
     await desktopPage.waitForTimeout(400);
   }
-  // A genuine on-screen figure should pause on hover and offer two links.
+  // The moving figure should remain the clickable surface. A hover shows
+  // only a gentle category tint and a single non-button "Open project" pill.
   const tileHandle=await desktopPage.evaluateHandle(()=>{
     const scene=document.querySelector(".home-collage-scene").getBoundingClientRect();
     return [...document.querySelectorAll(".home-collage-tile")].find(el=>{
@@ -103,37 +104,64 @@ async function main() {
   });
   const tile=tileHandle.asElement();
   assert(tile,"Expected a fully visible, hoverable project figure");
-  // Playwright's elementHandle.hover waits for a stationary element.
-  // The collage is intentionally moving, so move the real pointer directly
-  // to the tile's current center; CSS then freezes that lane on hover.
+  // An animated element is never "stable" for Playwright's hover() action.
   const center=await tile.evaluate(el=>{
     const r=el.getBoundingClientRect();
     return {x:r.left+r.width/2,y:r.top+r.height/2};
   });
   await desktopPage.mouse.move(center.x,center.y);
-  await desktopPage.waitForTimeout(220);
+  await desktopPage.waitForTimeout(270);
   const hoverState=await tile.evaluate(el=>{
-    const caption=el.querySelector(".home-collage-caption");
-    const actions=[...caption.querySelectorAll("a")];
+    const wash=el.querySelector(".home-collage-hover-wash");
+    const label=el.querySelector(".home-collage-open-label");
     const imageLink=el.querySelector(".home-collage-image-link");
-    return {opacity:Number(getComputedStyle(caption).opacity),
+    const tileRect=el.getBoundingClientRect();
+    const labelRect=label.getBoundingClientRect();
+    return {
+      washOpacity:Number(getComputedStyle(wash).opacity),
+      labelOpacity:Number(getComputedStyle(label).opacity),
+      labelBackground:getComputedStyle(label).backgroundColor,
+      labelRadius:getComputedStyle(label).borderRadius,
+      labelTop:labelRect.top-tileRect.top,
+      tileHeight:tileRect.height,
+      labelText:label.textContent.trim(),
+      linkCount:el.querySelectorAll("a").length,
+      buttonCount:el.querySelectorAll("button").length,
+      figure:imageLink?.getAttribute("href"),
+      accessibleName:imageLink?.getAttribute("aria-label"),
+      category:el.dataset.category,
       play:getComputedStyle(el.closest(".home-collage-lane")).animationPlayState,
-      project:actions[0]?.getAttribute("href"),figure:actions[1]?.getAttribute("href"),
-      image:imageLink?.getAttribute("href"),
-      colors:getComputedStyle(document.documentElement).getPropertyValue("--photo-cobalt").trim()};
+      palette:getComputedStyle(document.documentElement).getPropertyValue("--photo-cobalt").trim()
+    };
   });
-  assert.equal(hoverState.play,"paused","Hover must steady the moving image under the cursor");
-  assert(hoverState.opacity>.9,"Hover explanation and links should be visible");
-  assert(hoverState.project.endsWith(".html"),"Hover should link to a case study");
-  assert(hoverState.figure.includes("#figure-"),"Hover should link to the exact source figure");
-  assert.equal(hoverState.figure,hoverState.image,"Image and caption should target same figure");
-  assert.equal(hoverState.colors,"#2878b1","Photo-derived palette should load");
-  // Keep a real-browser screenshot of the temporary hover presentation.
+  assert.equal(hoverState.play,"paused","The pointer should steady its moving figure lane");
+  assert(hoverState.washOpacity>.85,"Light color wash should show on hover");
+  assert(hoverState.labelOpacity>.85,"Single Open project label should appear on hover");
+  assert.equal(hoverState.labelText,"Open project");
+  assert.equal(hoverState.buttonCount,0,"No visual buttons allowed");
+  assert.equal(hoverState.linkCount,1,"Only the image should link");
+  assert(hoverState.labelTop<hoverState.tileHeight*.30,"Open project label must be at top");
+  assert(hoverState.figure.includes(".html#figure-"),"Image still links to its exact project figure");
+  assert(hoverState.accessibleName.startsWith("Open project "),"Image must be accessible");
+  assert.equal(hoverState.palette,"#2878b1","Portrait palette should remain unchanged");
+  const tinted=await desktopPage.evaluate(()=>{
+    const colors={};
+    for(const category of ["school","work","personal"]){
+      const tile=document.querySelector('.home-collage-tile[data-category="'+category+'"]');
+      colors[category]={
+        wash:getComputedStyle(tile).getPropertyValue("--tile-wash").trim(),
+        pill:getComputedStyle(tile).getPropertyValue("--tile-pill").trim()
+      };
+    }
+    return colors;
+  });
+  assert.equal(new Set(Object.values(tinted).map(c=>c.wash)).size,3,"Each pillar needs a unique light wash");
+  assert.equal(new Set(Object.values(tinted).map(c=>c.pill)).size,3,"Each pillar needs its own dark translucent pill");
   await desktopPage.screenshot({path:path.join(OUTPUT,"home-hover.png"),animations:"allow",fullPage:false});
   await desktopPage.mouse.move(16,16);
   await desktopPage.waitForTimeout(120);
   assert.equal(await laneLocator.evaluate(el=>getComputedStyle(el).animationPlayState),"running",
-    "Movement should resume when hover ends");
+    "Downward motion should resume after the pointer leaves");
   // Direct gallery deep links require client-side anchor creation.
   const inspectPage=await desktop.newPage();
   for (const dest of [

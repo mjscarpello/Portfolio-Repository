@@ -20,9 +20,9 @@ Only the palette is translated into source code. The uploaded portraits themselv
 Colors are used as distinct visual identities across the pillars, headers, footers, résumé, cards, and exhibits rather than flooding the interface with a bright rainbow gradient. The original research figures remain unchanged. Both light and dark themes preserve readable body text and functional links.
 
 ## Interactive moving figure navigation
-The existing randomized, continuously downward-scrolling image animation remains intact. Each project image now offers an Open project link and a Find image link, leading to the exact original figure location inside that project. A hovered or keyboard-focused lane temporarily pauses to make the link stable.
+The existing randomized, continuously downward-scrolling image animation remains intact. Each project image is one clickable link that opens its project at the exact original figure. Hovering or focusing displays a delicate semi-transparent overlay in the pillar's color and a small rounded **Open project** label at the top. There are no separate image buttons. The corresponding lane briefly pauses so the link remains easy to select.
 
-The second mirrored animation sequence is visually interactive by pointer while avoiding duplicate keyboard tab stops. On touch interfaces, captions are always visible. NOAA editorial figures have static named IDs; other case study galleries receive stable figure IDs when rendered and scroll to the requested anchor after the gallery has loaded.
+The second mirrored animation sequence remains pointer-clickable without duplicating keyboard tab stops. Touch users can tap the image directly, and keyboard users see the same visual cue on focus. NOAA editorial figures have static named IDs; other case-study galleries receive figure IDs when rendered and scroll to the requested anchor after the gallery has loaded.
 
 ## Verification plan
-The new palette is loaded by all 14 primary styled HTML pages. Automated checks cover light/dark contrast, exact anchors, randomization, original assets, responsive design, hover behavior, and navigation using Chrome. The current branch is a draft for visual review and does not alter the published main website.
+The new palette is loaded by all 14 primary styled HTML pages. Automated checks cover light/dark contrast, exact anchors, randomization, original assets, responsive design, hover behavior, and navigation using Chrome. The small hover-only refinement remains in a draft pull request until review; the published main website stays unchanged.
