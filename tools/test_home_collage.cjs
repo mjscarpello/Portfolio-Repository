@@ -51,6 +51,7 @@ function run(seed){
  class IntersectionObserver{
   constructor(f){callback=f;}observe(node){assert.equal(node,hero);}
  }
+ window.IntersectionObserver=IntersectionObserver;
  vm.runInNewContext(source,{Math:math,window,document,IntersectionObserver},{filename:"home-collage.js"});
  const flush=()=>{while(frames.length)frames.shift()();};
  assert(scene.classList.contains("home-collage-ready"),"Randomization should initialize");
