@@ -95,7 +95,13 @@ for cat in ["school","work","personal"]:
     group={f["src"] for p in data["projects"] if p["category"]==cat for f in p.get("figures",[])}
     check(len(set(sources)&group)>=3, "Too few project images for "+cat)
 check("figureAnchor" in js and "projectPage" in js, "Collage figures must map to original project pages and exact figure anchors")
-check('aria-label' in js and 'home-collage-caption' in js, "Interactive image navigation must have accessible names and descriptions")
+check('aria-label' in js and 'home-collage-open-label' in js, "Single image link must have accessible name and a visual cue")
+check('home-collage-hover-wash' in js and 'home-collage-hover-wash' in css, "Missing pillar-toned translucent wash")
+check('label.textContent = "Open project"' in js, "Hover label should read Open project")
+check('home-collage-caption-actions' not in js and 'home-collage-caption-actions' not in css, "Old dual-button UI must be removed")
+check('home-collage-open-label' in css and 'border-radius:999px' in css, "Top hover label must be a rounded pill")
+for category in ("work","personal"):
+    check('.home-collage-tile[data-category="'+category+'"]' in css, "Missing custom tinted hover overlay for "+category)
 check('link.tabIndex = -1' in js, "Repeated animation halves should not double keyboard tab stops")
 check('box.id = ' in (ROOT / "script.js").read_text(encoding="utf-8"), "Project galleries must expose stable figure IDs")
 noaa=(ROOT / "school/noaa.html").read_text(encoding="utf-8")
