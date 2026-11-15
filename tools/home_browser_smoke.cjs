@@ -103,8 +103,15 @@ async function main() {
   });
   const tile=tileHandle.asElement();
   assert(tile,"Expected a fully visible, hoverable project figure");
-  await tile.hover();
-  await desktopPage.waitForTimeout(160);
+  // Playwright's elementHandle.hover waits for a stationary element.
+  // The collage is intentionally moving, so move the real pointer directly
+  // to the tile's current center; CSS then freezes that lane on hover.
+  const center=await tile.evaluate(el=>{
+    const r=el.getBoundingClientRect();
+    return {x:r.left+r.width/2,y:r.top+r.height/2};
+  });
+  await desktopPage.mouse.move(center.x,center.y);
+  await desktopPage.waitForTimeout(220);
   const hoverState=await tile.evaluate(el=>{
     const caption=el.querySelector(".home-collage-caption");
     const actions=[...caption.querySelectorAll("a")];
