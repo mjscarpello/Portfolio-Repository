@@ -97,9 +97,11 @@ for cat in ["school","work","personal"]:
 check("figureAnchor" in js and "projectPage" in js, "Collage figures must map to original project pages and exact figure anchors")
 check('aria-label' in js and 'home-collage-open-label' in js, "Single image link must have accessible name and a visual cue")
 check('home-collage-hover-wash' in js and 'home-collage-hover-wash' in css, "Missing pillar-toned translucent wash")
-check('label.textContent = "Open project"' in js, "Hover label should read Open project")
+check('label.textContent = "Open: " + item.title' in js, "Hover label should be Open: followed by the registered project title")
 check('home-collage-caption-actions' not in js and 'home-collage-caption-actions' not in css, "Old dual-button UI must be removed")
-check('home-collage-open-label' in css and 'border-radius:999px' in css, "Top hover label must be a rounded pill")
+check('home-collage-open-label' in css and 'border-radius:8px' in css and 'border-radius:999px' not in css, "Hover label must be a rounded rectangle instead of a pill")
+check('var(--tile-wash-top) 0%' in css and 'var(--tile-wash-mid) 61%' in css and 'var(--tile-wash) 100%' in css,"Tint must fade from almost opaque at bottom toward transparent at top")
+check(css.count('rgba(150,65,39,.97)')==1 and css.count('rgba(75,106,52,.97)')==1, "Work and Personal need strongly opaque lower gradients")
 for category in ("work","personal"):
     check('.home-collage-tile[data-category="'+category+'"]' in css, "Missing custom tinted hover overlay for "+category)
 check('link.tabIndex = -1' in js, "Repeated animation halves should not double keyboard tab stops")
