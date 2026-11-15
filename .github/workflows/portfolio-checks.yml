@@ -67,6 +67,12 @@ jobs:
               assert width>=350 and height>=900, f"Unexpected screenshot dimensions: {path}: {width}x{height}"
               print(f"Screenshot {path.name}: {width}x{height} ({len(data):,} bytes)")
           PY
+      - name: Install browser QA driver
+        if: success()
+        run: npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund playwright-core
+      - name: Verify browser interactions and capture fully decoded responsive screenshots
+        if: success()
+        run: node tools/home_browser_smoke.cjs
       - name: Upload homepage browser review screenshots
         if: success()
         uses: actions/upload-artifact@v4
