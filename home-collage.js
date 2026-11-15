@@ -64,43 +64,34 @@
     tile.dataset.category = item.category;
     tile.dataset.figure = item.src;
 
-    // Two destinations: case study and this exact figure inside it.
+    // One uncluttered interactive surface. Clicking opens the exact source
+    // figure within its project, preserving precise navigation without
+    // multiple on-image action buttons.
     const imageLink = document.createElement("a");
     imageLink.className = "home-collage-image-link";
     imageLink.href = item.projectPage + "#" + item.figureAnchor;
-    imageLink.setAttribute("aria-label","Find " + item.figureTitle + " in " + item.title);
+    imageLink.setAttribute("aria-label",
+      "Open project " + item.title + " at original figure " + item.figureTitle);
     const img = document.createElement("img");
     img.src = item.src;
-    img.alt = ""; // The linked figure has a descriptive accessible name.
+    img.alt = "";
     img.width = 480;
     img.height = 300;
     img.decoding = "async";
     img.loading = "eager";
     img.draggable = false;
-    imageLink.append(img);
 
-    const caption = document.createElement("div");
-    caption.className = "home-collage-caption";
-    const kind = document.createElement("span");
-    kind.className = "home-collage-caption-kind";
-    kind.textContent = item.category;
-    const title = document.createElement("strong");
-    title.className = "home-collage-caption-title";
-    title.textContent = item.figureTitle;
-    const actions = document.createElement("div");
-    actions.className = "home-collage-caption-actions";
-    const projectLink = document.createElement("a");
-    projectLink.href = item.projectPage;
-    projectLink.textContent = "Project ↗";
-    projectLink.setAttribute("aria-label","Open project " + item.title);
-    const figureLink = document.createElement("a");
-    figureLink.href = item.projectPage + "#" + item.figureAnchor;
-    figureLink.textContent = "Find image ↗";
-    figureLink.setAttribute("aria-label",
-      "Go to original image " + item.figureTitle + " in " + item.title);
-    actions.append(projectLink,figureLink);
-    caption.append(kind,title,actions);
-    tile.append(imageLink,caption);
+    // The wash and pill are decorative. The image link provides the
+    // accessible name for keyboard and assistive-technology visitors.
+    const tint = document.createElement("span");
+    tint.className = "home-collage-hover-wash";
+    tint.setAttribute("aria-hidden", "true");
+    const label = document.createElement("span");
+    label.className = "home-collage-open-label";
+    label.textContent = "Open project";
+    label.setAttribute("aria-hidden", "true");
+    imageLink.append(img, tint, label);
+    tile.append(imageLink);
     return tile;
   }
 
