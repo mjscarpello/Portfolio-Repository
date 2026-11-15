@@ -1,7 +1,7 @@
 /* Ordinary I: scoped homepage collage and editorial transition.
    All authentic project figures remain unchanged in /figures/. */
 .home-main{width:100%;min-width:0}
-.home-hero{--hero-exit-opacity:1;--hero-exit-blur:0px;position:relative;isolation:isolate;overflow:hidden;color:#f6f1eb;background:#211e24}
+.home-hero{--hero-exit-opacity:.66;--hero-exit-blur:0px;position:relative;isolation:isolate;overflow:hidden;color:#f6f1eb;background:#211e24}
 .home-hero-inner{display:grid;grid-template-columns:minmax(0,.98fr) minmax(0,1.02fr);gap:clamp(20px,4vw,62px);align-items:center;min-height:clamp(540px,50vw,655px);padding-block:clamp(60px,6vw,90px)}
 .home-hero-copy{position:relative;z-index:2;min-width:0}
 .home-hero-copy .eyebrow{color:#f2b18f;margin:0 0 26px;font-size:11px;line-height:1.55;letter-spacing:.16em}
@@ -14,6 +14,11 @@
 .home-hero .button-dark:hover{background:#e9c0a9;border-color:#e9c0a9}
 .home-hero .button-outline{color:#f5efe8;border-color:#9f949a;background:transparent}
 .home-hero .button-outline:hover{background:rgba(255,255,255,.1)}
+.home-hero-visual{position:relative;min-width:0;width:100%}
+.home-motion-toggle{display:inline-flex;gap:10px;align-items:center;position:absolute;right:12px;bottom:10px;z-index:3;border:1px solid rgba(246,241,235,.35);border-radius:5px;background:rgba(33,30,36,.78);color:#f6f1eb;padding:7px 10px;font-size:11px;font-weight:720;letter-spacing:.01em}
+.home-motion-toggle:hover{background:rgba(65,54,60,.95);border-color:rgba(246,241,235,.65)}
+.home-motion-toggle[hidden]{display:none!important}
+.home-motion-toggle span{font-size:14px}
 .home-collage-scene{position:relative;min-width:0;width:100%;height:clamp(360px,39vw,520px);overflow:hidden;pointer-events:none;isolation:isolate;filter:blur(var(--hero-exit-blur));opacity:var(--hero-exit-opacity);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 11%,#000 88%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,#000 11%,#000 88%,transparent 100%);will-change:opacity}
 .home-collage-lane{position:absolute;top:-34px;bottom:-34px;width:31.2%;display:flex;flex-direction:column;gap:clamp(10px,1.4vw,18px);animation:home-collage-drift 86s ease-in-out infinite alternate;will-change:transform}
 .home-collage-lane--one{left:1%;--drift-x:-11px;--drift-y:-16px;animation-duration:96s;transform:translate3d(0,8px,0)}
@@ -23,7 +28,7 @@
 .home-collage-tile img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.73) contrast(.97)}
 .home-collage-tile--chart img{object-fit:contain;background:#f8f6f0}
 .home-collage-readable-edge{pointer-events:none;position:absolute;inset:0;background:linear-gradient(to right,rgba(33,30,36,.58),rgba(33,30,36,.19) 29%,rgba(33,30,36,.11) 100%);opacity:1}
-.home-collage-scene{opacity:calc(var(--hero-exit-opacity) * .66)}
+.home-collage-scene{opacity:var(--hero-exit-opacity)}
 .home-collage-paused .home-collage-lane{animation-play-state:paused}
 @keyframes home-collage-drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(var(--drift-x,9px),var(--drift-y,18px),0)}}
 .home-hero-bridge{height:clamp(42px,4.5vw,64px);background:linear-gradient(to bottom,#211e24 0%,#6a6061 42%,#ebe0d4 100%);border-bottom:1px solid rgba(94,70,60,.12);pointer-events:none}
@@ -44,7 +49,7 @@ html[data-theme="dark"] .home-pillar-section .pillar-explorer{box-shadow:0 18px 
  .home-hero h1{font-size:clamp(2.75rem,9vw,4rem);max-width:590px;margin-bottom:20px}
  .home-hero-copy .eyebrow{font-size:10px;margin-bottom:18px}
  .home-hero-description{font-size:15px;line-height:1.65;max-width:570px;margin-bottom:22px}
- .home-collage-scene{height:235px;margin:15px auto 0;max-width:580px;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 18%,#000 77%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,#000 18%,#000 77%,transparent 100%)}
+ .home-hero-visual{margin:15px auto 0;max-width:580px}.home-collage-scene{height:235px;margin:0;max-width:580px;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 18%,#000 77%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,#000 18%,#000 77%,transparent 100%)}
  .home-collage-lane{top:-25px;gap:10px}
  .home-collage-tile{border-radius:5px}
  .home-collage-readable-edge{background:linear-gradient(to bottom,rgba(33,30,36,.12),rgba(33,30,36,.06))}
@@ -58,4 +63,5 @@ html[data-theme="dark"] .home-pillar-section .pillar-explorer{box-shadow:0 18px 
  .home-collage-lane{animation:none!important;transform:none!important;will-change:auto}
  .home-collage-scene{filter:none!important;transition:none!important;opacity:.66!important;will-change:auto}
  .home-hero .button{transition:none!important}
+ .home-motion-toggle{display:none!important}
 }
