@@ -125,6 +125,13 @@ async function main() {
       labelTop:labelRect.top-tileRect.top,
       tileHeight:tileRect.height,
       labelText:label.textContent.trim(),
+      project:el.dataset.project,
+      labelWidth:labelRect.width,
+      tileWidth:tileRect.width,
+      labelHeight:labelRect.height,
+      washGradient:getComputedStyle(wash).backgroundImage,
+      washBottom:getComputedStyle(el).getPropertyValue("--tile-wash").trim(),
+      washTop:getComputedStyle(el).getPropertyValue("--tile-wash-top").trim(),
       linkCount:el.querySelectorAll("a").length,
       buttonCount:el.querySelectorAll("button").length,
       figure:imageLink?.getAttribute("href"),
@@ -137,7 +144,12 @@ async function main() {
   assert.equal(hoverState.play,"paused","The pointer should steady its moving figure lane");
   assert(hoverState.washOpacity>.85,"Light color wash should show on hover");
   assert(hoverState.labelOpacity>.85,"Single Open project label should appear on hover");
-  assert.equal(hoverState.labelText,"Open project");
+  assert.equal(hoverState.labelText,"Open: " + hoverState.project,"Hover should name the actual source project");
+  assert(hoverState.labelWidth <= hoverState.tileWidth,"Label should fit the project image");
+  assert(hoverState.labelRadius==="8px","Hover label should be a rounded rectangle");
+  assert(hoverState.washGradient.includes("linear-gradient"),"Hover needs a graduated color overlay");
+  assert(/, 0\\.97\\)/.test(hoverState.washBottom),"Bottom of image should have a near-opaque pillar tint");
+  assert(/, 0\\.065\\)/.test(hoverState.washTop),"Top of image should retain a faint tint");
   assert.equal(hoverState.buttonCount,0,"No visual buttons allowed");
   assert.equal(hoverState.linkCount,1,"Only the image should link");
   assert(hoverState.labelTop<hoverState.tileHeight*.30,"Open project label must be at top");
@@ -155,7 +167,7 @@ async function main() {
     }
     return colors;
   });
-  assert.equal(new Set(Object.values(tinted).map(c=>c.wash)).size,3,"Each pillar needs a unique light wash");
+  assert.equal(new Set(Object.values(tinted).map(c=>c.wash)).size,3,"Each pillar needs its own near-opaque bottom gradient");
   assert.equal(new Set(Object.values(tinted).map(c=>c.pill)).size,3,"Each pillar needs its own dark translucent pill");
   await desktopPage.screenshot({path:path.join(OUTPUT,"home-hover.png"),animations:"allow",fullPage:false});
   await desktopPage.mouse.move(16,16);
