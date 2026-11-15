@@ -26,7 +26,14 @@
 .home-collage-lane--three{left:67.6%;--drift-x:12px;--drift-y:-14px;animation-duration:109s;animation-delay:-17s}
 .home-collage-tile{flex:none;display:block;width:100%;aspect-ratio:var(--tile-ratio,1.4);overflow:hidden;border:1px solid rgba(251,241,232,.26);border-radius:9px;background:#ebe7e1;box-shadow:0 9px 27px rgba(0,0,0,.25)}
 .home-collage-tile img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.73) contrast(.97)}
-.home-collage-tile--chart img{object-fit:contain;background:#f8f6f0}
+.home-collage-tile--chart img{object-fit:cover;object-position:center;background:#f8f6f0}
+/* Slightly staggered sizes and angles keep the imagery a collage, not a rigid chart grid. */
+.home-collage-lane--one{top:-22px}
+.home-collage-lane--two{top:8px}
+.home-collage-lane--three{top:-40px}
+.home-collage-lane--one .home-collage-tile:nth-child(2){width:94%;align-self:flex-end;transform:rotate(-1.1deg)}
+.home-collage-lane--two .home-collage-tile:nth-child(3){width:95%;transform:rotate(1.3deg)}
+.home-collage-lane--three .home-collage-tile:nth-child(2){width:96%;align-self:flex-start;transform:rotate(-1.3deg)}
 .home-collage-readable-edge{pointer-events:none;position:absolute;inset:0;background:linear-gradient(to right,rgba(33,30,36,.58),rgba(33,30,36,.19) 29%,rgba(33,30,36,.11) 100%);opacity:1}
 .home-collage-scene{opacity:var(--hero-exit-opacity)}
 .home-collage-paused .home-collage-lane{animation-play-state:paused}
