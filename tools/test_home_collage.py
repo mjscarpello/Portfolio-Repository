@@ -87,7 +87,7 @@ for category, ids in expected_categories.items():
     check(bool(paths.intersection(group_assets)), f"No verified {category} assets in collage")
 check(total <= 1600000, f"Fallback collage image weight exceeds target: {total:,} bytes")
 pool_text=js.split('const eligibleSources = new Set([',1)[-1].split(']);',1)[0]
-sources=re.findall(r'"(figures/[^"]+\\.(?:jpg|png|webp))"',pool_text)
+sources=re.findall(r'"(figures/[^"]+\.(?:jpg|png|webp))"',pool_text)
 check(len(sources)>=18 and len(sources)==len(set(sources)), "Random asset pool must contain many unique originals")
 check(set(sources).issubset(registered_figures), "Random selection may use only registered figures")
 check(all((ROOT / path).is_file() for path in sources), "Image pool has a missing image")
