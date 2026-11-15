@@ -32,7 +32,7 @@ class Scan(HTMLParser):
         if tag == "img": self.images.append(a)
         if tag == "a": self.links.append(a)
         if tag == "button": self.buttons.append(a)
-        if tag == "div" and a.get("data-home-collage") is not None:
+        if tag == "div" and "data-home-collage" in a:
             self.in_collage = True
             self.collage_depth = 1
             check(a.get("aria-hidden") == "true", "Collage should be decorative to assistive technology")
@@ -58,7 +58,7 @@ check("class=\"brand-circle\"" in home, "Shared portrait/avatar header is missin
 check((ROOT / "assets/brand-avatar.jpg").is_file(), "Avatar image missing")
 check(any(x.get("href")=="#experiences" for x in scan.links), "Explore my work action changed")
 check(any(x.get("href")=="about.html#mini-resume" for x in scan.links), "Resume action changed")
-check(any(x.get("data-home-motion-toggle") is not None for x in scan.buttons), "Missing pause-motion control")
+check(any("data-home-motion-toggle" in x for x in scan.buttons), "Missing pause-motion control")
 check(len(scan.collage_images)==9, f"Expected 9 original project images, found {len(scan.collage_images)}")
 check(all(x.get("alt") == "" for x in scan.collage_images), "Decorative collage images must have empty alt text")
 check(all(x.get("decoding")=="async" for x in scan.collage_images), "Collage images should decode asynchronously")
