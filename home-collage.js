@@ -77,10 +77,12 @@
     category, shuffle(catalogue.filter(item => item.category === category))
   ]));
   if (lanes.length === 3 && categories.every(key => buckets[key].length >= 3)) {
-    const used = new Set();
-    for (const lane of lanes) {
-      const picks = categories.map(key => buckets[key].shift());
-      picks.forEach(item => used.add(item.src));
+    // Reserve one item from every category for every lane before allocating
+    // optional images. This guarantees balanced, non-repeating selections.
+    const reserved = lanes.map(() => categories.map(key => buckets[key].shift()));
+    const used = new Set(reserved.flat().map(item => item.src));
+    for (const [index, lane] of lanes.entries()) {
+      const picks = reserved[index];
       const extras = shuffle(catalogue.filter(item => !used.has(item.src))).slice(0, 2);
       extras.forEach(item => used.add(item.src));
       const sequence = document.createElement("div");
