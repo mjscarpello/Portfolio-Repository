@@ -39,17 +39,25 @@
 /* Clean single-link hover. The figure itself remains the visual focus. */
 .home-collage-scene{pointer-events:auto}
 .home-collage-tile{
-  --tile-wash:rgba(40,120,177,.22);
-  --tile-pill:rgba(20,88,135,.87);
+  /* School: cobalt blue. The bottom is intentionally nearly opaque while
+     the top remains light enough for the original figure to show through. */
+  --tile-wash-top:rgba(26,92,149,.065);
+  --tile-wash-mid:rgba(26,92,149,.60);
+  --tile-wash:rgba(26,92,149,.97);
+  --tile-pill:rgba(16,74,124,.90);
   position:relative;isolation:isolate;pointer-events:auto
 }
 .home-collage-tile[data-category="work"]{
-  --tile-wash:rgba(190,106,66,.21);
-  --tile-pill:rgba(151,63,34,.88)
+  --tile-wash-top:rgba(150,65,39,.065);
+  --tile-wash-mid:rgba(150,65,39,.60);
+  --tile-wash:rgba(150,65,39,.97);
+  --tile-pill:rgba(114,43,24,.91)
 }
 .home-collage-tile[data-category="personal"]{
-  --tile-wash:rgba(112,145,87,.23);
-  --tile-pill:rgba(70,98,48,.88)
+  --tile-wash-top:rgba(75,106,52,.065);
+  --tile-wash-mid:rgba(75,106,52,.60);
+  --tile-wash:rgba(75,106,52,.97);
+  --tile-pill:rgba(50,79,35,.91)
 }
 .home-collage-image-link{
   display:block;position:relative;width:100%;height:100%;
@@ -58,17 +66,21 @@
 .home-collage-image-link img{width:100%;height:100%;display:block;object-fit:cover}
 .home-collage-hover-wash{
   position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(to bottom,rgba(196,204,211,.075),var(--tile-wash));
-  opacity:0;transition:opacity .22s ease
+  background:linear-gradient(180deg,
+    var(--tile-wash-top) 0%,
+    var(--tile-wash-mid) 61%,
+    var(--tile-wash) 100%);
+  opacity:0;transition:opacity .24s ease
 }
 .home-collage-open-label{
   position:absolute;z-index:2;top:9px;left:50%;max-width:calc(100% - 14px);
-  padding:6px 11px;border:1px solid rgba(255,255,255,.20);
-  border-radius:999px;background:var(--tile-pill);color:#fff;
-  box-shadow:0 3px 12px rgba(11,24,41,.12);
+  padding:7px 9px;border:1px solid rgba(255,255,255,.20);
+  border-radius:8px;background:var(--tile-pill);color:#fff;
+  box-shadow:0 3px 12px rgba(11,24,41,.16);
   backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
   font-size:clamp(9px,.83vw,11px);font-weight:790;line-height:1.25;
-  text-align:center;white-space:nowrap;pointer-events:none;
+  text-align:center;white-space:normal;overflow-wrap:anywhere;
+  text-wrap:balance;pointer-events:none;
   opacity:0;visibility:hidden;transform:translate(-50%,-6px);
   transition:opacity .22s ease,transform .22s ease,visibility .22s
 }
