@@ -20,9 +20,13 @@
     frame = 0;
     if (motionToggle) {
       motionToggle.hidden = motion.matches;
-      motionToggle.setAttribute("aria-pressed", String(manuallyPaused));
-      motionToggle.setAttribute("aria-label", manuallyPaused ? "Resume moving project collage" : "Pause moving project collage");
-      motionToggle.innerHTML = manuallyPaused ? 'Resume motion <span aria-hidden="true">▶</span>' : 'Pause motion <span aria-hidden="true">Ⅱ</span>';
+      const paused = String(manuallyPaused);
+      if (motionToggle.dataset.paused !== paused) {
+        motionToggle.dataset.paused = paused;
+        motionToggle.setAttribute("aria-pressed", paused);
+        motionToggle.setAttribute("aria-label", manuallyPaused ? "Resume moving project collage" : "Pause moving project collage");
+        motionToggle.innerHTML = manuallyPaused ? 'Resume motion <span aria-hidden="true">▶</span>' : 'Pause motion <span aria-hidden="true">Ⅱ</span>';
+      }
     }
     if (motion.matches) {
       hero.classList.add("home-collage-paused");

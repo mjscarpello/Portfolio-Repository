@@ -27,3 +27,51 @@ jobs:
         run: python3 tools/build_portfolio.py
       - name: Validate built site
         run: python3 tools/validate_portfolio.py _site
+      - name: Capture homepage browser review screenshots
+        if: success()
+        shell: bash
+        run: |
+          set -e
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$CHROME" ]; then
+            echo "::warning::No Chrome found. Skipping screenshots."
+            exit 0
+          fi
+          mkdir -p review-screenshots
+          python3 - <<'PY'
+          from pathlib import Path
+          site=Path("_site")
+          source=(site/"index.html").read_text(encoding="utf-8")
+          dark='<script>document.addEventListener("DOMContentLoaded",function(){document.documentElement.dataset.theme="dark"})</script>'
+          transition='<script>document.addEventListener("DOMContentLoaded",function(){window.scrollTo({top:650,behavior:"instant"})})</script>'
+          (site/"preview-dark.html").write_text(source.replace("</head>",dark+"</head>",1),encoding="utf-8")
+          (site/"preview-transition.html").write_text(source.replace("</head>",transition+"</head>",1),encoding="utf-8")
+          PY
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory _site >/tmp/portfolio-preview-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          sleep 2
+          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=1100 --window-size=1440,1650 --screenshot="$PWD/review-screenshots/home-desktop.png" "http://127.0.0.1:8765/index.html" >/tmp/chrome-desktop.log 2>&1
+          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=1100 --window-size=1440,1650 --screenshot="$PWD/review-screenshots/home-dark.png" "http://127.0.0.1:8765/preview-dark.html" >/tmp/chrome-dark.log 2>&1
+          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=1100 --window-size=430,1300 --screenshot="$PWD/review-screenshots/home-mobile.png" "http://127.0.0.1:8765/index.html" >/tmp/chrome-mobile.log 2>&1
+          "$CHROME" --headless --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --disable-extensions --hide-scrollbars --virtual-time-budget=1100 --window-size=1440,1400 --screenshot="$PWD/review-screenshots/home-transition.png" "http://127.0.0.1:8765/preview-transition.html" >/tmp/chrome-transition.log 2>&1
+          python3 - <<'PY'
+          from pathlib import Path
+          import struct
+          files=list(Path("review-screenshots").glob("*.png"))
+          assert len(files)==4, f"Expected four screenshots, found {len(files)}"
+          for path in files:
+              data=path.read_bytes()
+              assert data[:8]==b'\x89PNG\r\n\x1a\n',f"Invalid PNG: {path}"
+              width,height=struct.unpack(">II",data[16:24])
+              assert width>=350 and height>=900, f"Unexpected screenshot dimensions: {path}: {width}x{height}"
+              print(f"Screenshot {path.name}: {width}x{height} ({len(data):,} bytes)")
+          PY
+      - name: Upload homepage browser review screenshots
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: home-collage-review-screenshots
+          path: review-screenshots/
+          if-no-files-found: warn
+          retention-days: 14
