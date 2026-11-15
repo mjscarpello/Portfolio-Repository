@@ -14,9 +14,14 @@ jobs:
         run: python3 tools/validate_portfolio.py
       - name: Validate NOAA guided exhibit
         run: python3 tools/test_noaa_exhibit.py
+      - name: Validate homepage collage source and accessibility
+        run: python3 tools/test_home_collage.py
+      - name: Exercise collage motion and pause behavior
+        run: node tools/test_home_collage.cjs
       - name: Check JavaScript syntax
         run: |
           node --check script.js
+          node --check home-collage.js
           node --check portfolio-data.js
       - name: Build static site and playable game
         run: python3 tools/build_portfolio.py
