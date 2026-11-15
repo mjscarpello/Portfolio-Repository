@@ -57,6 +57,7 @@
       (item.src.endsWith(".png") ? "chart" : "media");
     tile.style.setProperty("--tile-ratio", item.ratio);
     tile.dataset.project = item.title;
+    tile.dataset.category = item.category;
     const img = document.createElement("img");
     img.src = item.src;
     img.alt = ""; // Decorative duplicate of original evidence on project pages.
