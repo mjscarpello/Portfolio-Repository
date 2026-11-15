@@ -88,7 +88,7 @@
     tint.setAttribute("aria-hidden", "true");
     const label = document.createElement("span");
     label.className = "home-collage-open-label";
-    label.textContent = "Open project";
+    label.textContent = "Open: " + item.title;
     label.setAttribute("aria-hidden", "true");
     imageLink.append(img, tint, label);
     tile.append(imageLink);
