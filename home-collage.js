@@ -35,12 +35,14 @@
   ]);
   const categories = ["school", "work", "personal"];
   const lanes = [...collage.querySelectorAll(".home-collage-lane")];
-  const catalogue = data.projects.flatMap(project =>
+  // UNMC and Lab Rat Revolt share a screenshot. Deduplicate by file so a
+  // single image cannot occupy two different positions in one rotation.
+  const catalogue = [...new Map(data.projects.flatMap(project =>
     (project.figures || [])
       .filter(fig => eligibleSources.has(fig.src))
       .map(fig => ({src:fig.src, category:project.category, title:project.title,
         ratio:fig.src.endsWith(".png") ? 1.38 : 1.42}))
-  );
+  ).map(item => [item.src, item])).values()];
 
   function shuffle(items) {
     const shuffled = [...items];
