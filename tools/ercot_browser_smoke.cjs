@@ -61,10 +61,14 @@ async function main(){
   assert(heatmapAnimation.includes("project-reel-left"),"Heatmap rail should use horizontal motion");
   await page.locator(".cv6-heatmap-primary img").scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector(".cv6-heatmap-primary img")?.naturalWidth>0,null,{timeout:15000});
-  await heatmapRail.locator(".project-reel-frame img").first().scrollIntoViewIfNeeded();
+  await heatmapRail.scrollIntoViewIfNeeded(); // Scroll to the stationary viewport, not an animated tile.
   await page.waitForFunction(()=>[...document.querySelectorAll('.cv6-heatmap-reel .project-reel-frame img')].every(img=>img.complete&&img.naturalWidth>0),null,{timeout:15000});
-  const heatmapLink=heatmapRail.locator(".project-reel-sequence:first-child a").first();
-  await heatmapLink.hover();
+  // Moving tiles cannot be Playwright-hovered with its default stability wait.
+  // Put the mouse inside the fixed gallery viewport instead.
+  const region = await heatmapRail.boundingBox();
+  assert(region,"Stationary heatmap rail must have a bounding box");
+  await page.mouse.move(region.x + Math.min(150,region.width/3),region.y + region.height/2);
+  await page.waitForTimeout(170);
   assert.equal(await heatmapRail.locator(".project-reel-track").evaluate(el=>getComputedStyle(el).animationPlayState),"paused","Hovering over a heatmap should pause the horizontal rail");
   await heatmapPanel.screenshot({path:path.join(OUTPUT,"ercot-finding-heatmap-context.png"),animations:"disabled"});
   await page.mouse.move(0,0);
