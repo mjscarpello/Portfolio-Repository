@@ -12,12 +12,13 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="stylesheet" href="../style.css?v=21" />
   <link rel="stylesheet" href="../case-study-v2.css?v=1" />
-  <link rel="stylesheet" href="../home-collage.css?v=5" />
-  <link rel="stylesheet" href="../ercot-v3.css?v=2" />
+  <link rel="stylesheet" href="../project-reels.css?v=2" />
+  <link rel="stylesheet" href="../ercot-v3.css?v=3" />
   <link href="../photo-palette.css?v=1" rel="stylesheet"/>
   <script src="../portfolio-data.js?v=21" defer></script>
   <script src="../script.js?v=22" defer></script>
-  <script src="../ercot-collage.js?v=2" defer></script>
+  <script src="../ercot-collage.js?v=3" defer></script>
+  <script src="../project-reels.js?v=2" defer></script>
 </head>
 <body data-root="../" data-pillar="school">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -29,26 +30,27 @@
   <main class="wrap case-v2" id="main">
     <div class="cv2-breadcrumb"><a href="../school/index.html">← School projects</a><span aria-hidden="true">/</span><span>DSC 450 · Project 02</span></div>
 
-    <section class="cv2-hero cv3-hero" aria-labelledby="cv2-title">
+    <section class="cv2-hero cv3-hero cv5-hero" aria-labelledby="cv2-title">
       <div class="cv2-hero-copy">
         <div class="cv2-overline cv3-overline"><span class="cv2-number">02</span> Bellevue University / Data Science Capstone / Fall 2026</div>
         <h1 id="cv2-title">Forecasting<br /><em>electricity demand.</em></h1>
         <p class="cv2-hero-question cv3-hero-deck">Our strongest overall team forecast was <strong>not</strong> our strongest forecast at peak demand.</p>
         <p class="cv2-hero-description">I used original visualizations to understand where our forecasting models disagreed, helped motivate a hybrid experiment, and turned the results into an educational presentation and an evidence-linked research website.</p>
-        <div class="cv2-actions"><a class="cv2-button cv2-button-primary" href="#findings">Follow the discovery <span aria-hidden="true">↘</span></a><a class="cv2-button cv2-button-outline" href="#presentation">Watch the presentation <span aria-hidden="true">↘</span></a></div>
+        <div class="cv2-actions">
+          <a class="cv2-button cv2-button-primary" href="#findings">Follow the discovery <span aria-hidden="true">↘</span></a>
+          <a class="cv2-button cv2-button-outline" href="#presentation">Watch the presentation <span aria-hidden="true">↘</span></a>
+        </div>
         <div class="cv2-hero-metadata"><span>Visual analysis</span><span>Educational media</span><span>Research website</span><span>Team project</span></div>
       </div>
-      <figure class="cv2-cover cv3-cover">
-        <div class="cv3-cover-viewport">
-          <div class="home-collage-scene" data-ercot-collage role="group" aria-label="Original ERCOT research figures scrolling in a random order. Each chart opens its own figure on the full research website.">
-            <a class="cv3-collage-fallback" href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F03" target="_blank" rel="noopener noreferrer" aria-label="Open original F03 demand heatmap on the research website"><img src="../figures/ercot-demand-month-hour.png" alt="Original ERCOT heatmap comparing average electricity demand by month and hour" width="1492" height="669" fetchpriority="high" /></a>
-            <div class="home-collage-lane home-collage-lane--one"></div>
-            <div class="home-collage-lane home-collage-lane--two"></div>
-            <div class="home-collage-lane home-collage-lane--three"></div>
-            <div class="home-collage-readable-edge" aria-hidden="true"></div>
+      <figure class="cv2-cover cv3-cover cv5-cover project-reel" data-project-reel="ercot" data-reel-style="research" aria-label="Two horizontally scrolling filmstrips of original ERCOT figures, each linked to its exact Research Explorer record">
+        <div class="cv5-cover-viewport">
+          <a class="cv5-reel-fallback" href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F03" target="_blank" rel="noopener noreferrer" aria-label="Open original F03 demand heatmap on the research website"><img src="../figures/ercot-demand-month-hour.png" alt="Original ERCOT electricity demand heatmap by month and hour" width="1492" height="669" fetchpriority="high" /></a>
+          <div class="project-reel-viewport" aria-label="Research figures moving in two horizontal rows. Hover, focus or tap a chart to open the matching source figure.">
+            <div class="project-reel-lane" data-reel-lane></div>
+            <div class="project-reel-lane" data-reel-lane></div>
           </div>
         </div>
-        <figcaption><strong>Explore the original figures.</strong> The order changes each visit. Hover, focus, or tap an image to open its exact record in the <a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#figures" target="_blank" rel="noopener noreferrer">research figure library ↗</a>.</figcaption>
+        <figcaption><strong>ORIGINAL RESEARCH FIGURES / 10 CURATED</strong><span>Randomized on each visit. Hover, focus, or tap a chart to open its exact record in the <a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#figures" target="_blank" rel="noopener noreferrer">research figure library ↗</a>.</span></figcaption>
       </figure>
     </section>
 
