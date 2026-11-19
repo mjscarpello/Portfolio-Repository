@@ -84,7 +84,9 @@
       if (!nav.contains(event.relatedTarget)) hide();
     });
     nav.addEventListener("keydown", event => { if (event.key === "Escape") hide(); });
-    window.addEventListener("scroll", hide, {passive:true});
+    // Do not hide on scroll: smooth anchor positioning can dispatch scroll
+    // events immediately after mouseenter/focus and erase the preview.
+    // Mouse leave, focus loss, click, escape and resize already dismiss it.
     window.addEventListener("resize", hide);
   }
 })();
