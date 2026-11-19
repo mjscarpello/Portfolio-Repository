@@ -25,6 +25,7 @@ jobs:
           node --check script.js
           node --check home-collage.js
           node --check ercot-collage.js
+          node --check project-reels.js
           node --check portfolio-data.js
       - name: Build static site and playable game
         run: python3 tools/build_portfolio.py
@@ -78,6 +79,7 @@ jobs:
         run: |
           node tools/home_browser_smoke.cjs
           node tools/ercot_browser_smoke.cjs
+          node tools/unmc_browser_smoke.cjs
       - name: Upload homepage browser review screenshots
         if: success()
         uses: actions/upload-artifact@v4

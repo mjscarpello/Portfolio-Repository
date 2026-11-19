@@ -37,7 +37,21 @@ def ids(path):
                 if attributes.get("id"):
                     self.found.add(attributes["id"])
         parser = IDScanner()
-        parser.feed(content(path))
+        markup = content(path)
+        parser.feed(markup)
+        # The case-gallery renderer creates figure IDs after page load. Validate
+        # only anchors backed by an exact registered project figure and the
+        # matching data-case-gallery marker; never accept arbitrary hashes.
+        relative = path.relative_to(ROOT).as_posix()
+        for project in projects:
+            if project.get("page") != relative:
+                continue
+            if f'data-case-gallery="{project.get("id")}"' not in markup:
+                continue
+            for figure in project.get("figures", []):
+                image_stem = Path(figure.get("src", "")).stem.lower()
+                if image_stem:
+                    parser.found.add("figure-" + image_stem)
         CACHE[path] = parser.found
     return CACHE[path]
 
