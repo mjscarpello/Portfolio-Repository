@@ -91,3 +91,108 @@ html[data-theme="dark"] .home-pillar-section{background:linear-gradient(135deg,#
 html[data-theme="dark"] .case-figure:target,html[data-theme="dark"] .noaa-figure:target{outline-color:var(--photo-sunflower)}
 .pillar-media img,.noaa-figure img,.case-figure img{filter:none}
 @media(prefers-reduced-motion:reduce){.site-header::after,.site-footer::before{transition:none}}
+
+/* Pillar-specific identity. Home/About retain the full Ordinary I spectrum;
+   each project and its collection page use a single accent hue. */
+body[data-pillar]{
+  --teal:var(--pillar-accent);
+  --teal-dark:var(--pillar-accent-hover);
+  --accent:var(--pillar-accent);
+}
+body[data-pillar="school"]{
+  --pillar-accent:#226b9f;
+  --pillar-accent-hover:#115582;
+  --pillar-on-dark:#a7dbfd;
+  --pillar-accent-rgb:34,107,159;
+}
+body[data-pillar="work"]{
+  --pillar-accent:#a84e2b;
+  --pillar-accent-hover:#873a20;
+  --pillar-on-dark:#f4b48c;
+  --pillar-accent-rgb:168,78,43;
+}
+body[data-pillar="personal"]{
+  --pillar-accent:#53723c;
+  --pillar-accent-hover:#3e592c;
+  --pillar-on-dark:#badb8d;
+  --pillar-accent-rgb:83,114,60;
+}
+html[data-theme="dark"] body[data-pillar="school"]{
+  --pillar-accent:#97d1f5;
+  --pillar-accent-hover:#c2e9ff;
+  --pillar-accent-rgb:151,209,245;
+}
+html[data-theme="dark"] body[data-pillar="work"]{
+  --pillar-accent:#f5b489;
+  --pillar-accent-hover:#ffcfac;
+  --pillar-accent-rgb:245,180,137;
+}
+html[data-theme="dark"] body[data-pillar="personal"]{
+  --pillar-accent:#b4d58f;
+  --pillar-accent-hover:#d6eab3;
+  --pillar-accent-rgb:180,213,143;
+}
+/* Coherent visual cues: borders, call-to-action hover, section marks,
+   caption links and figure-target outlines all inherit one pillar tone. */
+body[data-pillar] .site-header::after,
+body[data-pillar] .site-footer::before,
+body[data-pillar] .home-pillar-section .pillar-heading::before{
+  background:var(--pillar-accent);
+}
+body[data-pillar] .site-header nav a:last-child{border-color:var(--pillar-accent)}
+body[data-pillar] .site-header nav a:last-child:hover{
+  background:var(--pillar-accent);
+  border-color:var(--pillar-accent);
+  color:var(--background);
+}
+body[data-pillar] .site-header nav a.current,
+body[data-pillar] .site-header nav a:hover{color:var(--pillar-accent)}
+body[data-pillar] .brand-circle{
+  border-color:var(--pillar-accent);
+  box-shadow:0 0 0 2px rgba(var(--pillar-accent-rgb),.14);
+}
+body[data-pillar] .page-hero h1 em,
+body[data-pillar] .case-hero h1 em,
+body[data-pillar] .case-hero .eyebrow,
+body[data-pillar] .page-hero .eyebrow,
+body[data-pillar] .accent,
+body[data-pillar] .card-index,
+body[data-pillar] .underlined-link:hover{color:var(--pillar-accent)}
+body[data-pillar] .case-figure,
+body[data-pillar] .about-reel-card,
+body[data-pillar] .noaa-exhibit{border-top-color:var(--pillar-accent)}
+body[data-pillar] .case-figure:target,
+body[data-pillar] .noaa-figure:target{
+  outline-color:var(--pillar-accent);
+}
+body[data-pillar] .noaa-exhibit .noaa-exhibit-index{color:var(--pillar-accent)}
+body[data-pillar] .cv4-team-me::before{
+  background:var(--pillar-accent);
+}
+body[data-pillar] .cv4-team-identity img{
+  border-color:var(--pillar-accent);
+  box-shadow:0 0 0 2px rgba(var(--pillar-accent-rgb),.15);
+}
+body[data-pillar] .cv4-nav-preview,
+body[data-pillar] .cv4-resource-feature,
+body[data-pillar] .cv4-path-figure:hover,
+body[data-pillar] .cv4-path-figure:focus-visible{
+  border-color:var(--pillar-accent);
+}
+body[data-pillar] .cv4-resource-feature,
+body[data-pillar] .cv4-story .cv3-finding-banner{
+  border-left-color:var(--pillar-accent);
+}
+body[data-pillar] .unmc-collab-card{
+  border-top-color:var(--pillar-accent);
+}
+body[data-pillar] .unmc-work-card:hover,
+body[data-pillar] .unmc-work-card:focus-visible,
+body[data-pillar] .unmc-samples .case-figure:target{
+  border-color:var(--pillar-accent);
+  outline-color:var(--pillar-accent);
+}
+body[data-pillar] .unmc-game-picture:hover>span,
+body[data-pillar] .unmc-game-picture:focus-visible>span{
+  background:var(--pillar-accent-hover);
+}
