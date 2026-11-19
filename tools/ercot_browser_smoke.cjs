@@ -10,7 +10,7 @@ const {chromium} = require("playwright-core");
 const ROOT = path.join(__dirname,"..");
 const OUTPUT = path.join(ROOT,"review-screenshots");
 const PORT = 8766;
-const URL = "http://127.0.0.1:"+PORT+"/school/ercot.html";
+const TARGET_URL = "http://127.0.0.1:"+PORT+"/school/ercot.html";
 const candidateBinaries = [process.env.CHROME_BINARY,"/usr/bin/google-chrome","/usr/bin/google-chrome-stable","/usr/bin/chromium"].filter(Boolean);
 const binary = candidateBinaries.find(x=>fs.existsSync(x)) || (()=>{try{return execFileSync("which",["google-chrome"],{encoding:"utf8"}).trim()}catch(_){return null}})();
 if(!binary)throw new Error("System Chrome required for ERCOT browser checks");
@@ -18,13 +18,13 @@ const server = spawn("python3",["-m","http.server",String(PORT),"--bind","127.0.
 const wait = ms=>new Promise(resolve=>setTimeout(resolve,ms));
 let browser;
 async function ready(){
-  for(let i=0;i<80;i++){try{const res=await fetch(URL);if(res.ok)return;}catch(_){}
+  for(let i=0;i<80;i++){try{const res=await fetch(TARGET_URL);if(res.ok)return;}catch(_){}
     await wait(150);}
   throw Error("ERCOT site server not ready");
 }
 async function open(context) {
   const page=await context.newPage();
-  await page.goto(URL,{waitUntil:"networkidle",timeout:30000});
+  await page.goto(TARGET_URL,{waitUntil:"networkidle",timeout:30000});
   await page.waitForFunction(()=>document.querySelector("[data-ercot-collage]")?.classList.contains("home-collage-ready"),null,{timeout:15000});
   return page;
 }
