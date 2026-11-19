@@ -35,6 +35,23 @@
     return "figure-" + src.split("/").pop().replace(/\.[^.]+$/, "").toLowerCase();
   }
   function dataset(reel) {
+    // A compact companion strip uses only curated, source-verified heatmaps.
+    // It is distinct from the ten-figure introductory research reel.
+    if (reel.dataset.heatmapReel === "ercot") {
+      const project = projects.find(p => p.id === "ercot");
+      const verified = new Set(["F03A", "F30", "F31"]);
+      return (project?.heatmaps || [])
+        .filter(fig => goodPath(fig.src) && verified.has(fig.id))
+        .map(fig => ({
+          src: fig.src,
+          title: fig.title,
+          name: fig.id + " · " + fig.title,
+          href: ercotExplorer + "#node=FIG-" + fig.id,
+          external: true,
+          figureId: fig.id,
+          category: "school"
+        }));
+    }
     const projectId = reel.dataset.projectReel;
     const pillar = reel.dataset.pillarReel;
     if (pillar) {
@@ -96,7 +113,7 @@
     frame.append(a);
     return frame;
   }
-  document.querySelectorAll("[data-project-reel], [data-pillar-reel]").forEach(reel=>{
+  document.querySelectorAll("[data-project-reel], [data-pillar-reel], [data-heatmap-reel]").forEach(reel=>{
     const laneElements=[...reel.querySelectorAll("[data-reel-lane]")];
     const items=dataset(reel);
     if (!laneElements.length || !items.length) return;
