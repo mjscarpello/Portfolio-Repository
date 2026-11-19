@@ -128,6 +128,32 @@ window.PORTFOLIO_DATA = {
           "alt": "ERCOT observed load and operator predicted load through a week.",
           "caption": "Original notebook output · A close look at the official benchmark and actual hourly demand."
         }
+      ],
+      "heatmaps": [
+        {
+          "src": "figures/ercot-seasonal-daily-heatmaps.png",
+          "id": "F03A",
+          "title": "Daily demand within each season",
+          "alt": "Collection of seasonal day-by-hour ERCOT observed-demand heatmaps.",
+          "caption": "Observed demand by individual day and local hour. Descriptive, not a model-accuracy result.",
+          "kind": "Observed demand"
+        },
+        {
+          "src": "figures/ercot-model-error-heatmap.png",
+          "id": "F30",
+          "title": "Forecast error by month and hour",
+          "alt": "Heatmap of relative forecasting mean absolute error by month and local hour.",
+          "caption": "Each model is compared with its own overall error level.",
+          "kind": "Forecast error"
+        },
+        {
+          "src": "figures/ercot-season-hour-improvement.png",
+          "id": "F31",
+          "title": "Forecast error by season and hour",
+          "alt": "Paired model-specific relative-error heatmaps grouped by season and local hour.",
+          "caption": "Within-model error differences, not a direct cross-model ranking.",
+          "kind": "Forecast error"
+        }
       ]
     },
     {
