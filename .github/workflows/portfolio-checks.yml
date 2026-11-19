@@ -24,6 +24,7 @@ jobs:
         run: |
           node --check script.js
           node --check home-collage.js
+          node --check ercot-collage.js
           node --check portfolio-data.js
       - name: Build static site and playable game
         run: python3 tools/build_portfolio.py
@@ -74,12 +75,14 @@ jobs:
         run: npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund playwright-core
       - name: Verify browser interactions and capture fully decoded responsive screenshots
         if: success()
-        run: node tools/home_browser_smoke.cjs
+        run: |
+          node tools/home_browser_smoke.cjs
+          node tools/ercot_browser_smoke.cjs
       - name: Upload homepage browser review screenshots
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: home-collage-review-screenshots
+          name: portfolio-browser-review-screenshots
           path: review-screenshots/
           if-no-files-found: warn
           retention-days: 14

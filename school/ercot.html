@@ -13,11 +13,11 @@
   <link rel="stylesheet" href="../style.css?v=21" />
   <link rel="stylesheet" href="../case-study-v2.css?v=1" />
   <link rel="stylesheet" href="../home-collage.css?v=5" />
-  <link rel="stylesheet" href="../ercot-v3.css?v=1" />
+  <link rel="stylesheet" href="../ercot-v3.css?v=2" />
   <link href="../photo-palette.css?v=1" rel="stylesheet"/>
   <script src="../portfolio-data.js?v=21" defer></script>
   <script src="../script.js?v=22" defer></script>
-  <script src="../ercot-collage.js?v=1" defer></script>
+  <script src="../ercot-collage.js?v=2" defer></script>
 </head>
 <body data-root="../">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -52,26 +52,38 @@
       </figure>
     </section>
 
-    <nav class="cv2-page-nav" aria-label="On this page"><span>ON THIS PAGE</span><a href="#story">The finding</a><a href="#findings">The investigation</a><a href="#presentation">Presentation</a><a href="#explorer">Evidence map</a><a href="#evidence">Project resources</a><a href="#contribution">My role</a></nav>
+    <nav class="cv2-page-nav cv4-page-nav" aria-label="On this page" data-ercot-nav>
+      <span>ON THIS PAGE</span>
+      <a href="#story">The finding</a>
+      <a href="#findings">The investigation</a>
+      <a href="#presentation">Presentation</a>
+      <a href="#explorer">Evidence map</a>
+      <a href="#evidence">Project resources</a>
+      <a href="#contribution">My role</a>
+      <div class="cv4-nav-preview" aria-hidden="true">
+        <img src="../figures/ercot-accuracy-by-demand.png" alt="" loading="lazy" />
+        <div><strong>The finding</strong><p>Why overall accuracy hides the peak-demand pattern.</p></div>
+      </div>
+    </nav>
 
-    <section class="cv2-metric-strip" aria-label="Key project metrics">
-      <div><strong>8,640</strong><span>Matched hourly records · common evaluation sample</span></div>
-      <div><strong>2,006 <small>MWh</small></strong><span>Hybrid mean absolute error · best team approach overall</span></div>
-      <div><strong>1,135 <small>MWh</small></strong><span>ERCOT day-ahead mean absolute error · benchmark</span></div>
-      <div><strong>88</strong><span>Highest-demand 1% hours · identified retrospectively</span></div>
-    </section>
-
-    <section class="cv2-section cv2-story" id="story" aria-labelledby="story-heading">
+    <section class="cv2-section cv2-story cv4-story" id="story" aria-labelledby="story-heading">
       <div class="cv2-section-title">
         <p class="cv2-eyebrow">01 / THE FINDING</p>
         <h2 id="story-heading">Average accuracy doesn't tell the whole story<span class="cv2-dot">.</span></h2>
+        <figure class="cv4-story-figure">
+          <a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F17" target="_blank" rel="noopener noreferrer" aria-label="Open original F17 forecast accuracy by demand level on research website">
+            <img src="../figures/ercot-accuracy-by-demand.png" alt="Original F17 chart comparing forecasting mean absolute error across observed electricity-demand percentiles" loading="lazy" />
+            <span>F17 · Model accuracy at different demand levels ↗</span>
+          </a>
+          <figcaption>This is where the difference becomes visible: rankings change at the highest observed loads.</figcaption>
+        </figure>
       </div>
       <div class="cv2-section-body">
-        <p class="cv2-lead">A model that performs best overall can behave very differently during the hours that place the most demand on the grid.</p>
-        <p>Our team studied next-day hourly electricity-demand forecasts in ERCOT's Texas region. Sarah prepared the data and features, Andrea developed the forecasting models, and I investigated their predictions and errors through original visual analysis.</p>
-        <p>Comparing the models revealed different error patterns. I wanted to understand whether combining two approaches could reduce their weaknesses, so the team evaluated a fixed 50/50 blend of Rolling SARIMA and Weather XGBoost.</p>
-        <div class="cv3-finding-banner" role="note"><span>WHAT WE FOUND</span><p>Our hybrid had the lowest overall error among the team's approaches, but Rolling SARIMA and Weather SARIMAX performed substantially better during the highest observed demand hours.</p></div>
-        <div class="cv2-inline-note"><strong>Scope of the study</strong><span>Historical EIA-930 demand and team forecast exports, evaluated for October 2025 through September 2026. All approaches were compared on 8,640 common hours. These are retrospective research results, not live operating forecasts.</span></div>
+        <p class="cv2-lead">A forecast can perform well overall but make very different errors during the hours that place the most demand on the grid.</p>
+        <p>Our team studied next-day hourly demand in the ERCOT region. Sarah prepared the data, Andrea developed the forecast approaches, and I examined model predictions and errors through original visual analysis.</p>
+        <p>The differing error patterns motivated our experiment with a fixed 50/50 blend of Rolling SARIMA and Weather XGBoost.</p>
+        <div class="cv3-finding-banner" role="note"><span>THE CENTRAL RESULT</span><p>The hybrid led our team models overall. During the highest observed demand hours, Rolling SARIMA and Weather SARIMAX were much more accurate.</p></div>
+        <div class="cv2-inline-note cv4-scope-note"><strong>Research scope</strong><span>This retrospective study evaluates 8,640 matched hourly records from October 2025 to September 2026 using historical EIA-930 demand and the team's forecasts. It examines overall and high-demand accuracy; forecast issuance conditions and weather information were not identical across all approaches.</span></div>
       </div>
     </section>
 
@@ -112,22 +124,29 @@
       <div class="cv2-explorer-head cv3-explorer-intro">
         <p class="cv2-eyebrow">04 / THE RESEARCH WEBSITE</p>
         <h2 id="explorer-heading">Follow a finding back to its evidence<span class="cv2-dot">.</span></h2>
-        <p class="cv2-lead">The video explains the findings in sequence. I built the research website so visitors can investigate the sources in their own order.</p>
-        <p>Rather than searching a long notebook, someone can select a conclusion, open the related chart or metric, and see which limitations matter to its interpretation.</p>
+        <p class="cv2-lead">I built the Research Explorer to make our findings easier to verify, not just easier to present.</p>
+        <p>Every conclusion should be understandable in context. The explorer connects research findings with model results, original visualizations, source records, and scientific limitations, so visitors can see how an interpretation is supported and where its boundaries lie. The video tells the story; this website lets the viewer check it.</p>
       </div>
       <div class="cv3-evidence-path" aria-labelledby="evidence-path-heading">
-        <h3 id="evidence-path-heading">One example of the research connection map</h3>
-        <p>Follow this short path through the actual research records. Each connected item opens directly in the full interactive explorer.</p>
+        <h3 id="evidence-path-heading">Trace a result to the figures behind it</h3>
+        <p>This example connects a peak-demand finding to two original notebook figures and the limitation that qualifies their interpretation. Select any card to inspect its research record.</p>
         <div class="cv3-path-flow">
           <a class="cv3-path-node cv3-path-node--primary" href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIND-PEAK" target="_blank" rel="noopener noreferrer"><small>FINDING</small><strong>The strongest team model overall wasn't the strongest at peak demand.</strong><p>Start with the conclusion to investigate what changes at high loads.</p></a>
           <div class="cv3-path-arrow" aria-hidden="true">↓</div>
-          <div class="cv3-path-branches">
-            <a class="cv3-path-node" href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F17" target="_blank" rel="noopener noreferrer"><small>ORIGINAL FIGURE · F17</small><strong>Accuracy across observed demand levels</strong><p>Compare the individual forecast approaches at different demand percentiles.</p></a>
-            <a class="cv3-path-node" href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F23" target="_blank" rel="noopener noreferrer"><small>ORIGINAL FIGURE · F23</small><strong>Hybrid errors in the later period</strong><p>Inspect how blended forecasts performed at different demand levels.</p></a>
+          <div class="cv3-path-branches cv4-path-figures">
+            <a class="cv3-path-node cv4-path-figure" href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F17" target="_blank" rel="noopener noreferrer" aria-label="Open F17 accuracy across demand levels in the research explorer">
+              <div class="cv4-path-thumbnail"><img src="../figures/ercot-accuracy-by-demand.png" alt="F17 grouped bar chart comparing forecast errors at progressively higher demand levels" loading="lazy" /><span aria-hidden="true">Open F17 ↗</span></div>
+              <small>ORIGINAL FIGURE · F17</small><strong>Accuracy across observed demand levels</strong><p>Individual approaches change relative accuracy at the highest loads.</p>
+            </a>
+            <a class="cv3-path-node cv4-path-figure" href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F23" target="_blank" rel="noopener noreferrer" aria-label="Open F23 hybrid errors in the later period in the research explorer">
+              <div class="cv4-path-thumbnail"><img src="../figures/ercot-blend-by-demand.png" alt="F23 grouped bar chart comparing hybrid and component model errors across later-period demand bins" loading="lazy" /><span aria-hidden="true">Open F23 ↗</span></div>
+              <small>ORIGINAL FIGURE · F23</small><strong>Hybrid errors in the later period</strong><p>A separate evaluation shows that blending does not help uniformly.</p>
+            </a>
           </div>
           <div class="cv3-path-arrow" aria-hidden="true">↓</div>
           <a class="cv3-path-node" href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=LIMIT-PEAK-BIN" target="_blank" rel="noopener noreferrer"><small>SCIENTIFIC LIMITATION</small><strong>Peak-demand groups were identified after observing actual demand.</strong><p>These are retrospective diagnostics, not rules that can select a forecast in real time.</p></a>
         </div>
+        <p class="cv4-path-context">These charts investigate related questions using different evaluation slices. They are supporting evidence, not identical comparisons.</p>
         <div class="cv3-path-conclusion"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#graph=FIND-PEAK" target="_blank" rel="noopener noreferrer">Launch the full interactive research map <span aria-hidden="true">↗</span></a></div>
       </div>
       <div class="cv2-explorer-counts cv3-explorer-counts" aria-label="Research explorer contents">
@@ -138,19 +157,49 @@
 
     <section class="cv2-section cv2-evidence" id="evidence" aria-labelledby="evidence-heading">
       <div class="cv2-section-heading"><div><p class="cv2-eyebrow">05 / FOLLOW THE SOURCES</p><h2 id="evidence-heading">One project. Every source. One place<span class="cv2-dot">.</span></h2></div><p>I built the project website to bring the presentation, original research, notebook figures, references, and supporting files into one navigable place.</p></div>
-      <div class="cv2-resource-grid cv3-resource-grid">
-        <a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/" target="_blank" rel="noopener noreferrer" class="cv2-resource"><span>01 / PROJECT HUB</span><strong>Complete project website <i>↗</i></strong><p>Open the video, Research Explorer, and the project’s resource directory.</p></a>
-        <a href="https://github.com/mjscarpello/DSC450-ERCOT-Presentation/blob/main/research/reports/Milestone_2_ERCOT_Demand_Prediction_FINAL.pdf" target="_blank" rel="noopener noreferrer" class="cv2-resource"><span>02 / RESEARCH REPORT</span><strong>Final report · PDF <i>↗</i></strong><p>Read the methodology, model comparison, evaluation results and team conclusions.</p></a>
-        <a href="https://github.com/mjscarpello/DSC450-ERCOT-Presentation/blob/main/research/notebooks/originals/DSC450_ERCOT_Full_Visualization_Hybrid_model.ipynb" target="_blank" rel="noopener noreferrer" class="cv2-resource"><span>03 / SOURCE NOTEBOOK</span><strong>104-cell visualization notebook <i>↗</i></strong><p>Review my completed analysis, calculations and the original saved figure outputs.</p></a>
-        <a href="https://github.com/mjscarpello/DSC450-ERCOT-Presentation/blob/main/research/qa/stakeholder_questions.md" target="_blank" rel="noopener noreferrer" class="cv2-resource"><span>04 / STAKEHOLDER QUESTIONS</span><strong>Ten questions and answers <i>↗</i></strong><p>Examine how the research results relate to forecasting decisions and practical limitations.</p></a>
-        <a href="https://github.com/mjscarpello/DSC450-ERCOT-Presentation/blob/main/research/docs/NOTEBOOK_GUIDE.md" target="_blank" rel="noopener noreferrer" class="cv2-resource"><span>05 / REPRODUCIBILITY</span><strong>Notebook and data guide <i>↗</i></strong><p>Find the original sources, adapted notebooks, execution notes and constraints.</p></a>
-        <a href="https://github.com/mjscarpello/DSC450-ERCOT-Presentation" target="_blank" rel="noopener noreferrer" class="cv2-resource"><span>06 / FULL REPOSITORY</span><strong>Explore all project files <i>↗</i></strong><p>Browse the project code, report history, archived research, and website implementation.</p></a>
+      <a class="cv4-resource-feature" href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#figures" target="_blank" rel="noopener noreferrer">
+        <img src="../figures/ercot-demand-month-hour.png" alt="ERCOT monthly by hour electricity demand heatmap from original notebook" loading="lazy" />
+        <div><span class="cv2-index">FEATURED RESEARCH LIBRARY</span><strong>Explore all 38 original notebook figures.</strong><p>Search the interactive figure library and follow each visual back to its context, findings, and limitations.</p></div>
+        <span class="cv4-feature-cta">Open figure library ↗</span>
+      </a>
+      <div class="cv2-resource-grid cv3-resource-grid cv4-resource-grid">
+        <a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/" target="_blank" rel="noopener noreferrer" class="cv2-resource">
+          <span>01 / PROJECT HUB</span><span class="cv4-resource-icon" aria-hidden="true">◎</span>
+          <strong>Complete project website <i>↗</i></strong><p>Visit the presentation, interactive reference and full resource directory.</p>
+          <span class="cv4-resource-action">Explore the project ↗</span>
+        </a>
+        <a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/research/reports/Milestone_2_ERCOT_Demand_Prediction_FINAL.pdf" target="_blank" rel="noopener noreferrer" class="cv2-resource">
+          <span>02 / RESEARCH REPORT</span><span class="cv4-resource-icon" aria-hidden="true">▤</span>
+          <strong>Final research report · PDF <i>↗</i></strong><p>Read the methodology, evaluations and final team conclusions.</p>
+          <span class="cv4-resource-action">Read the report ↗</span>
+        </a>
+        <a href="https://github.com/mjscarpello/DSC450-ERCOT-Presentation/blob/main/research/notebooks/originals/DSC450_ERCOT_Full_Visualization_Hybrid_model.ipynb" target="_blank" rel="noopener noreferrer" class="cv2-resource">
+          <span>03 / VISUALIZATION NOTEBOOK</span><span class="cv4-resource-icon" aria-hidden="true">▦</span>
+          <strong>104-cell analysis notebook <i>↗</i></strong><p>Inspect the calculations and original chart-producing notebook.</p>
+          <span class="cv4-resource-action">Inspect the notebook ↗</span>
+        </a>
+        <a href="https://github.com/mjscarpello/DSC450-ERCOT-Presentation/blob/main/research/qa/stakeholder_questions.md" target="_blank" rel="noopener noreferrer" class="cv2-resource">
+          <span>04 / STAKEHOLDER QUESTIONS</span><span class="cv4-resource-icon" aria-hidden="true">?</span>
+          <strong>Ten questions and answers <i>↗</i></strong><p>Review decisions, model tradeoffs and practical limitations.</p>
+          <span class="cv4-resource-action">Read the questions ↗</span>
+        </a>
+        <a href="https://github.com/mjscarpello/DSC450-ERCOT-Presentation/blob/main/research/docs/NOTEBOOK_GUIDE.md" target="_blank" rel="noopener noreferrer" class="cv2-resource">
+          <span>05 / REPRODUCIBILITY</span><span class="cv4-resource-icon" aria-hidden="true">≡</span>
+          <strong>Notebook and data guide <i>↗</i></strong><p>Find source requirements, execution notes and constraints.</p>
+          <span class="cv4-resource-action">Read the guide ↗</span>
+        </a>
+        <a href="https://github.com/mjscarpello/DSC450-ERCOT-Presentation" target="_blank" rel="noopener noreferrer" class="cv2-resource">
+          <span>06 / FULL REPOSITORY</span><span class="cv4-resource-icon" aria-hidden="true">{ }</span>
+          <strong>Explore all project files <i>↗</i></strong><p>Browse version history, code, original research and website assets.</p>
+          <span class="cv4-resource-action">Open the repository ↗</span>
+        </a>
       </div>
+
       <details class="cv2-gallery-details"><summary><span>Original visualization archive</span><span>Browse all 10 curated portfolio figures ↘</span></summary><div class="case-gallery" data-case-gallery="ercot"></div></details>
       <p class="cv2-gallery-help">The source repository's Research Explorer also contains the larger 38-figure notebook catalog. The ten figures here are a curated selection; every gallery image is an original project output.</p>
     </section>
 
-    <section class="cv2-section cv2-contribution" id="contribution" aria-labelledby="contribution-heading"><div class="cv2-section-heading"><div><p class="cv2-eyebrow">06 / PEOPLE AND PROCESS</p><h2 id="contribution-heading">What I contributed to the team<span class="cv2-dot">.</span></h2></div><p>Our roles were distinct and complementary. My focus was investigating the forecasts, communicating what the evidence showed, and developing the educational media and research website.</p></div><div class="cv2-team-grid"><article class="cv2-team-card cv2-team-me"><span>MATTHEW SCARPELLO</span><h3>Visual analysis &amp; presentation</h3><p>I built the visualization notebook, explored patterns in forecast errors, investigated the hybrid idea using existing predictions, helped shape the narrative, and produced the code-driven educational video and source-linked research website.</p></article><article class="cv2-team-card"><span>HALI SARAH PARSONS</span><h3>Data wrangling</h3><p>Prepared the ERCOT demand data and feature inputs used by the modeling and visualization work.</p></article><article class="cv2-team-card"><span>ANDREA BARFIELD</span><h3>Data science &amp; modeling</h3><p>Developed and evaluated the team's statistical and machine-learning forecasting approaches.</p></article></div><div class="cv2-tool-line"><span>METHODS &amp; TOOLS</span><p>Python · pandas · notebook analysis · time-series visualization · forecast error analysis · SARIMA / XGBoost comparisons · hybrid evaluation · Studio S · HTML / CSS / JavaScript</p></div></section>
+    <section class="cv2-section cv2-contribution" id="contribution" aria-labelledby="contribution-heading"><div class="cv2-section-heading"><div><p class="cv2-eyebrow">06 / PEOPLE AND PROCESS</p><h2 id="contribution-heading">What I contributed to the team<span class="cv2-dot">.</span></h2></div><p>Our roles were distinct and complementary. My focus was investigating the forecasts, communicating what the evidence showed, and developing the educational media and research website.</p></div><div class="cv2-team-grid"><article class="cv2-team-card cv2-team-me cv4-team-me"><div class="cv4-team-identity"><img src="../assets/brand-avatar.jpg" alt="Matthew Scarpello's portfolio profile photograph" width="64" height="64" loading="lazy" /><span>MATTHEW SCARPELLO</span></div><h3>Visual analysis &amp; presentation</h3><p>I developed the visualization notebook, studied patterns in forecast errors, investigated the hybrid idea, and created the code-driven presentation and evidence-linked research website.</p></article><article class="cv2-team-card"><span>HALI SARAH PARSONS</span><h3>Data wrangling</h3><p>Prepared the ERCOT demand data and feature inputs used by the modeling and visualization work.</p></article><article class="cv2-team-card"><span>ANDREA BARFIELD</span><h3>Data science &amp; modeling</h3><p>Developed and evaluated the team's statistical and machine-learning forecasting approaches.</p></article></div><div class="cv2-tool-line"><span>METHODS &amp; TOOLS</span><p>Python · pandas · notebook analysis · time-series visualization · forecast error analysis · SARIMA / XGBoost comparisons · hybrid evaluation · Studio S · HTML / CSS / JavaScript</p></div></section>
 
     <section class="cv2-limitations" id="limitations" aria-labelledby="limitations-heading"><div><p class="cv2-eyebrow">THE RESEARCH BOUNDARY</p><h2 id="limitations-heading">What these results do—and do not—show.</h2></div><p>This is a <strong>retrospective study</strong>, not an operational forecasting deployment. Models do not necessarily use identical issue times or information available before the forecast hour. Some weather-enhanced experiments use observed historical temperatures, not advance weather predictions. The highest-demand 1% is identified using actual demand after the fact. Neither matched error scores nor a research graph prove causality or quantify prevented outages or financial savings.</p><a href="https://github.com/mjscarpello/DSC450-ERCOT-Presentation/blob/main/ERCOT%20project%20context%20web/docs/SCIENTIFIC_BOUNDARIES.md" target="_blank" rel="noopener noreferrer">Read scientific boundaries ↗</a></section>
     <div class="cv2-end-nav"><a href="../school/index.html">← Back to school projects</a><a href="../index.html#experiences">Continue exploring the portfolio ↗</a></div>
