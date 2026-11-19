@@ -47,6 +47,28 @@ async function main(){
   await page.locator(".cv5-hero").screenshot({path:path.join(OUTPUT,"ercot-boxed-horizontal-hero.png"),animations:"disabled"});
   assert.equal(await page.locator(".cv2-metric-strip").count(),0,"The redundant metrics strip should be absent");
   assert.equal(await page.locator(".cv4-story-figure img").count(),1,"Finding should feature original F17");
+  const heatmapPanel=page.locator(".cv6-heatmap-feature");
+  const heatmapRail=page.locator('[data-heatmap-reel="ercot"]');
+  await page.waitForFunction(()=>document.querySelector('[data-heatmap-reel="ercot"]')?.classList.contains("project-reel-ready"),null,{timeout:15000});
+  assert.equal(await heatmapPanel.count(),1,"The finding should have its own heatmap follow-on");
+  assert.equal(await page.locator(".cv6-heatmap-primary img").getAttribute("src"),"../figures/ercot-demand-month-hour.png");
+  assert((await page.locator(".cv6-heatmap-primary>a").getAttribute("href")).endsWith("#node=FIG-F03"),"Main heatmap must open its original F03 record");
+  assert.equal(await heatmapRail.locator(".project-reel-frame img").count(),6,"Three original heatmap previews should each appear twice for a seamless loop");
+  const heatmapLinks=await heatmapRail.locator(".project-reel-sequence:first-child a").evaluateAll(nodes=>nodes.map(a=>a.href));
+  assert.deepEqual(heatmapLinks.map(x=>x.split("#node=FIG-")[1]).sort(),["F03A","F30","F31"],"Only the cataloged heatmaps should appear in the companion strip");
+  assert.equal(await heatmapRail.locator('[data-reel-lane]').getAttribute("data-direction"),"left","Supplementary heatmaps should scroll horizontally");
+  const heatmapAnimation=await heatmapRail.locator(".project-reel-track").evaluate(el=>getComputedStyle(el).animationName);
+  assert(heatmapAnimation.includes("project-reel-left"),"Heatmap rail should use horizontal motion");
+  await page.locator(".cv6-heatmap-primary img").scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>document.querySelector(".cv6-heatmap-primary img")?.naturalWidth>0,null,{timeout:15000});
+  await heatmapRail.locator(".project-reel-frame img").first().scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>[...document.querySelectorAll('.cv6-heatmap-reel .project-reel-frame img')].every(img=>img.complete&&img.naturalWidth>0),null,{timeout:15000});
+  const heatmapLink=heatmapRail.locator(".project-reel-sequence:first-child a").first();
+  await heatmapLink.hover();
+  assert.equal(await heatmapRail.locator(".project-reel-track").evaluate(el=>getComputedStyle(el).animationPlayState),"paused","Hovering over a heatmap should pause the horizontal rail");
+  await heatmapPanel.screenshot({path:path.join(OUTPUT,"ercot-finding-heatmap-context.png"),animations:"disabled"});
+  await page.mouse.move(0,0);
+
   assert.equal(await page.locator(".cv4-path-thumbnail img").count(),2,"Evidence path requires F17 and F23 originals");
   assert.equal(await page.locator(".cv2-resource").count(),6,"Six resources must remain");
   assert.equal(await page.locator(".cv4-team-identity img").getAttribute("src"),"../assets/brand-avatar.jpg");
@@ -105,6 +127,7 @@ async function main(){
   const still=await open(reduced);
   const animation=await still.locator(".cv5-cover .project-reel-track").first().evaluate(el=>getComputedStyle(el).animationName);
   assert.equal(animation,"none","Reduced-motion users should not see the animated hero");
+  assert.equal(await still.locator(".cv6-heatmap-reel .project-reel-track").evaluate(el=>getComputedStyle(el).animationName),"none","Companion heatmaps must respect reduced motion");
   await reduced.close();
   const dark=await browser.newContext({viewport:{width:1440,height:1100}});
   await dark.addInitScript(()=>{try{localStorage.setItem("matthew-scarpello-portfolio-theme","dark")}catch(_){}});
