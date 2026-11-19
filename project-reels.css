@@ -1,0 +1,53 @@
+/* Reusable motion engine for case-study pages.
+   Choose data-reel-style=storyboard|gallery|waterfall in page markup.
+   Only actual gallery figures from the project data feed each reel. */
+.project-reel{--reel-accent:var(--photo-copper,#b65128);--reel-deep:#7d361e;position:relative;isolation:isolate;overflow:hidden;min-width:0}
+.project-reel-viewport{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:13px;height:100%;min-height:0;mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 91%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 91%,transparent 100%)}
+.project-reel-lane{position:relative;display:block;min-width:0;overflow:visible}
+.project-reel-track{display:flex;align-items:stretch;gap:0;width:max-content;max-width:none;will-change:transform}
+.project-reel-sequence{display:flex;align-items:stretch;flex:none;gap:13px;padding:0 6.5px}
+.project-reel-frame{--frame-shift:0px;position:relative;isolation:isolate;display:block;flex:none;width:clamp(205px,19vw,275px);height:clamp(125px,13vw,175px);transform:translateY(var(--frame-shift));overflow:hidden;background:#f7f6f2;border:5px solid #eff0eb;border-radius:3px;box-shadow:0 8px 22px rgba(4,15,28,.24)}
+.project-reel-link{display:block;width:100%;height:100%;position:relative;outline-offset:-3px;text-decoration:none;cursor:pointer}
+.project-reel-frame img{width:100%;height:100%;object-fit:cover;object-position:center;background:#e8e7e5;display:block;filter:saturate(.95)}
+.project-reel-overlay{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(158,60,31,.04),rgba(158,60,31,.55) 65%,rgba(114,43,24,.96));opacity:0;transition:opacity .22s}
+.project-reel-label{position:absolute;bottom:12px;left:12px;right:12px;padding:8px 11px;border-radius:7px;border:1px solid rgba(255,255,255,.22);color:#fff;background:rgba(101,38,24,.9);font-size:12px;font-weight:800;line-height:1.3;text-align:center;opacity:0;transform:translateY(5px);transition:opacity .22s,transform .22s;pointer-events:none}
+.project-reel-frame:hover .project-reel-overlay,.project-reel-frame:focus-within .project-reel-overlay{opacity:1}
+.project-reel-frame:hover .project-reel-label,.project-reel-frame:focus-within .project-reel-label{opacity:1;transform:translateY(0)}
+.project-reel-frame:hover,.project-reel-frame:focus-within{z-index:2;border-color:#f3be85}
+.project-reel-link:focus-visible{outline:3px solid #f8d162;outline-offset:-3px}
+.project-reel-ready .project-reel-lane[data-direction="left"] .project-reel-track{animation:project-reel-left var(--reel-duration,37s) linear infinite}
+.project-reel-ready .project-reel-lane[data-direction="right"] .project-reel-track{animation:project-reel-right var(--reel-duration,44s) linear infinite}
+.project-reel-paused .project-reel-track,.project-reel-lane:has(.project-reel-frame:hover) .project-reel-track,.project-reel-lane:focus-within .project-reel-track{animation-play-state:paused!important}
+@keyframes project-reel-left{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@keyframes project-reel-right{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
+/* Distinct editorial treatments are reusable without new JS.
+   gallery: cinematic single-row; waterfall: vertical stacks (independent
+   vertical assets/markup); storyboard: two opposing matte filmstrips. */
+.project-reel[data-reel-style="gallery"] .project-reel-frame{border-radius:10px;border-width:2px;box-shadow:0 10px 26px rgba(0,0,0,.22)}
+.project-reel[data-reel-style="gallery"] .project-reel-viewport{gap:0}
+.project-reel[data-reel-style="storyboard"]{background:radial-gradient(ellipse at 30% 12%,rgba(184,91,48,.23),transparent 48%),linear-gradient(150deg,#352d31,#1d283e)}
+.project-reel[data-reel-style="storyboard"] .project-reel-viewport{gap:17px}
+.project-reel[data-reel-style="storyboard"] .project-reel-lane:nth-child(2){margin-left:-40px}
+.project-reel[data-reel-style="storyboard"]::after{content:"";position:absolute;inset:0;border-block:1px solid rgba(238,176,133,.25);pointer-events:none}
+.project-reel[data-reel-style="waterfall"] .project-reel-viewport{flex-direction:row;mask-image:linear-gradient(0deg,transparent,#000 9%,#000 91%,transparent);-webkit-mask-image:linear-gradient(0deg,transparent,#000 9%,#000 91%,transparent)}
+.project-reel[data-reel-style="waterfall"] .project-reel-track{flex-direction:column}
+.project-reel[data-reel-style="waterfall"] .project-reel-sequence{flex-direction:column;padding:6.5px 0}
+.project-reel[data-reel-style="waterfall"] .project-reel-frame{width:210px;height:145px}
+.project-reel-ready[data-reel-style="waterfall"] .project-reel-lane[data-direction="left"] .project-reel-track{animation-name:project-reel-up}
+.project-reel-ready[data-reel-style="waterfall"] .project-reel-lane[data-direction="right"] .project-reel-track{animation-name:project-reel-down}
+@keyframes project-reel-up{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-50%,0)}}
+@keyframes project-reel-down{from{transform:translate3d(0,-50%,0)}to{transform:translate3d(0,0,0)}}
+@media(max-width:760px){
+ .project-reel-frame{width:210px;height:143px}
+ .project-reel-viewport{gap:9px}
+ .project-reel[data-reel-style="storyboard"] .project-reel-viewport{gap:10px}
+}
+@media(max-width:440px){
+ .project-reel-frame{width:177px;height:118px;border-width:3px}
+ .project-reel-sequence{gap:9px;padding:0 4.5px}
+ .project-reel-label{bottom:5px;left:5px;right:5px;padding:6px;font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ .project-reel-ready .project-reel-track{animation:none!important;will-change:auto}
+ .project-reel-overlay,.project-reel-label{transition:none!important}
+}
