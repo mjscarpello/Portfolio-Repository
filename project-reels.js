@@ -1,92 +1,138 @@
-/* Ordinary I project reels.
-   Shared engine; individual project pages choose their own visual preset via
-   data-reel-style and supply real images through PORTFOLIO_DATA.projects.
-   "storyboard" = opposed horizontal filmstrips (UNMC)
-   "gallery"    = single horizontal editorial strip (future projects)
-   "waterfall"  = vertical waterfall lanes (future projects).
-   ERCOT's existing research-collage implementation remains independent. */
+/* Ordinary I / case-study reels.
+   The homepage alone uses the vertical waterfall (home-collage.js).
+   Project and pillar reels always scroll horizontally. Different presets
+   provide distinct editorial frames and motion without changing content.
+   Original figure links are sourced from PORTFOLIO_DATA, not fabricated. */
 (() => {
   "use strict";
-  const data = window.PORTFOLIO_DATA?.projects;
-  if (!Array.isArray(data)) return;
-  document.querySelectorAll("[data-project-reel]").forEach(reel => {
-    const project = data.find(p => p.id === reel.dataset.projectReel);
-    const lanes = [...reel.querySelectorAll("[data-reel-lane]")];
-    const figures = project?.figures?.filter(fig =>
-      /^figures\/[a-z0-9-]+\.(?:png|jpe?g|webp)$/i.test(fig.src));
-    if (!figures?.length || !lanes.length) return;
-    const mode = reel.dataset.reelStyle || "gallery";
-    const home = document.body.dataset.root || "../";
-
-    function shuffle(array) {
-      const out = [...array];
-      for (let i = out.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [out[i], out[j]] = [out[j], out[i]];
+  const projects = window.PORTFOLIO_DATA?.projects;
+  if (!Array.isArray(projects)) return;
+  const root = document.body.dataset.root || "";
+  const ercotExplorer = "https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html";
+  // Exact figure IDs recorded in the ERCOT Research Explorer's published graph.
+  const ercotFigures = {
+    "ercot-demand-month-hour.png": "F03",
+    "ercot-seven-models-mape.png": "F15",
+    "ercot-accuracy-by-demand.png": "F17",
+    "ercot-mae-by-hour.png": "F11",
+    "ercot-model-error-correlation.png": "F20",
+    "ercot-later-period-blend-mae.png": "F22",
+    "ercot-blend-by-demand.png": "F23",
+    "ercot-hourly-model-mae.png": "F26",
+    "ercot-season-hour-improvement.png": "F31",
+    "ercot-actual-vs-operator-forecast.png": "F10"
+  };
+  const goodPath = src => /^figures\/[a-z0-9-]+\.(?:png|jpe?g|webp)$/i.test(src);
+  function shuffle(items) {
+    const out = [...items];
+    for (let i = out.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [out[i], out[j]] = [out[j], out[i]];
+    }
+    return out;
+  }
+  function galleryAnchor(src) {
+    return "figure-" + src.split("/").pop().replace(/\.[^.]+$/, "").toLowerCase();
+  }
+  function dataset(reel) {
+    const projectId = reel.dataset.projectReel;
+    const pillar = reel.dataset.pillarReel;
+    if (pillar) {
+      // The category pages offer broad exploration; link each original visual
+      // to the project page where the caption, context, and work are explained.
+      const used = new Set();
+      return projects.filter(project => project.category === pillar)
+        .flatMap(project => (project.figures || []).slice(0, 4)
+          .filter(fig => goodPath(fig.src) && !used.has(fig.src))
+          .map(fig => {
+            used.add(fig.src);
+            return {src:fig.src, title:fig.title, name:project.shortTitle || project.title,
+              href:root + project.page, category:pillar};
+          }));
+    }
+    const project = projects.find(p=>p.id===projectId);
+    if (!project) return [];
+    return (project.figures || []).filter(fig=>goodPath(fig.src)).flatMap(fig=>{
+      const file = fig.src.split("/").pop();
+      if (projectId === "ercot") {
+        const id = ercotFigures[file];
+        if (!id) return [];
+        return [{src:fig.src,title:fig.title,name:fig.title,
+          href:ercotExplorer+"#node=FIG-"+id,external:true,figureId:id,
+          category:project.category}];
       }
-      return out;
-    }
-    function figureAnchor(fig) {
-      return "figure-" + fig.src.split("/").pop().replace(/\.[^.]+$/, "").toLowerCase();
-    }
-    function tile(fig, index) {
-      const card = document.createElement("div");
-      card.className = "project-reel-frame";
-      card.style.setProperty("--frame-shift", index % 3 === 1 ? "3px" : index % 3 === 2 ? "-2px" : "0px");
-      const a = document.createElement("a");
-      a.className = "project-reel-link";
-      a.href = "#" + figureAnchor(fig);
-      a.setAttribute("aria-label","Go to original work sample: " + fig.title);
-      const img = document.createElement("img");
-      img.src = home + fig.src;
-      img.alt = "";
-      img.width = 460;
-      img.height = 290;
-      img.loading = "eager";
-      img.decoding = "async";
-      img.draggable = false;
-      const overlay = document.createElement("span");
-      overlay.className = "project-reel-overlay";
-      overlay.setAttribute("aria-hidden","true");
-      const label = document.createElement("span");
-      label.className = "project-reel-label";
-      label.textContent = "Open: " + fig.title;
-      label.setAttribute("aria-hidden","true");
-      a.append(img,overlay,label);
-      card.append(a);
-      return card;
-    }
-    const groups = Array.from({length:lanes.length},()=>[]);
-    shuffle(figures).forEach((figure,index) => groups[index % lanes.length].push(figure));
-    lanes.forEach((lane,index) => {
-      const track = document.createElement("div");
-      track.className = "project-reel-track";
-      const first = document.createElement("div");
-      first.className = "project-reel-sequence";
-      groups[index].forEach((fig,n) => first.append(tile(fig,n)));
-      const repeat = first.cloneNode(true);
+      return [{src:fig.src,title:fig.title,name:fig.title,
+        href:"#"+galleryAnchor(fig.src),category:project.category}];
+    });
+  }
+  function tile(item) {
+    const frame=document.createElement("div");
+    frame.className="project-reel-frame";
+    frame.dataset.category=item.category;
+    if (item.figureId) frame.dataset.figure=item.figureId;
+    const a=document.createElement("a");
+    a.className="project-reel-link";
+    a.href=item.href;
+    if(item.external){a.target="_blank";a.rel="noopener noreferrer";}
+    a.setAttribute("aria-label",item.external
+      ? "Open research website figure "+item.figureId+": "+item.title
+      : "Open: "+item.name+(item.name!==item.title?" · "+item.title:""));
+    const img=document.createElement("img");
+    img.src=root+item.src;
+    img.alt="";
+    img.width=460;
+    img.height=290;
+    img.loading="eager";
+    img.decoding="async";
+    img.draggable=false;
+    const wash=document.createElement("span");
+    wash.className="project-reel-overlay";
+    wash.setAttribute("aria-hidden","true");
+    const label=document.createElement("span");
+    label.className="project-reel-label";
+    label.textContent="Open: "+item.name;
+    label.setAttribute("aria-hidden","true");
+    a.append(img,wash,label);
+    frame.append(a);
+    return frame;
+  }
+  document.querySelectorAll("[data-project-reel], [data-pillar-reel]").forEach(reel=>{
+    const laneElements=[...reel.querySelectorAll("[data-reel-lane]")];
+    const items=dataset(reel);
+    if (!laneElements.length || !items.length) return;
+    const style = reel.dataset.reelStyle === "storyboard" || reel.dataset.reelStyle === "research"
+      ? reel.dataset.reelStyle : "gallery";
+    const groups=laneElements.map(()=>[]);
+    shuffle(items).forEach((item,index)=>groups[index % groups.length].push(item));
+    laneElements.forEach((lane,index)=>{
+      const track=document.createElement("div");
+      track.className="project-reel-track";
+      const first=document.createElement("div");
+      first.className="project-reel-sequence";
+      groups[index].forEach(item=>first.append(tile(item)));
+      const repeat=first.cloneNode(true);
       repeat.setAttribute("aria-hidden","true");
       repeat.querySelectorAll("a").forEach(a=>{a.tabIndex=-1;});
       track.append(first,repeat);
       lane.replaceChildren(track);
-      lane.dataset.direction = mode === "storyboard" && index % 2 === 1 ? "right" : "left";
-      lane.style.setProperty("--reel-duration", (mode === "storyboard" ? 37 + index * 7 : 34 + index * 5) + "s");
+      lane.dataset.direction=style!=="gallery" && index%2===1?"right":"left";
+      lane.style.setProperty("--reel-duration",(style==="research"?48+index*7:style==="storyboard"?37+index*7:45+index*6)+"s");
     });
     reel.classList.add("project-reel-ready");
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let visible = true;
-    function refresh() {
-      reel.classList.toggle("project-reel-paused",!visible || document.hidden || reduced.matches);
+    const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
+    let visible=true;
+    function refresh(){
+      reel.classList.toggle("project-reel-paused",!visible||document.hidden||reduce.matches);
     }
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(entries=>{
-        visible = entries[0]?.isIntersecting ?? true;
+    if ("IntersectionObserver" in window){
+      const observer=new IntersectionObserver(entries=>{
+        visible=entries[0]?.isIntersecting??true;
         refresh();
-      }, {threshold:0});
+      },{threshold:0});
       observer.observe(reel);
     }
     document.addEventListener("visibilitychange",refresh);
-    if (reduced.addEventListener) reduced.addEventListener("change",refresh);
+    if(reduce.addEventListener)reduce.addEventListener("change",refresh);
     refresh();
   });
 })();

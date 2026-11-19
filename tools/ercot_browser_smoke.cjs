@@ -25,7 +25,7 @@ async function ready(){
 async function open(context) {
   const page=await context.newPage();
   await page.goto(TARGET_URL,{waitUntil:"networkidle",timeout:30000});
-  await page.waitForFunction(()=>document.querySelector("[data-ercot-collage]")?.classList.contains("home-collage-ready"),null,{timeout:15000});
+  await page.waitForFunction(()=>document.querySelector('[data-project-reel="ercot"]')?.classList.contains("project-reel-ready"),null,{timeout:15000});
   return page;
 }
 async function checkOverflow(page,width){
@@ -39,15 +39,21 @@ async function main(){
   const desktop=await browser.newContext({viewport:{width:1440,height:1250},deviceScaleFactor:1});
   const page=await open(desktop);
   await checkOverflow(page,1440);
+  assert.equal(await page.locator("body").getAttribute("data-pillar"),"school");
+  assert.equal(await page.locator(".cv5-hero").count(),1,"ERCOT needs a boxed hero");
+  assert.equal(await page.locator('.cv5-cover[data-reel-style="research"]').count(),1);
+  const laneDirections=await page.locator(".cv5-cover [data-reel-lane]").evaluateAll(lanes=>lanes.map(l=>l.dataset.direction));
+  assert.deepEqual(laneDirections,["left","right"],"ERCOT figure rows should flow in opposite horizontal directions");
+  await page.locator(".cv5-hero").screenshot({path:path.join(OUTPUT,"ercot-boxed-horizontal-hero.png"),animations:"disabled"});
   assert.equal(await page.locator(".cv2-metric-strip").count(),0,"The redundant metrics strip should be absent");
   assert.equal(await page.locator(".cv4-story-figure img").count(),1,"Finding should feature original F17");
   assert.equal(await page.locator(".cv4-path-thumbnail img").count(),2,"Evidence path requires F17 and F23 originals");
   assert.equal(await page.locator(".cv2-resource").count(),6,"Six resources must remain");
   assert.equal(await page.locator(".cv4-team-identity img").getAttribute("src"),"../assets/brand-avatar.jpg");
   assert.equal(await page.locator(".cv4-resource-feature").getAttribute("href").then(x=>x.endsWith("#figures")),true);
-  const figures=await page.locator(".home-collage-lane .home-collage-tile").count();
-  assert.equal(figures,20,"Ten authentic ERCOT images must be duplicated once for seamless animation");
-  const unique=await page.locator(".home-collage-lane .home-collage-sequence:first-child .home-collage-tile a").evaluateAll(links=>links.map(a=>a.getAttribute("href")));
+  const figures=await page.locator(".cv5-cover .project-reel-frame").count();
+  assert.equal(figures,20,"Ten authentic ERCOT images must be duplicated once for a seamless horizontal loop");
+  const unique=await page.locator(".cv5-cover .project-reel-sequence:first-child .project-reel-frame a").evaluateAll(links=>links.map(a=>a.getAttribute("href")));
   assert.equal(new Set(unique).size,10,"Ten separate figure links expected");
   assert(unique.every(s=>s.includes("#node=FIG-")),"Figure cards should link to specific research records");
   const menu=page.locator("[data-ercot-nav]");
@@ -97,7 +103,7 @@ async function main(){
   }
   const reduced=await browser.newContext({viewport:{width:430,height:900},reducedMotion:"reduce"});
   const still=await open(reduced);
-  const animation=await still.locator(".home-collage-lane").first().evaluate(el=>getComputedStyle(el).animationName);
+  const animation=await still.locator(".cv5-cover .project-reel-track").first().evaluate(el=>getComputedStyle(el).animationName);
   assert.equal(animation,"none","Reduced-motion users should not see the animated hero");
   await reduced.close();
   const dark=await browser.newContext({viewport:{width:1440,height:1100}});
@@ -108,7 +114,7 @@ async function main(){
   await darkPage.locator("#contribution").scrollIntoViewIfNeeded();
   await darkPage.screenshot({path:path.join(OUTPUT,"ercot-dark-team.png"),animations:"disabled"});
   await dark.close();
-  console.log("PASS ERCOT V4: source-linked original images, hover/focus previews, figures, resources, branded contribution, responsive design, reduced motion, dark theme");
+  console.log("PASS ERCOT V5: source-linked original images, hover/focus previews, figures, resources, branded contribution, responsive design, reduced motion, dark theme");
 }
 main().catch(error=>{console.error(error);process.exitCode=1;}).finally(async()=>{
   if(browser)await browser.close().catch(()=>{});
