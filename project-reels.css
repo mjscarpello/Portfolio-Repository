@@ -1,6 +1,6 @@
-/* Reusable motion engine for case-study pages.
-   Choose data-reel-style=storyboard|gallery|waterfall in page markup.
-   Only actual gallery figures from the project data feed each reel. */
+/* Reusable horizontal motion engine for project and pillar pages.
+   Choose data-reel-style=storyboard|research|gallery. The only vertical
+   waterfall remains on the homepage. All images come from project data. */
 .project-reel{--reel-accent:var(--photo-copper,#b65128);--reel-deep:#7d361e;position:relative;isolation:isolate;overflow:hidden;min-width:0}
 .project-reel-viewport{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:13px;height:100%;min-height:0;mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 91%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 91%,transparent 100%)}
 .project-reel-lane{position:relative;display:block;min-width:0;overflow:visible}
@@ -20,23 +20,76 @@
 .project-reel-paused .project-reel-track,.project-reel-lane:has(.project-reel-frame:hover) .project-reel-track,.project-reel-lane:focus-within .project-reel-track{animation-play-state:paused!important}
 @keyframes project-reel-left{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 @keyframes project-reel-right{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
-/* Distinct editorial treatments are reusable without new JS.
-   gallery: cinematic single-row; waterfall: vertical stacks (independent
-   vertical assets/markup); storyboard: two opposing matte filmstrips. */
-.project-reel[data-reel-style="gallery"] .project-reel-frame{border-radius:10px;border-width:2px;box-shadow:0 10px 26px rgba(0,0,0,.22)}
+/* Project-specific horizontal variants. The homepage is the only vertical
+   waterfall; category and case-study reels use these horizontal layouts. */
+.project-reel{
+  --reel-accent:var(--pillar-accent,var(--photo-copper,#b65128));
+  --reel-rgb:var(--pillar-accent-rgb,168,78,43);
+  --reel-text:var(--pillar-on-dark,#f5bd99);
+}
+.project-reel-frame:hover,.project-reel-frame:focus-within{
+  border-color:var(--reel-accent);
+}
+.project-reel-overlay{
+  background:linear-gradient(180deg,rgba(var(--reel-rgb),.025),rgba(var(--reel-rgb),.64) 61%,rgba(var(--reel-rgb),.96));
+}
+.project-reel-label{
+  background:rgba(15,28,42,.9);
+  border-color:rgba(var(--reel-rgb),.60);
+}
+.project-reel[data-reel-style="gallery"] .project-reel-frame{
+  border-radius:8px;border-width:3px;box-shadow:0 10px 26px rgba(0,0,0,.23);
+}
 .project-reel[data-reel-style="gallery"] .project-reel-viewport{gap:0}
-.project-reel[data-reel-style="storyboard"]{background:radial-gradient(ellipse at 30% 12%,rgba(184,91,48,.23),transparent 48%),linear-gradient(150deg,#352d31,#1d283e)}
+.project-reel[data-reel-style="storyboard"]{
+  background:radial-gradient(ellipse at 30% 12%,rgba(var(--reel-rgb),.28),transparent 48%),linear-gradient(150deg,#282d3b,#1d283e);
+}
 .project-reel[data-reel-style="storyboard"] .project-reel-viewport{gap:17px}
 .project-reel[data-reel-style="storyboard"] .project-reel-lane:nth-child(2){margin-left:-40px}
-.project-reel[data-reel-style="storyboard"]::after{content:"";position:absolute;inset:0;border-block:1px solid rgba(238,176,133,.25);pointer-events:none}
-.project-reel[data-reel-style="waterfall"] .project-reel-viewport{flex-direction:row;mask-image:linear-gradient(0deg,transparent,#000 9%,#000 91%,transparent);-webkit-mask-image:linear-gradient(0deg,transparent,#000 9%,#000 91%,transparent)}
-.project-reel[data-reel-style="waterfall"] .project-reel-track{flex-direction:column}
-.project-reel[data-reel-style="waterfall"] .project-reel-sequence{flex-direction:column;padding:6.5px 0}
-.project-reel[data-reel-style="waterfall"] .project-reel-frame{width:210px;height:145px}
-.project-reel-ready[data-reel-style="waterfall"] .project-reel-lane[data-direction="left"] .project-reel-track{animation-name:project-reel-up}
-.project-reel-ready[data-reel-style="waterfall"] .project-reel-lane[data-direction="right"] .project-reel-track{animation-name:project-reel-down}
-@keyframes project-reel-up{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-50%,0)}}
-@keyframes project-reel-down{from{transform:translate3d(0,-50%,0)}to{transform:translate3d(0,0,0)}}
+.project-reel[data-reel-style="storyboard"]::after{
+  content:"";position:absolute;inset:0;
+  border-block:1px solid rgba(var(--reel-rgb),.45);pointer-events:none;
+}
+/* Research charts must remain legible: flat print-card framing and no crop. */
+.project-reel[data-reel-style="research"]{
+  background:radial-gradient(ellipse at 70% 10%,rgba(var(--reel-rgb),.27),transparent 50%),linear-gradient(155deg,#182b47,#13213a);
+}
+.project-reel[data-reel-style="research"] .project-reel-viewport{gap:16px}
+.project-reel[data-reel-style="research"] .project-reel-lane:nth-child(2){margin-left:-24px}
+.project-reel[data-reel-style="research"] .project-reel-frame{
+  width:clamp(200px,20vw,288px);height:clamp(133px,13.5vw,184px);
+  border:4px solid #f2f7fa;border-radius:3px;background:#fff;
+  box-shadow:0 12px 23px rgba(1,17,38,.25);
+}
+.project-reel[data-reel-style="research"] .project-reel-frame img{
+  object-fit:contain;filter:none;background:#fff;
+}
+.project-reel[data-reel-style="research"] .project-reel-frame:hover,
+.project-reel[data-reel-style="research"] .project-reel-frame:focus-within{
+  border-color:var(--reel-accent);
+}
+/* Category landing pages get a compact, wide, editorial horizontal strip. */
+.pillar-reel-section{margin:0 0 clamp(35px,4.5vw,62px)}
+.pillar-reel-heading{display:flex;gap:16px;justify-content:space-between;align-items:end;padding:0 0 17px}
+.pillar-reel-heading h2{
+  font-size:clamp(1.32rem,2vw,1.85rem);line-height:1.23;
+  margin:0;letter-spacing:-.042em;
+}
+.pillar-reel-heading p{color:var(--muted);font-size:12px;line-height:1.6;margin:0;max-width:360px}
+.pillar-reel-section .project-reel{
+  height:clamp(185px,21vw,235px);
+  padding:15px 0;border:1px solid var(--line);
+  border-left:4px solid var(--reel-accent);
+  background:linear-gradient(125deg,rgba(var(--reel-rgb),.20),#1c2b42 62%,#1b2539);
+}
+.pillar-reel-section .project-reel-viewport{height:100%}
+.pillar-reel-section .project-reel-frame{width:clamp(212px,23vw,294px);height:clamp(148px,15vw,190px)}
+.pillar-reel-section .project-reel-frame img{object-fit:contain;background:#fff}
+.pillar-reel-fallback{display:flex;align-items:center;justify-content:center;position:absolute;inset:0;background:#1b2638}
+.pillar-reel-fallback img{max-height:100%;width:100%;object-fit:contain}
+.pillar-reel-section .project-reel-ready .pillar-reel-fallback{display:none}
+.pillar-reel-section .project-reel:not(.project-reel-ready) .project-reel-viewport{visibility:hidden}
+
 @media(max-width:760px){
  .project-reel-frame{width:210px;height:143px}
  .project-reel-viewport{gap:9px}
@@ -50,4 +103,16 @@
 @media(prefers-reduced-motion:reduce){
  .project-reel-ready .project-reel-track{animation:none!important;will-change:auto}
  .project-reel-overlay,.project-reel-label{transition:none!important}
+}
+
+@media(max-width:760px){
+ .pillar-reel-heading{display:block}
+ .pillar-reel-heading p{margin-top:9px}
+ .pillar-reel-section .project-reel{height:208px}
+ .project-reel[data-reel-style="research"] .project-reel-frame{width:225px;height:151px}
+}
+@media(max-width:440px){
+ .pillar-reel-section .project-reel{height:165px}
+ .pillar-reel-section .project-reel-frame{width:200px;height:127px}
+ .project-reel[data-reel-style="research"] .project-reel-frame{width:190px;height:120px}
 }
