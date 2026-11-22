@@ -11,7 +11,7 @@ This guide documents the completed DSC 450 Project 1 research and separately lab
 | NOAA_Human_Economic_Impact_Modeling_v3_0(2).ipynb | Extended modeling notebook, October 2026 | cells 6–10 known/unknown target counts; cells 21–28 physical-intensity investigation; cells 29–42 co-occurrence experiment (cell positions zero-based) |
 | DSC450_Project1_Visualizations_HaliSarahParsons(1).ipynb | Hali Sarah Parsons, Data Visualizer / Presenter | chart 1 frequency, chart 5 economic totals, chart 9 permutation importance derived from Matthew's model results |
 
-The original four portfolio image assets are already available; the supplied source PDFs and notebooks have been reviewed but are not yet committed as binary/original files. No links to absent files are presented. The cleaned CSV and exact final grouped-episode model training notebook are separate dependencies for independent reproduction.
+The four original portfolio figures are available individually. The original report, slides and notebooks are preserved byte-for-byte in the [complete research archive](../downloads/noaa-research-sources.zip), with fourteen saved notebook figure outputs and a source/hash manifest. The published site expands the archive into individually linked documents and figure images. The cleaned CSV and exact final grouped-episode model training notebook are separate dependencies for independent reproduction.
 
 ## Final project findings
 
