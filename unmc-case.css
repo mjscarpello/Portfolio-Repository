@@ -120,3 +120,50 @@ html[data-theme="dark"] .unmc-game-actions .unmc-button-primary{color:#10213b;ba
 @media(prefers-reduced-motion:reduce){
  .unmc-button,.unmc-work-card,.unmc-work-picture img,.unmc-game-picture>span{transition:none!important;transform:none!important}
 }
+
+/* Interview-derived UNMC experience: scoped to this case study only. */
+.unmc-case{--unmc-ink:#442418;--unmc-warm:#71371f;--unmc-warm-dark:#482618}
+.unmc-case .unmc-hero{background:radial-gradient(ellipse at 87% 10%,#bf744c55,transparent 48%),linear-gradient(135deg,#482618,#71371f 62%,#874423);border-color:#9b593b;box-shadow:0 16px 46px #49261920}
+.unmc-case .unmc-hero-lede,.unmc-case .unmc-hero-tags span{color:#fff1e7}
+.unmc-case .unmc-hero-tags span{border-color:#f7d3b84d}
+.unmc-case .unmc-button-primary{color:#482618}
+.unmc-case .unmc-button-outline{border-color:#e0b79f}
+.unmc-case .unmc-hero-reel,.unmc-case .unmc-reel-fallback{background:#482618}
+.unmc-case .unmc-hero-reel figcaption{background:#67351f;color:#fff0e6}
+.unmc-case .unmc-game-picture,.unmc-case .unmc-game-picture img{background:#482618}
+.unmc-case .unmc-game-picture>span{background:#572b1aee}
+.unmc-case .unmc-game-actions .unmc-button-primary{background:#9c4325;border-color:#9c4325;color:#fff}
+.unmc-case .unmc-game-actions .unmc-button-primary:hover{background:#76321d;border-color:#76321d;color:#fff}
+.unmc-case .unmc-collab-card{border-top-color:var(--pillar-accent,#a84e2b)}
+.unmc-case .unmc-work-picture,.unmc-case .unmc-work-picture img{background:#f6eee9}
+.unmc-progression,.unmc-accessibility{padding:clamp(54px,6.5vw,85px) 0;border-bottom:1px solid var(--line)}
+.unmc-story-hint{font-size:12px;color:var(--muted);margin:0 0 13px}
+.unmc-story-hint span{color:var(--pillar-accent,#a84e2b);font-weight:800}
+.unmc-story-track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(245px,30%);gap:16px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-color:var(--pillar-accent,#a84e2b) var(--paper-2);list-style:none;padding:4px 2px 17px;margin:0;overscroll-behavior-inline:contain}
+.unmc-story-track:focus-visible{outline:3px solid var(--pillar-accent,#a84e2b);outline-offset:4px}
+.unmc-story-card{scroll-snap-align:start;display:flex;flex-direction:column;min-width:0;padding:24px 23px;background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--pillar-accent,#a84e2b)}
+.unmc-story-number{font-size:2rem;line-height:1;font-weight:800;color:var(--pillar-accent,#a84e2b);margin-bottom:24px}
+.unmc-story-card .eyebrow{margin:0 0 10px;color:var(--pillar-accent,#a84e2b)}
+.unmc-story-card h3,.unmc-access-grid h3{font-size:clamp(1.25rem,2vw,1.65rem);line-height:1.2;letter-spacing:-.035em;margin:0 0 12px}
+.unmc-story-card p:not(.eyebrow),.unmc-values-grid p,.unmc-process p,.unmc-access-grid p:not(.eyebrow){font-size:14px;line-height:1.7;color:var(--muted);margin:0 0 18px}
+.unmc-story-skill,.unmc-story-link{display:inline-block;font-size:12px;font-weight:800;color:var(--pillar-accent,#a84e2b);margin-top:auto;line-height:1.6}
+.unmc-story-link{text-underline-offset:4px}
+.unmc-contributions{margin-top:34px}
+.unmc-contributions>h3,.unmc-process h3{font-size:1.35rem;margin:0 0 16px;letter-spacing:-.025em}
+.unmc-values-grid,.unmc-access-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.unmc-values-grid article,.unmc-access-grid article{border:1px solid var(--line);border-left:3px solid var(--pillar-accent,#a84e2b);background:var(--paper);padding:20px}
+.unmc-values-grid h4{font-size:1.1rem;margin:0 0 8px}
+.unmc-values-grid p,.unmc-access-grid p:not(.eyebrow){margin:0}
+.unmc-access-grid .eyebrow{color:var(--pillar-accent,#a84e2b);margin:0 0 15px}
+.unmc-access-takeaway{border-left:3px solid var(--pillar-accent,#a84e2b);padding:12px 18px;margin:22px 0 0;background:var(--paper-2);line-height:1.7;font-size:14px;color:var(--muted)}
+.unmc-access-takeaway strong{color:var(--ink)}
+.unmc-mentor-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.unmc-mentor-grid .unmc-collab-card{border-top-color:var(--pillar-accent,#a84e2b);min-height:0}
+.unmc-process{margin-top:20px;border:1px solid var(--line);padding:24px;background:var(--paper-2)}
+.unmc-process p{max-width:790px;margin-bottom:12px}
+html[data-theme="dark"] .unmc-case .unmc-work-picture,html[data-theme="dark"] .unmc-case .unmc-work-picture img{background:#f6eee9}
+html[data-theme="dark"] .unmc-case .unmc-game-actions .unmc-button-primary{background:#f5b489;border-color:#f5b489;color:#482618}
+@media(max-width:950px){.unmc-mentor-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.unmc-story-track{grid-auto-columns:minmax(245px,45%)}}
+@media(max-width:740px){.unmc-values-grid,.unmc-access-grid{grid-template-columns:1fr}.unmc-story-track{grid-auto-columns:minmax(230px,78%)}}
+@media(max-width:550px){.unmc-mentor-grid{grid-template-columns:1fr}.unmc-story-card{padding:19px}.unmc-story-track{grid-auto-columns:minmax(210px,85%)}}
+@media(prefers-reduced-motion:reduce){.unmc-story-track{scroll-behavior:auto;scroll-snap-type:none}}
