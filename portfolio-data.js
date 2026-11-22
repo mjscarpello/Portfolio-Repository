@@ -164,18 +164,55 @@ window.PORTFOLIO_DATA = {
       "shortTitle": "NYC dry recycling",
       "title": "NYC Dry Recycling Across Communities",
       "label": "Bellevue University · DSC 450 · Fall Capstone · Project 03",
-      "status": "In progress · Data wrangling",
+      "status": "Completed team project",
       "role": "Data Wrangler · Group 1",
       "period": "Fall 2026",
-      "summary": "Our team is studying how community characteristics relate to dry recycling share in New York City. I prepare and reconcile the collection and neighborhood data for analysis.",
-      "takeaway": "Community district and socioeconomic geographies do not align one-to-one. Geographic reconciliation and careful definitions are necessary before modeling; results are not yet final.",
+      "summary": "Our team analyzed community characteristics and dry recycling collection share across New York City. I prepared and reconciled collection and neighborhood datasets, validating coverage and consistent target definitions.",
+      "takeaway": "2025 collection share ranged from 5.1% to 28.4% across districts. Historical performance identified 14 of the 15 lowest-share districts; district-level associations do not establish causation.",
       "skills": [
         "Python",
         "Data wrangling",
         "Data validation",
         "Geographic reconciliation"
       ],
-      "figures": []
+      "figures": [
+        {
+          "src": "figures/nyc-borough-share.svg",
+          "title": "Collection share by borough",
+          "alt": "Borough averages in 2025: Staten Island 19.5%, Manhattan 19.1%, Queens 19.0%, Brooklyn 15.5%, Bronx 13.1%.",
+          "caption": "Portfolio adaptation of final team presentation · Slide 6."
+        },
+        {
+          "src": "figures/nyc-district-range.svg",
+          "title": "District-level range",
+          "alt": "Bronx CD2 5.1%, citywide 16.9%, Brooklyn CD6 28.4%.",
+          "caption": "Portfolio adaptation · Final research results."
+        },
+        {
+          "src": "figures/nyc-income-residuals.svg",
+          "title": "Below income-based expectations",
+          "alt": "Largest five negative gaps from income-based expectations.",
+          "caption": "Portfolio adaptation · Gap magnitudes, not causal findings."
+        },
+        {
+          "src": "figures/nyc-risk-overlap.svg",
+          "title": "Identifying low-share districts",
+          "alt": "Prior-year group identified 14 of 15, logistic regression 11, random forest 10.",
+          "caption": "Portfolio adaptation · Final presentation."
+        },
+        {
+          "src": "figures/nyc-month-ahead-mae.svg",
+          "title": "One-month-ahead forecasts",
+          "alt": "Ridge or gradient boosting MAE 0.75 percentage points, seasonal naive 0.95.",
+          "caption": "Portfolio adaptation · Short-horizon comparison."
+        },
+        {
+          "src": "figures/nyc-year-ahead-mae.svg",
+          "title": "Year-ahead forecasts",
+          "alt": "Gradient boosting MAE 0.87, ensemble 0.89, baseline 0.91, TFT 1.01 percentage points.",
+          "caption": "Portfolio adaptation · Final presentation."
+        }
+      ]
     },
     {
       "id": "amazon-pick",
