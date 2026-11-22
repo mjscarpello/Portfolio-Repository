@@ -62,3 +62,95 @@
 @media(max-width:650px){.noaa-hero{padding:18px 0 42px}.noaa-hero h1{font-size:clamp(2.45rem,9.6vw,4rem)}.noaa-section{padding:41px 0}.noaa-exhibit{grid-template-columns:1fr;gap:15px;padding:19px 0}.noaa-exhibit h3{font-size:1.55rem}.noaa-figure>a{padding:6px;aspect-ratio:4/3}.noaa-evaluation-results{grid-template-columns:repeat(2,minmax(0,1fr))}.noaa-result-intro{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--line)}.noaa-result+.noaa-result{border-left:1px solid var(--line)}.noaa-process{gap:8px}.noaa-process li{padding:14px}.noaa-resource-grid{grid-template-columns:1fr}.noaa-hero-art figcaption{max-width:90%}}
 @media(max-width:380px){.noaa-process{grid-template-columns:1fr}.noaa-result strong{font-size:1.7rem}}
 @media(prefers-reduced-motion:reduce){.noaa-figure>a{transition:none}}
+
+/* NOAA editorial exhibit / school pillar. The original chart palettes are
+   evidence, not page accents. All UI highlights inherit the school token. */
+.noaa-page{max-width:1190px}
+.noaa-page .noaa-boxed-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);align-items:center;gap:clamp(24px,3.5vw,45px);padding:clamp(24px,3.5vw,46px);margin-bottom:0;border:1px solid #3d5674;background:radial-gradient(ellipse at 88% 8%,#2b4b6c,transparent 60%),#182b43;color:#f5f8ff}
+.noaa-boxed-hero h1{font-size:clamp(2.5rem,4.15vw,4.1rem);line-height:1.08;letter-spacing:-.06em;margin:22px 0}
+.noaa-boxed-hero h1 em{color:var(--pillar-on-dark,#a7dbfd);font-style:normal}
+.noaa-boxed-hero .eyebrow{color:var(--pillar-on-dark,#a7dbfd);line-height:1.6}
+.noaa-boxed-hero .noaa-lede{font-size:15px;line-height:1.75;color:#dce5ef;margin-bottom:24px}
+.noaa-hero-actions{display:flex;flex-wrap:wrap;gap:10px}
+.noaa-hero-actions a{display:inline-flex;align-items:center;padding:12px 14px;min-height:44px;font-size:12px;font-weight:800;text-decoration:none;border:1px solid #a9c4dd}
+.noaa-primary-action{background:#f8fafd;color:#192e47}
+.noaa-primary-action:hover,.noaa-primary-action:focus-visible{background:var(--pillar-on-dark,#a7dbfd);color:#10253a}
+.noaa-secondary-action{color:#f8fafd}
+.noaa-secondary-action:hover,.noaa-secondary-action:focus-visible{background:#ffffff17;color:#fff}
+.noaa-hero-context{color:#d2e0ed;font-size:11px;font-weight:700;line-height:1.6;margin:24px 0 0}
+.noaa-hero-reel{min-width:0;margin:0;border:1px solid #86b7da66;box-shadow:0 14px 35px #07162a55}
+.noaa-reel-window{position:relative;height:clamp(195px,23vw,275px);padding:18px 0;overflow:hidden}
+.noaa-hero-reel .project-reel-viewport{height:100%;gap:0}
+.noaa-hero-reel .project-reel-frame{width:clamp(255px,27vw,350px);height:clamp(165px,19vw,220px);border:5px solid #fff;border-radius:2px}
+.noaa-hero-reel .project-reel-frame img{object-fit:contain;filter:none;background:#fff}
+.noaa-reel-fallback{display:grid;place-items:center;position:absolute;inset:0;background:#203c5b;color:var(--pillar-on-dark,#a7dbfd);font-weight:800;text-align:center;padding:20px}
+.noaa-hero-reel.project-reel-ready .noaa-reel-fallback{display:none}
+.noaa-hero-reel:not(.project-reel-ready) .project-reel-viewport{visibility:hidden}
+.noaa-hero-reel figcaption{display:block;padding:15px 17px;background:#233b56;color:#d5e4f0;line-height:1.6;font-size:11px}
+.noaa-hero-reel figcaption strong{display:block;font-size:10px;letter-spacing:.12em;color:var(--pillar-on-dark,#a7dbfd);margin-bottom:5px}
+.noaa-hero-reel figcaption span{display:block}
+.noaa-local-nav{position:relative;isolation:isolate;z-index:8;display:flex;flex-wrap:wrap;align-items:center;gap:12px 21px;padding:21px 0;border-bottom:1px solid var(--line)}
+.noaa-local-nav>span{font-size:10px;letter-spacing:.12em;font-weight:850;color:var(--pillar-accent)}
+.noaa-local-nav>a{font-size:12px;font-weight:780;color:var(--muted);padding:7px 0;text-decoration:none;border-bottom:2px solid transparent}
+.noaa-local-nav>a:hover,.noaa-local-nav>a:focus-visible,.noaa-local-nav>a[aria-current="location"]{color:var(--pillar-accent);border-bottom-color:var(--pillar-accent)}
+.noaa-nav-preview{position:absolute;top:calc(100% + 6px);left:var(--preview-left,0px);width:min(360px,calc(100vw - 40px));padding:12px;display:grid;grid-template-columns:136px minmax(0,1fr);align-items:center;gap:14px;background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--pillar-accent);box-shadow:0 14px 35px #101a3355;pointer-events:none}
+.noaa-nav-preview[hidden]{display:none}
+.noaa-nav-preview img{width:136px;height:94px;object-fit:contain;background:white}
+.noaa-nav-preview strong{font-size:13px;color:var(--ink)}
+.noaa-nav-preview p{color:var(--muted);font-size:11px;line-height:1.55;margin:7px 0 0}
+.noaa-page[id],.noaa-page section[id],.noaa-page figure[id]{scroll-margin-top:25px}
+.noaa-page .noaa-section-intro{max-width:900px}
+.noaa-page .noaa-exhibit-index,.noaa-page .noaa-kicker,.noaa-page .eyebrow,.noaa-page .noaa-skill-note strong,.noaa-page .noaa-process li>span{color:var(--pillar-accent)}
+.noaa-page .noaa-boxed-hero .eyebrow{color:var(--pillar-on-dark,#a7dbfd)}
+.noaa-question-layout{display:grid;grid-template-columns:minmax(0,1.13fr) minmax(0,.87fr);gap:18px;align-items:stretch}
+.noaa-target-flow,.noaa-why-card,.noaa-score-panel,.noaa-feature-experiment,.noaa-boundary{padding:clamp(18px,2.4vw,29px);background:var(--paper);border:1px solid var(--line);min-width:0}
+.noaa-target-flow{display:grid;gap:10px}
+.noaa-flow-root,.noaa-flow-branches>div,.noaa-flow-classes>div{padding:15px;background:var(--paper-2);border:1px solid var(--line);min-width:0}
+.noaa-flow-root{border-left:3px solid var(--pillar-accent)}
+.noaa-target-flow span,.noaa-method-pair span,.noaa-roadmap span,.noaa-team article>span,.noaa-team-self>div>span{color:var(--pillar-accent);font-size:10px;font-weight:850;letter-spacing:.08em;display:block}
+.noaa-target-flow strong{display:block;font-size:clamp(1.18rem,2.25vw,1.95rem);margin:8px 0 4px;letter-spacing:-.035em;color:var(--ink);line-height:1.2}
+.noaa-target-flow p,.noaa-target-flow small{font-size:11px;line-height:1.5;color:var(--muted);margin:4px 0 0}
+.noaa-flow-branches,.noaa-flow-classes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.noaa-flow-classes>div{border-top:2px solid var(--pillar-accent)}
+.noaa-why-card h3,.noaa-score-panel h3,.noaa-feature-experiment h3,.noaa-boundary h3{font-size:clamp(1.32rem,2.2vw,1.9rem);line-height:1.2;margin:11px 0 13px;letter-spacing:-.035em}
+.noaa-why-card>p:not(.noaa-kicker),.noaa-score-panel p,.noaa-feature-experiment p,.noaa-boundary p,.noaa-team p,.noaa-roadmap p,.noaa-method-pair p{font-size:13px;line-height:1.7;color:var(--muted);margin:0 0 13px}
+.noaa-page .noaa-editorial-exhibit{grid-template-columns:minmax(0,.37fr) minmax(0,.63fr);gap:clamp(20px,3vw,35px);align-items:start;padding:clamp(16px,2.5vw,27px);margin:18px 0;background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--pillar-accent)}
+.noaa-editorial-exhibit .noaa-exhibit-guide>p:not(.noaa-exhibit-index),.noaa-reading p{font-size:13px;line-height:1.76;color:var(--muted);margin:0}
+.noaa-reading{margin-top:20px;padding:15px;background:var(--paper-2);border-left:2px solid var(--pillar-accent)}
+.noaa-reading strong{display:block;font-size:10px;letter-spacing:.09em;color:var(--pillar-accent);margin-bottom:8px}
+.noaa-page .noaa-figure>a{display:block;aspect-ratio:auto;padding:8px;background:white;border:1px solid var(--line);min-height:0}
+.noaa-page .noaa-figure img{display:block;max-height:none;width:100%;height:auto;object-fit:contain}
+.noaa-page .noaa-figure:target{outline:3px solid var(--pillar-accent);outline-offset:4px}
+.noaa-method-pair,.noaa-team,.noaa-roadmap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 18px}
+.noaa-method-pair article,.noaa-team article,.noaa-roadmap article{border:1px solid var(--line);background:var(--paper);padding:21px;min-width:0}
+.noaa-method-pair h3,.noaa-team h3,.noaa-roadmap h3{font-size:clamp(1.15rem,1.9vw,1.5rem);letter-spacing:-.035em;line-height:1.25;margin:11px 0}
+.noaa-score-panel{margin-top:24px}
+.noaa-table-wrap{overflow-x:auto;margin:15px 0}
+.noaa-table-wrap table{width:100%;border-collapse:collapse;font-size:13px;text-align:left}
+.noaa-table-wrap caption{text-align:left;font-size:11px;font-weight:750;color:var(--muted);margin-bottom:9px}
+.noaa-table-wrap th,.noaa-table-wrap td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.noaa-table-wrap thead{background:var(--paper-2)}
+.noaa-table-wrap td{text-align:right;font-variant-numeric:tabular-nums}
+.noaa-best{background:var(--paper-2);color:var(--pillar-accent)}
+.noaa-score-panel .noaa-small{font-size:12px;margin:0;line-height:1.65}
+.noaa-feature-experiment{display:grid;grid-template-columns:1fr .8fr;gap:22px;align-items:center;margin-top:24px;border-left:3px solid var(--pillar-accent)}
+.noaa-experiment-values{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center}
+.noaa-experiment-values>div{background:var(--paper-2);border:1px solid var(--line);padding:14px;min-width:0}
+.noaa-experiment-values span{font-size:11px;color:var(--muted);line-height:1.4}
+.noaa-experiment-values strong{display:block;font-size:clamp(1.4rem,2.8vw,2.2rem);color:var(--pillar-accent);letter-spacing:-.05em}
+.noaa-experiment-values small{grid-column:1/-1;color:var(--muted);font-size:10px}
+.noaa-process-linked a{font-size:11px;font-weight:800;color:var(--pillar-accent);margin-top:auto;padding-top:6px}
+.noaa-team,.noaa-roadmap{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:24px}
+.noaa-team article{border-top:2px solid var(--pillar-accent)}
+.noaa-team-self>div{display:flex;gap:11px;align-items:center}
+.noaa-team-self img{display:block;border-radius:50%;border:2px solid var(--pillar-accent)}
+.noaa-team .noaa-team-self{background:var(--paper-2)}
+.noaa-boundary{border-left:3px solid var(--pillar-accent)}
+.noaa-boundary p:last-child,.noaa-team p,.noaa-roadmap p,.noaa-method-pair p{margin-bottom:0}
+.noaa-page .noaa-resource-grid a:hover,.noaa-page .noaa-resource-grid a:focus-visible{border-color:var(--pillar-accent)}
+.noaa-page .noaa-resource-grid a{border-top:2px solid var(--pillar-accent)}
+@media(max-width:960px){.noaa-page .noaa-boxed-hero{grid-template-columns:1fr}.noaa-reel-window{height:240px}.noaa-hero-reel .project-reel-frame{width:300px;height:195px}}
+@media(max-width:760px){.noaa-question-layout,.noaa-feature-experiment,.noaa-page .noaa-editorial-exhibit{grid-template-columns:1fr}.noaa-nav-preview{display:none!important}.noaa-team,.noaa-roadmap{grid-template-columns:1fr}.noaa-editorial-exhibit .noaa-reading{margin-top:13px}}
+@media(max-width:650px){.noaa-page .noaa-boxed-hero{padding:21px}.noaa-boxed-hero h1{font-size:clamp(2.35rem,8.4vw,3.5rem)}.noaa-reel-window{height:205px;padding:12px 0}.noaa-hero-reel .project-reel-frame{width:255px;height:173px}.noaa-method-pair{grid-template-columns:1fr}.noaa-local-nav{gap:8px 15px}.noaa-table-wrap th,.noaa-table-wrap td{font-size:11px;padding:9px 5px}.noaa-page .noaa-editorial-exhibit{padding:15px}.noaa-reading p{font-size:12px}}
+@media(hover:none){.noaa-nav-preview{display:none!important}}
+@media(prefers-reduced-motion:reduce){.noaa-page .project-reel-track{animation:none!important}}
