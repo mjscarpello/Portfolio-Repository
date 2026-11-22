@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="A guided NOAA storm-damage classification case study: original figures, modeling decisions, careful evaluation, and documented limitations." name="description"/><meta content="#f4f1ea" name="theme-color"/><title>Predicting Economic Damage from Severe Weather | Matthew Scarpello</title><link href="../style.css?v=21" rel="stylesheet"/><link href="../noaa-exhibit.css?v=1" rel="stylesheet"/><link href="../photo-palette.css?v=1" rel="stylesheet"/><script defer="" src="../portfolio-data.js?v=21"></script><script defer="" src="../script.js?v=22"></script><link rel="icon" href="../favicon.ico" sizes="any">
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="A guided NOAA storm-damage classification case study: original figures, modeling decisions, careful evaluation, and documented limitations." name="description"/><meta content="#f4f1ea" name="theme-color"/><title>Predicting Reported Economic Damage from Severe Weather | Matthew Scarpello</title><link href="../style.css?v=21" rel="stylesheet"/><link href="../project-reels.css?v=2" rel="stylesheet"/><link href="../noaa-exhibit.css?v=2" rel="stylesheet"/><link href="../photo-palette.css?v=1" rel="stylesheet"/><script defer="" src="../portfolio-data.js?v=21"></script><script defer="" src="../script.js?v=22"></script><script defer src="../project-reels.js?v=3"></script><script defer src="../noaa-navigation.js?v=1"></script><link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -8,159 +8,68 @@
 <header class="site-header wrap"><a class="brand" href="../index.html"><span aria-hidden="true" class="brand-circle">MS</span><span>Matthew Scarpello<small>DATA SCIENCE · CREATIVE TECHNOLOGY</small></span></a>
 <nav aria-label="Main navigation"><a href="../index.html">Home</a><a href="../about.html">About</a><a aria-current="page" class="current" href="../school/index.html">School</a><a href="../work/index.html">Work</a><a href="../personal/index.html">Personal</a><a href="mailto:matthewscarpello@gmail.com">Contact ↗</a></nav></header><main class="wrap case-page noaa-page" id="main">
   <a class="back-link" href="../school/index.html">← School projects</a>
-  <header class="noaa-hero" id="noaa-start">
+
+  <header class="noaa-hero noaa-boxed-hero" id="noaa-start">
     <div class="noaa-hero-copy">
-      <p class="eyebrow">BELLEVUE UNIVERSITY · DSC 450 · PROJECT 01</p>
-      <h1>Predicting Economic Damage from Severe Weather<span class="accent">.</span></h1>
-      <p class="noaa-lede noaa-copy">In this team project, I worked as the data scientist to investigate whether information already recorded about severe weather could help predict reported economic damage. I applied classification modeling and evaluation to examine useful storm characteristics while considering what documented damage can and cannot tell us.</p>
-      <div class="noaa-meta" aria-label="Project details">
-        <span><strong>My role</strong> Data Scientist</span>
-        <span><strong>Team</strong> Group 1</span>
-        <span><strong>Data</strong> NOAA Storm Events, 2020–2025</span>
-      </div>
-      <a class="noaa-next-step" href="#noaa-question">Start with the question <span aria-hidden="true">↓</span></a>
+      <p class="eyebrow">01 / BELLEVUE UNIVERSITY · DATA SCIENCE CAPSTONE · FALL 2026</p>
+      <h1>Predicting economic damage from <em>historical weather data.</em></h1>
+      <p class="noaa-lede">Forecasting a storm and estimating its impact are different problems. We investigated whether historical NOAA event characteristics could distinguish storms with recorded property or crop damage, and which predictors carried the most useful signal.</p>
+      <div class="noaa-hero-actions"><a class="noaa-primary-action" href="#noaa-discovery">Follow the research ↘</a><a class="noaa-secondary-action" href="https://www.ncei.noaa.gov/access/storm-events-database/" target="_blank" rel="noopener noreferrer">NOAA Storm Events data ↗</a></div>
+      <p class="noaa-hero-context">2020–2025 · Binary classification · Historical evaluation</p>
     </div>
-    <!-- The original vintage-style storm illustration is not available yet.
-         Once the user supplies the exact image, publish it at ../assets/noaa-hero.webp
-         and place an <img> with measured width/height inside this figure. Do not replace
-         it with a different illustration or misrepresent it as NOAA evidence. -->
-    <figure class="noaa-hero-art" id="noaa-hero-art" hidden aria-label="Reserved for the original vintage storm illustration"></figure>
+    <figure class="noaa-hero-reel project-reel" data-project-reel="noaa" data-reel-style="research" aria-label="Horizontal scientific figure exhibit">
+      <div class="noaa-reel-window"><a class="noaa-reel-fallback" href="#figure-noaa-event-frequency">Explore the original analysis figures ↘</a><div class="project-reel-viewport"><div class="project-reel-lane" data-reel-lane></div></div></div>
+      <figcaption><strong>ORIGINAL SCIENTIFIC FIGURES / 04</strong><span>Randomized on each visit. Hover or focus to pause, then select a figure to explore its evidence.</span></figcaption>
+    </figure>
   </header>
-
-  <section class="noaa-section noaa-question" id="noaa-question" aria-labelledby="noaa-question-title">
-    <div class="noaa-section-intro">
-      <p class="eyebrow">01 / THE RESEARCH QUESTION</p>
-      <h2 id="noaa-question-title">What were we trying to predict?</h2>
-      <p class="noaa-copy">We predicted whether a storm record included reported economic damage, not its dollar amount or all harm caused. This defined our classification target.</p>
+  <nav class="noaa-local-nav" data-noaa-nav aria-label="On this page"><span>EXPLORE</span><a href="#noaa-question" data-preview="../figures/noaa-event-frequency.png" data-description="Understand why we modeled the occurrence of reported damage.">The question</a><a href="#noaa-discovery" data-preview="../figures/noaa-economic-damage.png" data-description="See why common events and costly events are different.">The discovery</a><a href="#noaa-evaluation" data-preview="../figures/noaa-precision-recall.png" data-description="Compare performance and the precision-recall tradeoff.">Model evaluation</a><a href="#noaa-interpretation" data-preview="../figures/noaa-feature-importance.png" data-description="Interpret permutation importance and the intensity experiment.">Model interpretation</a><a href="#noaa-methods" data-preview="../figures/noaa-precision-recall.png" data-description="Follow the decisions and see the team roles.">My contribution</a><a href="#noaa-future" data-preview="../figures/noaa-event-frequency.png" data-description="Explore the proposed storm-map research direction.">Future direction</a><a href="#noaa-resources" data-preview="../figures/noaa-feature-importance.png" data-description="Review original figures, the report summary and methods.">Research sources</a><div class="noaa-nav-preview" hidden aria-hidden="true"><img alt="" src="../figures/noaa-event-frequency.png"/><div><strong></strong><p></p></div></div></nav>
+  <section class="noaa-section noaa-question" id="noaa-question">
+    <div class="noaa-section-intro"><p class="eyebrow">01 / RESEARCH QUESTION</p><h2>What were we trying to predict<span class="accent">?</span></h2><p class="noaa-copy">A binary target asks whether reported property or crop damage was greater than zero. It is not a forecast of dollars lost, injury, or all consequences of a storm.</p></div>
+    <div class="noaa-question-layout">
+      <div class="noaa-target-flow"><div class="noaa-flow-root"><span>NOAA STORM EVENTS / 2020–2025</span><strong>410,311 unique event records</strong><p>Separate the meaning of missing outcomes from recorded zero values.</p></div><div class="noaa-flow-branches"><div><span>KNOWN OUTCOME · 75.04%</span><strong>307,902</strong><p>Eligible for binary classification</p></div><div><span>UNKNOWN OUTCOME · 24.96%</span><strong>102,409</strong><p>Excluded rather than treating missing as zero</p></div></div><div class="noaa-flow-classes"><div><span>CLASS 0</span><strong>237,603</strong><p>Recorded $0 damage</p></div><div><span>CLASS 1</span><strong>70,299</strong><p>Recorded damage &gt; $0</p></div></div><small>Counts from report Appendix A and the extended modeling notebook. Class counts refer only to known outcomes.</small></div>
+      <div class="noaa-why-card"><p class="noaa-kicker">WHY CLASSIFICATION?</p><h3>Establish the signal before predicting the amount.</h3><p>Nearly one quarter of records have an unknown economic outcome. A high/low severity cutoff would introduce an arbitrary boundary; imputing unknown damage could fabricate labels. Classifying known zero versus known positive damage is better supported by these records.</p><p>The notebook also shows positive losses are strongly right-skewed. Estimating their magnitude is a separate modeling problem.</p><details class="noaa-details"><summary>What did we use as inputs?</summary><div class="noaa-details-body"><p>Event type, U.S. region, season and storm duration. Damage was the target, not a predictor. Completed event records, including duration, are not necessarily available at forecast issuance.</p></div></details></div>
     </div>
-    <div class="noaa-skill-note"><strong>Technique in context</strong><span>Defining a binary prediction target from recorded events</span></div>
   </section>
-
-  <section class="noaa-section" id="noaa-discovery" aria-labelledby="noaa-discovery-title">
-    <div class="noaa-section-intro">
-      <p class="eyebrow">02 / WHAT THE ANALYSIS REVEALED</p>
-      <h2 id="noaa-discovery-title">Frequency and damage tell different stories.</h2>
-      <p class="noaa-copy">I compared storm frequency with documented damage to distinguish how often events occur from the losses they report.</p>
-    </div>
-
-    <article class="noaa-exhibit" aria-labelledby="noaa-frequency-title">
-      <div class="noaa-exhibit-guide">
-        <p class="noaa-exhibit-index">EXHIBIT 01 · EXPLORATORY ANALYSIS</p>
-        <h3 id="noaa-frequency-title">Which storm types appear most often?</h3>
-        <p class="noaa-copy">Event counts and damage-report counts provide different views of storm frequency.</p>
-      </div>
-      <figure class="noaa-figure" id="figure-noaa-event-frequency">
-        <a href="../figures/noaa-event-frequency.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA event-frequency figure">
-          <img src="../figures/noaa-event-frequency.png" alt="Original horizontal chart comparing the fifteen most frequent storm types with counts of events reporting damage." loading="lazy" decoding="async"/>
-        </a>
-        <figcaption>Original team figure · <a href="../figures/noaa-event-frequency.png" target="_blank" rel="noopener noreferrer">View full size ↗</a></figcaption>
-      </figure>
-    </article>
-
-    <article class="noaa-exhibit" aria-labelledby="noaa-damage-title">
-      <div class="noaa-exhibit-guide">
-        <p class="noaa-exhibit-index">EXHIBIT 02 · DATA INTERPRETATION</p>
-        <h3 id="noaa-damage-title">Which events account for recorded losses?</h3>
-        <p class="noaa-copy">Less frequent storm types can represent substantial damage totals. Frequency is not impact.</p>
-      </div>
-      <figure class="noaa-figure" id="figure-noaa-economic-damage">
-        <a href="../figures/noaa-economic-damage.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA recorded-damage figure">
-          <img src="../figures/noaa-economic-damage.png" alt="Original horizontal chart ranking storm types by total recorded property and crop damage in billions of dollars." loading="lazy" decoding="async"/>
-        </a>
-        <figcaption>Original team figure · <a href="../figures/noaa-economic-damage.png" target="_blank" rel="noopener noreferrer">View full size ↗</a></figcaption>
-      </figure>
-    </article>
+  <section class="noaa-section" id="noaa-discovery">
+    <div class="noaa-section-intro"><p class="eyebrow">02 / EXPLORATORY ANALYSIS</p><h2>Frequency and damage tell different stories<span class="accent">.</span></h2><p class="noaa-copy">Our team's original visualizations reveal why counting storms cannot establish economic risk. Comparing frequency, damage-report counts and total dollars shaped the classification question.</p></div>
+    <article class="noaa-exhibit noaa-editorial-exhibit" aria-labelledby="noaa-frequency-title"><div class="noaa-exhibit-guide"><p class="noaa-exhibit-index">ORIGINAL FIGURE / 01</p><h3 id="noaa-frequency-title">Common does not mean damaging.</h3><p>Hail accounts for many records, yet a much smaller share show documented damage. Tornado and Strong Wind records have higher documented-damage shares. The comparison motivates classifying impact rather than occurrence.</p><div class="noaa-reading"><strong>HOW TO READ IT</strong><p>Compare the two bars within each event type. A record with unknown damage is not evidence of zero loss.</p></div></div><figure class="noaa-figure" id="figure-noaa-event-frequency"><a href="../figures/noaa-event-frequency.png" target="_blank" rel="noopener noreferrer"><img src="../figures/noaa-event-frequency.png" alt="Horizontal bars comparing total event records and counts with recorded economic damage for the fifteen most frequent NOAA event types." loading="lazy" decoding="async"/></a><figcaption><span>Hali Sarah Parsons · Visualization notebook, chart 1; report, p. 4.</span><a href="../figures/noaa-event-frequency.png" target="_blank" rel="noopener noreferrer">View original ↗</a></figcaption></figure></article><article class="noaa-exhibit noaa-editorial-exhibit" aria-labelledby="noaa-damage-title"><div class="noaa-exhibit-guide"><p class="noaa-exhibit-index">ORIGINAL FIGURE / 02</p><h3 id="noaa-damage-title">The most expensive events tell another story.</h3><p>Hurricane (Typhoon) events account for the largest recorded total property and crop losses, despite not being the most frequent. Dollar totals describe a different question from the probability of any documented damage.</p><div class="noaa-reading"><strong>HOW TO READ IT</strong><p>The recorded total for a storm type is an aggregate, not the cost of a typical event.</p></div></div><figure class="noaa-figure" id="figure-noaa-economic-damage"><a href="../figures/noaa-economic-damage.png" target="_blank" rel="noopener noreferrer"><img src="../figures/noaa-economic-damage.png" alt="Horizontal ranking of event types by total recorded property and crop losses in billions of US dollars." loading="lazy" decoding="async"/></a><figcaption><span>Hali Sarah Parsons · Visualization notebook, chart 5; report, p. 4.</span><a href="../figures/noaa-economic-damage.png" target="_blank" rel="noopener noreferrer">View original ↗</a></figcaption></figure></article>
   </section>
-
-  <section class="noaa-section" id="noaa-evaluation" aria-labelledby="noaa-evaluation-title">
-    <div class="noaa-section-intro">
-      <p class="eyebrow">03 / EVALUATING THE PREDICTION</p>
-      <h2 id="noaa-evaluation-title">How well did the model distinguish damage reports?</h2>
-      <p class="noaa-copy">ROC-AUC measures ranking across decision thresholds. Average Precision summarizes precision–recall performance when the reported-damage class is relatively uncommon.</p>
-    </div>
-    <article class="noaa-exhibit" aria-labelledby="noaa-pr-title">
-      <div class="noaa-exhibit-guide">
-        <p class="noaa-exhibit-index">EXHIBIT 03 · MODEL EVALUATION</p>
-        <h3 id="noaa-pr-title">The precision–recall tradeoff</h3>
-        <p class="noaa-copy">The precision–recall curves show threshold tradeoffs that a single accuracy score might obscure.</p>
-      </div>
-      <figure class="noaa-figure" id="figure-noaa-precision-recall">
-        <a href="../figures/noaa-precision-recall.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA precision-recall figure">
-          <img src="../figures/noaa-precision-recall.png" alt="Original precision–recall curves from the team’s storm damage classification models." loading="lazy" decoding="async"/>
-        </a>
-        <figcaption>Original team figure · <a href="../figures/noaa-precision-recall.png" target="_blank" rel="noopener noreferrer">View full size ↗</a></figcaption>
-      </figure>
-    </article>
-    <div class="noaa-evaluation-results" aria-label="Reported team model evaluation">
-      <div class="noaa-result-intro">
-        <p class="noaa-kicker">REPORTED TEAM EVALUATION</p>
-        <p class="noaa-copy">Our team reported both measures for the Random Forest model.</p>
-      </div>
-      <div class="noaa-result"><span class="noaa-result-name">ROC-AUC</span><strong>0.880</strong></div>
-      <div class="noaa-result"><span class="noaa-result-name">Average Precision</span><strong>0.669</strong></div>
-    </div>
-    <details class="noaa-details">
-      <summary>Why did the evaluation group storm episodes?</summary>
-      <div class="noaa-details-body">
-        <p>Related NOAA event records can belong to the same storm episode. Grouping episodes during evaluation reduces the chance of closely related records appearing in both training and testing, which could overstate generalization.</p>
-        <p>These reported scores are retained from the existing portfolio. The underlying evaluation notebook and report are not included in this repository, so independent reproduction is still pending.</p>
-      </div>
-    </details>
+  <section class="noaa-section" id="noaa-evaluation">
+    <div class="noaa-section-intro"><p class="eyebrow">03 / MODEL EVALUATION</p><h2>Compare models on the problem that matters<span class="accent">.</span></h2><p class="noaa-copy">With damaging records in the minority, a high overall accuracy could hide poor detection. We compared Logistic Regression and Random Forest with metrics that measure discrimination and positive-class retrieval.</p></div>
+    <div class="noaa-method-pair"><article><span>01 / INTERPRETABLE BASELINE</span><h3>Logistic Regression</h3><p>Tests whether a simpler relationship between storm characteristics and the log-odds of documented damage already captures useful signal.</p></article><article><span>02 / FLEXIBLE COMPARISON</span><h3>Random Forest</h3><p>Allows nonlinear relationships and interactions among event type, region, season and duration. Compare it on the same target rather than assuming complexity improves results.</p></article></div>
+    <div class="noaa-skill-note"><strong>Evaluation design</strong><span>Group by EPISODE_ID, keeping related records from a storm system together. This reduces leakage from near-duplicate events across training and test sets.</span></div>
+    <article class="noaa-exhibit noaa-editorial-exhibit" aria-labelledby="noaa-pr-title"><div class="noaa-exhibit-guide"><p class="noaa-exhibit-index">ORIGINAL FIGURE / 03</p><h3 id="noaa-pr-title">Find more damaging records without flagging everything.</h3><p>Only about 23% of known outcomes contain damage. Precision tells us what share of flagged events actually report losses; recall tells us how many recorded damage events we identify. The curve shows the tradeoff as the decision threshold changes.</p><div class="noaa-reading"><strong>HOW TO READ IT</strong><p>Both curves beat the horizontal no-skill precision level. Random Forest adds a modest improvement, not a dramatic change.</p></div></div><figure class="noaa-figure" id="figure-noaa-precision-recall"><a href="../figures/noaa-precision-recall.png" target="_blank" rel="noopener noreferrer"><img src="../figures/noaa-precision-recall.png" alt="Precision recall curves for Logistic Regression and Random Forest, compared with a dashed no-skill baseline near 0.219." loading="lazy" decoding="async"/></a><figcaption><span>Original team model comparison · Report, p. 6; presentation, slide 7.</span><a href="../figures/noaa-precision-recall.png" target="_blank" rel="noopener noreferrer">View original ↗</a></figcaption></figure></article>
+    <div class="noaa-score-panel"><div><p class="noaa-kicker">REPORTED TEAM EVALUATION / REPORT APPENDIX A</p><h3>A modest improvement over a strong simpler model.</h3><p>ROC-AUC measures ranking across thresholds. Average Precision captures the precision-recall performance of the relatively uncommon damage class; its no-skill reference is the positive share of the evaluation set.</p></div><div class="noaa-table-wrap"><table><caption>Final team model comparison</caption><thead><tr><th scope="col">Model</th><th scope="col">Avg. precision</th><th scope="col">ROC-AUC</th></tr></thead><tbody><tr><th scope="row">No-skill baseline</th><td>0.219</td><td>0.500</td></tr><tr><th scope="row">Logistic Regression</th><td>0.652</td><td>0.871</td></tr><tr class="noaa-best"><th scope="row">Random Forest</th><td>0.669</td><td>0.880</td></tr></tbody></table></div><p class="noaa-small">Random Forest improves AP by 0.017 and ROC-AUC by 0.009. Neither score is a probability of correct predictions. The full known-outcome positive share is 22.83%; the evaluation baseline is 0.219. No operating threshold was selected here for disaster decision-making.</p></div>
+    <details class="noaa-details"><summary>Why not just use a row-level split or accuracy?</summary><div class="noaa-details-body"><p>Events sharing an episode can carry similar characteristics. A row-level split could inflate apparent generalization. Accuracy also gives the majority class disproportionate influence. Precision and recall explicitly expose the cost of missing damage reports versus flagging records without damage.</p><p>The reported final scores come from the report and presentation; the supplied Version 3.0 notebook is a separate extension and not the exact original final-model training notebook. Reproduction requires the cleaned input CSV and original final training workflow.</p></div></details>
   </section>
-
-  <section class="noaa-section" id="noaa-interpretation" aria-labelledby="noaa-interpretation-title">
-    <div class="noaa-section-intro">
-      <p class="eyebrow">04 / INTERPRETING THE MODEL</p>
-      <h2 id="noaa-interpretation-title">What influenced the predictions?</h2>
-      <p class="noaa-copy">Event type was the strongest predictive signal. That describes model behavior, not the cause of damage.</p>
-    </div>
-    <article class="noaa-exhibit" aria-labelledby="noaa-feature-title">
-      <div class="noaa-exhibit-guide">
-        <p class="noaa-exhibit-index">EXHIBIT 04 · MODEL INTERPRETABILITY</p>
-        <h3 id="noaa-feature-title">A closer look at model inputs</h3>
-        <p class="noaa-copy">Event type, region, duration, and season contributed differently to the model's predictions.</p>
-      </div>
-      <figure class="noaa-figure" id="figure-noaa-feature-importance">
-        <a href="../figures/noaa-feature-importance.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-resolution NOAA feature-importance figure">
-          <img src="../figures/noaa-feature-importance.png" alt="Original permutation-importance chart comparing storm type, region, duration, and season as model inputs." loading="lazy" decoding="async"/>
-        </a>
-        <figcaption>Original team figure · <a href="../figures/noaa-feature-importance.png" target="_blank" rel="noopener noreferrer">View full size ↗</a></figcaption>
-      </figure>
-    </article>
+  <section class="noaa-section" id="noaa-interpretation">
+    <div class="noaa-section-intro"><p class="eyebrow">04 / MODEL INTERPRETATION</p><h2>Understand why a model performs well<span class="accent">.</span></h2><p class="noaa-copy">We measured the dependence of the Random Forest on its inputs, then investigated whether more meaningful physical intensity could provide additional predictive information.</p></div>
+    <article class="noaa-exhibit noaa-editorial-exhibit" aria-labelledby="noaa-feature-title"><div class="noaa-exhibit-guide"><p class="noaa-exhibit-index">ORIGINAL FIGURE / 04</p><h3 id="noaa-feature-title">Which inputs did the model rely on?</h3><p>I used permutation importance to assess how much validation performance fell after shuffling each predictor. Event type contributed the largest drop, followed by region, log storm duration and season.</p><div class="noaa-reading"><strong>HOW TO READ IT</strong><p>Event type's 0.408 decrease is about 2.4 times region's 0.171 decrease. This measures predictive reliance, not a physical cause or an effect size.</p></div></div><figure class="noaa-figure" id="figure-noaa-feature-importance"><a href="../figures/noaa-feature-importance.png" target="_blank" rel="noopener noreferrer"><img src="../figures/noaa-feature-importance.png" alt="Permutation importance chart with event type 0.408, region 0.171, log storm duration 0.079, and season 0.023." loading="lazy" decoding="async"/></a><figcaption><span>Matthew Scarpello · Modeling results; Hali Sarah Parsons · Visualization notebook, chart 9; report, p. 6.</span><a href="../figures/noaa-feature-importance.png" target="_blank" rel="noopener noreferrer">View original ↗</a></figcaption></figure></article>
+    <div class="noaa-feature-experiment"><div><p class="noaa-kicker">FEATURE ENGINEERING / REPORTED SUBSET EXPERIMENT</p><h3>Compare storms against similar storms.</h3><p>Hail size and wind speed are not interchangeable. Relative intensity ranks a measurement within comparable event types rather than combining incompatible raw units.</p><p>On the subset where this comparison was possible, the report records a small AP improvement. It cannot be generalized to all event types.</p></div><div class="noaa-experiment-values"><div><span>Without relative intensity</span><strong>0.691</strong></div><span aria-hidden="true">→</span><div><span>With relative intensity</span><strong>0.703</strong></div><small>Average Precision · Separate eligible subset · Report p. 11</small></div></div>
+    <details class="noaa-details"><summary>Extended modeling notebook / what I explored next</summary><div class="noaa-details-body"><p>I separated human-impact classification, economic-damage occurrence and positive-loss severity instead of combining them into a single high-impact label. Version 3.0 explores within-type magnitude percentiles and physical components, including tornado dimensions.</p><p>The exploratory shallow tree uses a stratified row-level split; the candidate weighted intensity index had weak held-out ranking (ROC-AUC 0.4439). This is a different experiment from the report's relative-intensity subset. It is not a final validated feature.</p><p>Version 3.0 also implements a same-day region co-occurrence comparison with a group-aware holdout by date-region group. The supplied cells do not contain saved final comparison scores; no improvement claim is made. Both experiments require training-only feature construction and forecast-time availability checks before prospective use.</p></div></details>
   </section>
-
-  <section class="noaa-section noaa-methods" id="noaa-methods" aria-labelledby="noaa-methods-title">
-    <div class="noaa-section-intro">
-      <p class="eyebrow">05 / THE APPROACH AND MY CONTRIBUTION</p>
-      <h2 id="noaa-methods-title">How I worked through the problem</h2>
-      <p class="noaa-copy">As the data scientist, I worked on classification modeling and evaluation. Our team grouped storm episodes and interpreted findings with the limitations of reported damage in mind.</p>
-    </div>
-    <ol class="noaa-process" aria-label="Research process">
-      <li><span>01</span><strong>Frame the target</strong><small>Reported damage: yes or no</small></li>
-      <li><span>02</span><strong>Examine inputs</strong><small>Event type, region, season, duration</small></li>
-      <li><span>03</span><strong>Evaluate models</strong><small>Grouped episodes and classification metrics</small></li>
-      <li><span>04</span><strong>Interpret the evidence</strong><small>Performance, feature importance, limitations</small></li>
-    </ol>
-    <details class="noaa-details">
-      <summary>Roles, methods and limitations</summary>
-      <div class="noaa-details-body">
-        <p><strong>Team roles:</strong> Matthew Scarpello, Data Scientist; Andrea Barfield, Data Wrangler; Hali Sarah Parsons, Data Visualizer and Presenter. This page identifies team-wide methods separately from my individual modeling role.</p>
-        <p><strong>Methods documented on the portfolio:</strong> NOAA Storm Events records for 2020–2025; event type, region, season, and duration as predictors; grouped storm-episode evaluation; Random Forest results and precision–recall analysis. The portfolio also lists logistic regression among project skills, but its exact implementation is not described here without the modeling notebook.</p>
-        <p><strong>Limits:</strong> Missing or inconsistent damage reports affect the target. Results describe associations in documented records, not causation, specific-property risk, or the full scope of actual damage. They should not be used alone to allocate or withhold emergency assistance.</p>
-      </div>
-    </details>
+  <section class="noaa-section noaa-methods" id="noaa-methods">
+    <div class="noaa-section-intro"><p class="eyebrow">05 / PEOPLE &amp; PROCESS</p><h2>How I worked through the problem<span class="accent">.</span></h2><p class="noaa-copy">My contribution as the data scientist was to translate the research question into a defensible modeling target, evaluate the models and investigate why particular characteristics mattered.</p></div>
+    <ol class="noaa-process noaa-process-linked"><li><span>01 / DEFINE</span><strong>Separate known from unknown</strong><small>Protect the target from fabricated labels.</small><a href="#noaa-question">View target design ↗</a></li><li><span>02 / INVESTIGATE</span><strong>Choose a relevant problem</strong><small>Contrast frequency with impact.</small><a href="#noaa-discovery">View the evidence ↗</a></li><li><span>03 / VALIDATE</span><strong>Compare fairly</strong><small>Group episodes and evaluate minority-class detection.</small><a href="#noaa-evaluation">View model results ↗</a></li><li><span>04 / INTERPRET</span><strong>Test what matters</strong><small>Investigate feature reliance and possible improvements.</small><a href="#noaa-interpretation">View interpretation ↗</a></li></ol>
+    <div class="noaa-team"><article class="noaa-team-self"><div><img src="../assets/brand-avatar.jpg" alt="Portfolio profile photograph" width="48" height="48"/><span>Matthew Scarpello</span></div><h3>Data scientist</h3><p>Classification, evaluation, permutation importance and exploratory feature engineering.</p></article><article><span>Andrea Barfield</span><h3>Data wrangler</h3><p>Prepared and cleaned the storm-event data used in the research.</p></article><article><span>Hali Sarah Parsons</span><h3>Visualizer / presenter</h3><p>Created the team's visualizations and helped communicate the research findings.</p></article></div>
+    <aside class="noaa-boundary"><p class="noaa-kicker">RESEARCH BOUNDARY</p><h3>Historical signal is not a safety guarantee.</h3><p>Missing outcomes, varying reporting practices and unequal exposure affect what the model learns. These completed records do not constitute a prospective forecast validation. The findings are associative and must not be used alone to withhold emergency assistance or predict individual-property risk.</p></aside>
   </section>
-
-  <section class="noaa-section noaa-resources" id="noaa-resources" aria-labelledby="noaa-resources-title">
-    <div class="noaa-section-intro">
-      <p class="eyebrow">06 / GO FURTHER</p>
-      <h2 id="noaa-resources-title">Explore the source material</h2>
-      <p class="noaa-copy">Explore the original figures and NOAA source data. The team's notebook and report are not yet linked here.</p>
-    </div>
+  <section class="noaa-section" id="noaa-future">
+    <div class="noaa-section-intro"><p class="eyebrow">06 / FUTURE RESEARCH DIRECTION</p><h2>From storm records to a map of impact<span class="accent">.</span></h2><p class="noaa-copy">I want to extend this research into an interactive geospatial application for exploring historical, current and future storm impact. This is a proposed project, not a deployed forecast system.</p></div>
+    <div class="noaa-roadmap"><article><span>01 / HISTORICAL</span><h3>Explore past events</h3><p>Link observed storm locations, event histories and recorded outcomes.</p></article><article><span>02 / CONTEXT</span><h3>Add exposure</h3><p>Combine hazard information with population, infrastructure and vulnerability data, such as FEMA's National Risk Index.</p></article><article><span>03 / PROSPECTIVE</span><h3>Validate future scenarios</h3><p>Use only predictors available before the forecast, validate over future periods and show uncertainty before presenting forecasts.</p></article></div>
+    <details class="noaa-details"><summary>Another research question</summary><div class="noaa-details-body"><p>The team also proposed reversing the modeling direction: investigating whether damage, injuries, fatalities, location and season form recognizable patterns across storm types. This is a separate future experiment.</p></div></details>
+  </section>
+  <section class="noaa-section noaa-resources" id="noaa-resources">
+    <div class="noaa-section-intro"><p class="eyebrow">07 / FOLLOW THE SOURCES</p><h2>Explore the research behind every finding<span class="accent">.</span></h2><p class="noaa-copy">The original four portfolio charts, public NOAA dataset and a source guide connect the evidence to the final research and subsequent exploratory work.</p></div>
     <div class="noaa-resource-grid">
-      <a href="https://github.com/mjscarpello/Portfolio-Repository/tree/main/figures" target="_blank" rel="noopener noreferrer"><span>PORTFOLIO EVIDENCE</span><strong>Original analysis figures</strong><small>Four team-created NOAA charts preserved in the repository</small><em aria-hidden="true">↗</em></a>
-      <a href="https://www.ncei.noaa.gov/access/storm-events-database/" target="_blank" rel="noopener noreferrer"><span>DATA SOURCE</span><strong>NOAA Storm Events Database</strong><small>Explore the source of the underlying event records</small><em aria-hidden="true">↗</em></a>
+      <a href="../docs/NOAA-RESEARCH-SOURCES.md"><span>RESEARCH GUIDE</span><strong>Report, presentation and notebook evidence</strong><small>Source-by-source findings, evaluation table, provenance and reproduction requirements.</small><em aria-hidden="true">↗</em></a>
+      <a href="https://www.ncei.noaa.gov/access/storm-events-database/" target="_blank" rel="noopener noreferrer"><span>OFFICIAL DATA</span><strong>NOAA Storm Events Database</strong><small>Explore the original historical event source.</small><em aria-hidden="true">↗</em></a>
+      <a href="https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/" target="_blank" rel="noopener noreferrer"><span>RAW RECORDS</span><strong>Download NOAA storm-event tables</strong><small>Data by year from NCEI; the team's cleaned modeling table is a separate artifact.</small><em aria-hidden="true">↗</em></a>
+      <a href="#noaa-discovery"><span>ORIGINAL FIGURES</span><strong>Frequency and impact exhibits</strong><small>Open each original chart with contextual interpretation and attribution.</small><em aria-hidden="true">↗</em></a>
+      <a href="#noaa-evaluation"><span>MODEL EVIDENCE</span><strong>Performance and interpretation</strong><small>Original precision-recall and permutation-importance figures with source references.</small><em aria-hidden="true">↗</em></a>
+      <a href="https://hazards.fema.gov/nri/" target="_blank" rel="noopener noreferrer"><span>FUTURE RESEARCH</span><strong>FEMA National Risk Index</strong><small>Potential exposure and vulnerability context for the next version.</small><em aria-hidden="true">↗</em></a>
     </div>
+    <details class="noaa-details"><summary>Source files and reproducibility</summary><div class="noaa-details-body"><p>The final report (October 4, 2026), Milestone 3 slides, Sarah's visualization notebook and the Version 3.0 extension were reviewed for this case study. The research guide identifies the exact supporting pages and notebook sections. The original files are not downloadable from this site until the source archive is uploaded; no reproduction claim is made.</p></div></details>
   </section>
   <nav class="case-nav" aria-label="Project navigation">
     <a href="../school/index.html">← School collection</a>
