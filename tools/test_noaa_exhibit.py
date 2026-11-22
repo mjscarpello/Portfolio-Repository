@@ -1,109 +1,82 @@
 #!/usr/bin/env python3
-"""NOAA case-study content and navigation checks, using Python's standard library."""
-from html.parser import HTMLParser
+"""NOAA guided research exhibit: source integrity and navigation."""
 from pathlib import Path
-import re
+from html.parser import HTMLParser
+import json
 
 ROOT = Path(__file__).resolve().parents[1]
 HTML = (ROOT / "school/noaa.html").read_text(encoding="utf-8")
 CSS = (ROOT / "noaa-exhibit.css").read_text(encoding="utf-8")
+JS = (ROOT / "noaa-navigation.js").read_text(encoding="utf-8")
+BUILD = (ROOT / "tools/build_portfolio.py").read_text(encoding="utf-8")
 errors = []
 
-
-def check(condition, message):
-    if not condition:
-        errors.append(message)
-
+def check(ok, msg):
+    if not ok:
+        errors.append(msg)
 
 class PageParser(HTMLParser):
     def __init__(self):
         super().__init__()
         self.ids = []
-        self.figure_images = []
+        self.figures = []
+        self.nav = []
         self.details_count = 0
-        self.copy = []
-        self.in_copy = False
-        self.current_text = []
-
+        self.figure_id = ""
     def handle_starttag(self, tag, attrs):
-        values = dict(attrs)
-        if values.get("id"):
-            self.ids.append(values["id"])
-        if tag == "img" and "noaa-" in values.get("src", ""):
-            self.figure_images.append(values)
+        a = dict(attrs)
+        if a.get("id"):
+            self.ids.append(a["id"])
+        if tag == "figure":
+            self.figure_id = a.get("id", "")
+        if tag == "img" and self.figure_id.startswith("figure-noaa-"):
+            self.figures.append((self.figure_id, a))
+        if tag == "a" and "data-preview" in a:
+            self.nav.append(a)
         if tag == "details":
             self.details_count += 1
-        if tag == "p" and "noaa-copy" in values.get("class", "").split():
-            self.in_copy = True
-            self.current_text = []
-
-    def handle_data(self, data):
-        if self.in_copy:
-            self.current_text.append(data)
-
     def handle_endtag(self, tag):
-        if tag == "p" and self.in_copy:
-            self.copy.append(" ".join(self.current_text).strip())
-            self.in_copy = False
-            self.current_text = []
+        if tag == "figure":
+            self.figure_id = ""
 
-
-page = PageParser()
-page.feed(HTML)
-
-order = [
-    "noaa-start", "noaa-question", "noaa-discovery",
-    "noaa-evaluation", "noaa-interpretation", "noaa-methods", "noaa-resources",
-]
-positions = [HTML.find('id="' + i + '"') for i in order]
-check(all(p >= 0 for p in positions), "Every research exhibit and section must have an anchor")
-check(positions == sorted(positions), "Guided narrative sections are not in the expected order")
-check(len(set(page.ids)) == len(page.ids), "Duplicate page IDs")
-
-expected = [
-    "noaa-event-frequency.png",
-    "noaa-economic-damage.png",
-    "noaa-precision-recall.png",
-    "noaa-feature-importance.png",
-]
-for file in expected:
-    check(sum(v.get("src", "").endswith(file) for v in page.figure_images) == 1,
-          f"Expected exactly one displayed original figure {file}")
-    check((ROOT / "figures" / file).is_file(), f"Missing original figure {file}")
-    check('../figures/' + file in HTML, f"No full-resolution reference for {file}")
-for figure in page.figure_images:
-    check(len(figure.get("alt", "").strip()) > 28, "Missing descriptive figure alt text")
-
-context_position = HTML.find("ROC-AUC measures ranking across decision thresholds")
-first_metric = HTML.find(">0.880<")
-check(context_position > 0 and first_metric > context_position,
-      "Do not display prominent model metrics before their explanation")
-check(HTML.find(">0.669<") > context_position, "Average Precision precedes metric context")
-check("reported team evaluation" in HTML.lower(), "Model scores must be attributed")
-check(page.details_count >= 2, "Methodology and limitations must remain optionally accessible")
-check("noaa-hero-art" in page.ids, "Reserved original hero image placement missing")
-check("documented" in HTML.lower() or "reported" in HTML.lower(), "Recorded damage distinction lost")
-check("caus" in HTML.lower(), "Missing causal interpretation caution")
-check("noaa-hero.has-art" in CSS, "No responsive layout for original hero illustration")
-check("@media(max-width:650px)" in CSS, "Responsive NOAA CSS breakpoint missing")
-
-counts = [len(text.split()) for text in page.copy]
-check(len(counts) >= 9, "Guided descriptions missing")
-check(40 <= counts[0] <= 60, f"Introduction should be about 40–60 words; found {counts[0]}")
-check(all(w <= 35 for w in counts[1:]), "Individual descriptions should stay concise")
-check(sum(counts) <= 250, f"Main visible explanations exceed 250 words: {sum(counts)}")
-
-illustration = ROOT / "assets/noaa-hero.webp"
-if illustration.is_file():
-    check('src="../assets/noaa-hero.webp"' in HTML, "Published image must be referenced directly")
-    check("Conceptual editorial illustration" in HTML, "Illustration needs a non-evidence caption")
-else:
-    check('id="noaa-hero-art" hidden' in HTML, "Pending original illustration must stay hidden")
-    check('src="../assets/noaa-hero.webp"' not in HTML, "Do not ship a broken image reference")
-
-print(f"NOAA guided exhibit: {len(expected)} original figures, {sum(counts)} visible guide words, {page.details_count} optional detail sections.")
+p = PageParser()
+p.feed(HTML)
+order = ["noaa-start","noaa-question","noaa-discovery","noaa-evaluation","noaa-interpretation","noaa-methods","noaa-future","noaa-resources"]
+positions = [HTML.find('id="' + name + '"') for name in order]
+check(all(x >= 0 for x in positions) and positions == sorted(positions), "Research sections missing or out of order")
+check(len(p.ids) == len(set(p.ids)), "Duplicate page IDs")
+data = (ROOT / "portfolio-data.js").read_text(encoding="utf-8")
+project = next(x for x in json.loads(data[data.index("{"):data.rindex("}")+1])["projects"] if x["id"]=="noaa")
+expected = {Path(f["src"]).stem for f in project["figures"]}
+check(len(expected)==4, "Expected four curated original figures")
+check({i.removeprefix("figure-") for i,a in p.figures}==expected and len(p.figures)==4, "Curated figure anchors must match the reel registry")
+for id,a in p.figures:
+    path = a.get("src","")
+    check((ROOT / "school" / path).is_file(), "Missing original figure " + path)
+    check(len(a.get("alt","")) > 28, "Missing meaningful figure alt text")
+    check('href="'+path+'"' in HTML, "No direct original file link")
+check(len(p.nav)==7, "Seven contextual section previews required")
+for a in p.nav:
+    check(a["href"].lstrip("#") in p.ids, "Navigation target missing")
+    check((ROOT/"school"/a["data-preview"]).is_file(), "Navigation preview image missing")
+    check(bool(a.get("data-description")), "Missing navigation preview description")
+check('data-project-reel="noaa"' in HTML and 'data-reel-style="research"' in HTML, "Missing horizontal research reel")
+check("home-collage.css" not in HTML and HTML.count("data-reel-lane")==1, "Keep the vertical waterfall exclusive to homepage")
+check('data-pillar="school"' in HTML and "var(--pillar-accent)" in CSS, "Missing School accent")
+check("EPISODE_ID" in HTML and "102,409" in HTML and "237,603" in HTML and "70,299" in HTML, "Required target and validation context absent")
+check("ROC-AUC measures ranking" in HTML and HTML.find("ROC-AUC measures ranking") < HTML.find(">0.880<"), "Metrics must follow interpretation")
+for score in ["0.219","0.500","0.652","0.871","0.669","0.880","0.691","0.703"]:
+    check(">"+score+"<" in HTML, "Missing verified team report score " + score)
+check("0.4439" in HTML and "different experiment" in HTML and "do not contain saved final comparison scores" in HTML, "Exploratory results need separate interpretation")
+check("reported team evaluation" in HTML.lower() and "not the exact original final-model training notebook" in HTML, "Reproducibility caveat absent")
+check("not a deployed forecast system" in HTML and "caus" in HTML.lower(), "Future work or association boundary missing")
+check(p.details_count>=4,"Use progressive disclosure for supplementary methodology")
+check("mouseenter" in JS and '"focus"' in JS and '"Escape"' in JS, "Context previews need keyboard and mouse behavior")
+check("NOAA_ARCHIVE_SLOT" in HTML and "NOAA_ARCHIVE_SLOT" in BUILD and "sha256" in BUILD, "Source archive publishing integration absent")
+check("noaa-archive-gallery" in CSS and "@media(max-width:650px)" in CSS, "Missing compact source library and responsive layout")
+check((ROOT/"docs/NOAA-RESEARCH-SOURCES.md").is_file(), "Missing research provenance guide")
+check("role" not in HTML.split('id="noaa-question"')[0].lower().split('class="noaa-hero-copy"')[-1].split('</header>')[0], "Do not foreground role before research")
 if errors:
-    for error in errors:
-        print("FAIL:", error)
+    for e in errors: print("FAIL:",e)
     raise SystemExit(1)
-print("PASS: research story, metric context, link targets, editorial limits and image state.")
+print("PASS: NOAA source-linked reel, four original figures, interactive navigation, verified report metrics, limitations, optional archive and mobile CSS.")
