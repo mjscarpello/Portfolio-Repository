@@ -13,6 +13,19 @@ The interview describes recording firsthand observations with voice memos. The s
 ## Source inventory
 The supplied archive contains 11 top-level R files (plus 9 nested duplicate/version files). Core files include `Bag control.R`, `delivery final 1.R`, `delivery final 2.R`, `test data compare.R`, `violin plot.R`, `Vertical histogramweekly pick times.R`, `multi bag picks scatter.R`, `avg pick times line chart.R`, `pie chart datavis proj.R`, `project data vis vzn3.R`, and `mileston project 1a.R`. The milestone scripts explore initial simulation and visualization. The monthly workbook depends on objects from the original R session and must not be represented as fully reproducible yet.
 
+## Published source code
+
+Six original coursework scripts are available in this directory:
+
+- [Generator variant 1](analysis/02-monthly-simulation/delivery-final-1.R)
+- [Generator variant 2](analysis/02-monthly-simulation/delivery-final-2.R)
+- [Violin plot](analysis/03-visualizations/violin-plot.R)
+- [Bag-level scatter plot](analysis/03-visualizations/multi-bag-picks-scatter.R)
+- [Daily mean chart](analysis/03-visualizations/avg-pick-times-line-chart.R)
+- [Workload pie chart](analysis/03-visualizations/pie-chart-datavis-proj.R)
+
+Read the [reproducibility notes](docs/reproducibility.md) before running these scripts. This is a published subset of the original archive, not a full pipeline.
+
 ## Existing original figures
 - [Violin plot](../../figures/amazon-pick-distribution.png)
 - [Weekly comparison](../../figures/amazon-pick-weekly-comparison.png)
