@@ -188,8 +188,8 @@ window.PORTFOLIO_DATA = {
       "status": "Completed visual report",
       "role": "Researcher & Visualizer",
       "period": "January 2026 analysis",
-      "summary": "I measured package search times during my own delivery work and visualized how package type, bag density, and familiarity affected the workflow.",
-      "takeaway": "Boxes averaged 4.2 seconds per pick versus 5.6 for envelopes. Across the month, searches became faster as bags emptied; the results describe my observed workflow, not a controlled causal test.",
+      "summary": "I used firsthand delivery experience to motivate a simulated workflow, then visualized modeled package search times across package types, bags and routes.",
+      "takeaway": "The report’s simulated outputs average 4.2 seconds for boxes and 5.6 for envelopes; the workflow generator encodes bag progress and other assumptions. These are not measured field results.",
       "skills": [
         "R & ggplot2",
         "Violin plots",
@@ -201,19 +201,19 @@ window.PORTFOLIO_DATA = {
           "src": "figures/amazon-pick-distribution.png",
           "title": "Boxes versus envelopes",
           "alt": "Original violin plots with raw points of pick times, one for boxes and one for envelopes.",
-          "caption": "Original report · Average box pick 4.2 s; envelope 5.6 s, with wider variability for envelopes."
+          "caption": "Original simulation report · Modeled mean box pick 4.2 s; envelope 5.6 s, with wider variability for envelopes."
         },
         {
           "src": "figures/amazon-pick-weekly-comparison.png",
           "title": "How searches changed by week",
           "alt": "Original four-panel mirrored histograms of box and envelope pick-time counts in weeks one to four.",
-          "caption": "Original report · Shifts toward faster picks across weeks suggest experience and organization matter."
+          "caption": "Original simulation report · Weekly distributions visualize the modeled changes in workflow conditions."
         },
         {
           "src": "figures/amazon-pick-rolling-dashboard.png",
           "title": "A route-level performance signal",
           "alt": "Original line chart of rolling mean pick time over one delivery route, with a 6-second reference and 3.9-second final rolling mean.",
-          "caption": "Original report · A twelve-pick rolling mean reached 3.9 s on the highlighted route versus a 6 s reference."
+          "caption": "Original simulation report · A twelve-pick rolling mean reached 3.9 s on the modeled route versus a 6 s reference."
         }
       ]
     },
