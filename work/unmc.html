@@ -15,31 +15,31 @@
   <link rel="stylesheet" href="../photo-palette.css?v=1" />
   <link rel="stylesheet" href="../project-reels.css?v=1" />
   <link rel="stylesheet" href="../unmc-case.css?v=2" />
-  <script src="../portfolio-data.js?v=21" defer></script>
+  <script src="../portfolio-data.js?v=29" defer></script>
   <script src="../script.js?v=22" defer></script>
   <script src="../project-reels.js?v=1" defer></script>
-</head>
+<link href="../portfolio-editorial.css?v=1" rel="stylesheet"/><script defer src="../portfolio-editorial.js?v=1"></script></head>
 <body data-root="../" data-pillar="work">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header wrap">
     <a class="brand" href="../index.html"><span aria-hidden="true" class="brand-circle">MS</span><span>Matthew Scarpello<small>DATA SCIENCE · CREATIVE TECHNOLOGY</small></span></a>
     <nav aria-label="Main navigation"><a href="../index.html">Home</a><a href="../about.html">About</a><a href="../school/index.html">School</a><a aria-current="page" class="current" href="../work/index.html">Work</a><a href="../personal/index.html">Personal</a><a href="mailto:matthewscarpello@gmail.com">Contact ↗</a></nav>
   </header>
-  <main class="wrap case-page unmc-case" id="main">
+  <main class="wrap case-page unmc-case editorial-portfolio" id="main">
     <a class="back-link" href="../work/index.html">← Back to work projects</a>
 
-    <header class="unmc-hero" aria-labelledby="unmc-title">
+    <header class="unmc-hero ep-hero" aria-labelledby="unmc-title">
       <div class="unmc-hero-copy">
         <p class="eyebrow">University of Nebraska Medical Center / Digital Assistant Intern · 2023–2025</p>
         <h1 id="unmc-title">Learning media,<br /><em>made for people.</em></h1>
         <p class="unmc-hero-lede">My internship brought together healthcare, technology and creativity. I grew from maintaining digital resources to helping develop educational content, animations and interactive learning experiences.</p>
         <div class="unmc-hero-actions">
-          <a class="unmc-button unmc-button-primary" href="#progression">Explore my experience <span aria-hidden="true">↘</span></a>
+          <a class="unmc-button unmc-button-primary" href="#samples">Start with the work samples <span aria-hidden="true">↘</span></a>
           <a class="unmc-button unmc-button-outline" href="#collaboration">The people &amp; process <span aria-hidden="true">↘</span></a>
         </div>
         <div class="unmc-hero-tags" aria-label="Areas of experience"><span>Collaboration</span><span>Learning media</span><span>Accessible design</span></div>
       </div>
-      <figure class="unmc-hero-reel project-reel" data-project-reel="unmc" data-reel-style="storyboard" aria-label="Animated storyboard of six original UNMC work samples">
+      <figure class="ep-focal"><a href="#figure-unmc-animated-analytics"><img src="../figures/unmc-animated-analytics.jpg" alt="Still from a UNMC-branded educational animation featuring charts and an animated presenter." fetchpriority="high" decoding="async"></a><figcaption><strong>ORIGINAL PROJECT VISUAL</strong><span>Educational animation and visual communication</span></figcaption></figure><figure class="unmc-hero-reel ep-reel-band project-reel" data-project-reel="unmc" data-reel-style="storyboard" aria-label="Animated storyboard of six original UNMC work samples">
         <div class="unmc-hero-reel-window">
           <a class="unmc-reel-fallback" href="#figure-unmc-animated-analytics" aria-label="Open animated data storytelling work sample"><img src="../figures/unmc-animated-analytics.jpg" alt="Original UNMC educational animation featuring an animated presenter and charts" fetchpriority="high" /></a>
           <div class="project-reel-viewport" aria-label="Two scrolling filmstrips of six original work samples, each link opens the corresponding gallery entry">
@@ -47,13 +47,13 @@
             <div class="project-reel-lane" data-reel-lane></div>
           </div>
         </div>
-        <figcaption><span>VISUAL STORYBOARD / 06 ORIGINAL WORK SAMPLES</span><p>The order changes each visit. Hover, focus, or tap a frame to jump to its original image below.</p></figcaption>
+        <figcaption><span>VISUAL STORYBOARD / 06 ORIGINAL WORK SAMPLES</span><p>The order changes each visit. Hover, focus, or tap a frame to jump to its original image below.</p><button class="ep-motion-toggle" type="button" aria-pressed="false">Pause motion</button></figcaption>
       </figure>
     </header>
 
-    <nav class="unmc-local-nav" aria-label="On this page"><span>EXPLORE</span><a href="#progression">My progression</a><a href="#workstreams">Selected work</a><a href="#game-feature">Interactive project</a><a href="#collaboration">The team</a><a href="#accessibility">Accessibility</a><a href="#samples">Work samples</a><a href="#reflection">Reflection</a></nav>
+    <nav class="unmc-local-nav ep-nav" aria-label="On this page"><span>EXPLORE</span><a class="ep-primary" href="#samples">Original work samples ↓</a><a href="#progression">My progression</a><a href="#workstreams">Selected work</a><a href="#game-feature">Interactive project</a><a href="#collaboration">The team</a><a href="#accessibility">Accessibility</a><a href="#reflection">Reflection</a></nav>
 
-    <section class="unmc-introduction" aria-labelledby="unmc-intro-title">
+    <section class="unmc-introduction ep-context" id="origin" aria-labelledby="unmc-intro-title">
       <div>
         <p class="eyebrow">01 / THE BEGINNING</p>
         <h2 id="unmc-intro-title">Where my interests came together<span class="accent">.</span></h2>
@@ -63,7 +63,11 @@
         <p>I initially expected to develop my technical and creative skills. What I gained was a deeper understanding of how people work together. As my colleagues learned what I could do, they entrusted me with increasingly involved projects. I learned to ask questions, listen to feedback and deliver work that my team could rely on.</p>
       </div>
     </section>
-    <section class="unmc-progression" id="progression" aria-labelledby="unmc-progression-title">
+    <section class="case-gallery-section ep-exhibit-section unmc-samples" id="samples" aria-labelledby="unmc-samples-title">
+      <div class="unmc-section-heading"><div><p class="eyebrow">ORIGINAL WORK EXHIBIT</p><h2 id="unmc-samples-title">Learning media, in practice<span class="accent">.</span></h2></div><p>Six original work samples: animation, instructional storytelling and interactive medical terminology. Select a frame to inspect it.</p></div>
+      <div class="case-gallery" data-case-gallery="unmc"></div>
+    </section>
+<section class="unmc-progression" id="progression" aria-labelledby="unmc-progression-title">
       <div class="unmc-section-heading"><div><p class="eyebrow">02 / PROFESSIONAL GROWTH</p><h2 id="unmc-progression-title">Responsibility grew with trust<span class="accent">.</span></h2></div><p>From maintaining digital resources to helping build learning experiences. These stages describe the evolution of my responsibilities, rather than fixed dates.</p></div>
       <p class="unmc-story-hint" id="unmc-story-hint">Scroll horizontally or focus the storyboard and use your arrow keys to explore all four stages. <span aria-hidden="true">→</span></p>
       <ol class="unmc-story-track" tabindex="0" aria-label="Four stages of professional growth" aria-describedby="unmc-story-hint">
@@ -146,10 +150,7 @@
       <p class="unmc-access-takeaway"><strong>The lesson:</strong> accessibility is part of communicating well, not an afterthought. Feedback helped me recognize perspectives I had not initially considered.</p>
     </section>
 
-    <section class="case-gallery-section unmc-samples" id="samples" aria-labelledby="unmc-samples-title">
-      <div class="unmc-section-heading"><div><p class="eyebrow">07 / ORIGINAL EVIDENCE</p><h2 id="unmc-samples-title">Figures &amp; work samples<span class="accent">.</span></h2></div><p>Six original screenshots. Select an image to enlarge it, or use the moving storyboard to jump to a specific sample.</p></div>
-      <div class="case-gallery" data-case-gallery="unmc"></div>
-    </section>
+    
 
     <section class="unmc-reflection" id="reflection" aria-labelledby="unmc-reflection-title">
       <div class="unmc-reflection-heading"><p class="eyebrow">08 / REFLECTION</p><h2 id="unmc-reflection-title">What I carry into data science<span class="accent">.</span></h2></div>
@@ -157,7 +158,7 @@
     </section>
 
     <aside class="case-limitation unmc-boundary"><p class="eyebrow">ABOUT THE WORK SAMPLES</p><p>These examples represent participation in collaborative projects, not sole authorship of every asset. UNMC names and marks belong to their respective owners. Only approved public work samples should be displayed; no patient information is included.</p></aside>
-    <nav class="case-nav"><a href="../work/index.html">← Work collection</a><a href="../index.html">Explore the full portfolio ↗</a></nav>
+    <nav class="case-nav"><a href="../work/index.html">← Work collection</a><a href="../work/lab-rat-revolt.html">Next project: Lab Rat Revolt ↗</a></nav>
   </main>
   <footer class="site-footer wrap"><div><strong>Matthew Scarpello</strong><small>Data science · Software · Visual storytelling</small></div><a href="mailto:matthewscarpello@gmail.com">Get in touch ↗</a><button aria-pressed="false" data-theme-toggle="" type="button">Switch to dark</button><a class="footer-github" href="https://github.com/mjscarpello/Portfolio-Repository" rel="noopener noreferrer" target="_blank">GitHub ↗</a><span class="footer-meta">Science · Technology · Creativity</span></footer>
 </body>
