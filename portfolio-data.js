@@ -177,42 +177,31 @@ window.PORTFOLIO_DATA = {
       ],
       "figures": [
         {
-          "src": "figures/nyc-borough-share.svg",
+          "src": "figures/nyc-original-district-map.png",
+          "title": "District collection share across NYC",
+          "alt": "Original choropleth of 2025 dry recycling collection share, highlighting Bronx CD 2 at 5.1% and Brooklyn CD 6 at 28.4%.",
+          "caption": "Original team visualization notebook · Geography across 59 community districts."
+        },
+        {
+          "src": "figures/nyc-original-borough-share.png",
           "title": "Collection share by borough",
-          "alt": "Borough averages in 2025: Staten Island 19.5%, Manhattan 19.1%, Queens 19.0%, Brooklyn 15.5%, Bronx 13.1%.",
-          "caption": "Portfolio adaptation of final team presentation · Slide 6."
+          "alt": "Original bar chart comparing dry recycling collection share across five NYC boroughs.",
+          "caption": "Original team visualization notebook · Tonnage-weighted borough comparison."
         },
         {
-          "src": "figures/nyc-district-range.svg",
-          "title": "District-level range",
-          "alt": "Bronx CD2 5.1%, citywide 16.9%, Brooklyn CD6 28.4%.",
-          "caption": "Portfolio adaptation · Final research results."
+          "src": "figures/nyc-original-income-scatter.png",
+          "title": "Income and dry recycling share",
+          "alt": "Original scatterplot of median household income versus dry recycling collection share, colored by borough.",
+          "caption": "Original team visualization notebook · District-level association, not causation."
         },
         {
-          "src": "figures/nyc-income-residuals.svg",
+          "src": "figures/nyc-original-income-gaps.png",
           "title": "Below income-based expectations",
-          "alt": "Largest five negative gaps from income-based expectations.",
-          "caption": "Portfolio adaptation · Gap magnitudes, not causal findings."
-        },
-        {
-          "src": "figures/nyc-risk-overlap.svg",
-          "title": "Identifying low-share districts",
-          "alt": "Prior-year group identified 14 of 15, logistic regression 11, random forest 10.",
-          "caption": "Portfolio adaptation · Final presentation."
-        },
-        {
-          "src": "figures/nyc-month-ahead-mae.svg",
-          "title": "One-month-ahead forecasts",
-          "alt": "Ridge or gradient boosting MAE 0.75 percentage points, seasonal naive 0.95.",
-          "caption": "Portfolio adaptation · Short-horizon comparison."
-        },
-        {
-          "src": "figures/nyc-year-ahead-mae.svg",
-          "title": "Year-ahead forecasts",
-          "alt": "Gradient boosting MAE 0.87, ensemble 0.89, baseline 0.91, TFT 1.01 percentage points.",
-          "caption": "Portfolio adaptation · Final presentation."
+          "alt": "Original negative residual bar chart identifying ten districts with low actual share relative to income-predicted share.",
+          "caption": "Original team visualization notebook · A starting point for further investigation."
         }
       ]
+
     },
     {
       "id": "amazon-pick",
