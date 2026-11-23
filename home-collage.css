@@ -22,9 +22,9 @@
 .home-hero-visual{position:absolute;inset-block:0;right:-1%;width:57%;z-index:0;min-width:0}
 .home-collage-scene{position:absolute;inset:0;overflow:hidden;isolation:isolate;pointer-events:none;opacity:var(--hero-exit-opacity);filter:blur(var(--hero-exit-blur));will-change:opacity;mask-image:linear-gradient(to bottom,transparent 0%,#000 6%,#000 66%,rgba(0,0,0,.88) 78%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 6%,#000 66%,rgba(0,0,0,.88) 78%,transparent 100%)}
 .home-collage-lane{position:absolute;top:0;width:30.5%;height:max-content;display:flex;flex-direction:column;gap:0;transform:translate3d(0,-50%,0)}
-.home-collage-lane--one{left:1%;--lane-duration:37s}
-.home-collage-lane--two{left:34.5%;--lane-duration:43s}
-.home-collage-lane--three{left:68%;--lane-duration:40s}
+.home-collage-lane--one{left:1%;--lane-duration:45s}
+.home-collage-lane--two{left:34.5%;--lane-duration:45s}
+.home-collage-lane--three{left:68%;--lane-duration:45s}
 .home-collage-ready .home-collage-lane{animation:home-collage-flow-down var(--lane-duration,40s) linear infinite;will-change:transform}
 /* Two exactly matched sequences fill the same track. Translating the track
    by half its total height makes the first and last frame pixel-identical. */

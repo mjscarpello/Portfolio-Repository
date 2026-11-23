@@ -136,9 +136,7 @@
       // Pillar strips have different numbers of frames. A fixed loop time
       // makes longer strips move faster. Use a shared time per frame instead,
       // keeping the visual speed consistent at the same viewport width.
-      const duration = reel.dataset.pillarReel
-        ? groups[index].length * (reel.dataset.pillarReel === "school" ? 18 : 9)
-        : (style==="research"?48+index*7:style==="storyboard"?37+index*7:45+index*6);
+      const duration = groups[index].length * 9;
       lane.style.setProperty("--reel-duration", duration+"s");
     });
     reel.classList.add("project-reel-ready");
