@@ -19,7 +19,7 @@
   <script src="../script.js?v=22" defer></script>
   <script src="../ercot-collage.js?v=4" defer></script>
   <script src="../project-reels.js?v=6" defer></script>
-<link href="../portfolio-editorial.css?v=1" rel="stylesheet"/><script defer src="../portfolio-editorial.js?v=1"></script></head>
+<link href="../portfolio-editorial.css?v=1" rel="stylesheet"/><script defer src="../portfolio-editorial.js?v=1"></script><style>.cv2-actions .cv2-video-jump{font-size:13px;font-weight:700;color:var(--ep-light,#a6def1);text-decoration:underline;text-underline-offset:4px;align-self:center;padding:8px 0}.cv2-actions .cv2-video-jump:hover{color:#fff}.cv2-video-jump:focus-visible{outline:2px solid currentColor;outline-offset:4px}</style></head>
 <body data-root="../" data-pillar="school">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header wrap">
@@ -34,12 +34,8 @@
       <div class="cv2-hero-copy">
         <div class="cv2-overline cv3-overline"><span class="cv2-number">02</span> Bellevue University / Data Science Capstone / Fall 2026</div>
         <h1 id="cv2-title">Forecasting Regional Electricity Demand</h1>
-        <p class="cv2-hero-question cv3-hero-deck">Our strongest overall team forecast was <strong>not</strong> our strongest forecast at peak demand.</p>
-        <p class="cv2-hero-description">I used original visualizations to understand where our forecasting models disagreed, helped motivate a hybrid experiment, and turned the results into an educational presentation and an evidence-linked research website.</p>
-        <div class="cv2-actions">
-          <a class="cv2-button cv2-button-primary" href="#visual-exhibit">Start with the visuals <span aria-hidden="true">↘</span></a>
-          <a class="cv2-button cv2-button-outline" href="#presentation">Watch the presentation <span aria-hidden="true">↘</span></a>
-        </div>
+        <p class="cv2-hero-description">Our team forecast next-day electricity demand in Texas. I explored where the models disagreed, evaluated the evidence for a hybrid, and communicated our findings through visual research and an educational video.</p>
+        <div class="cv2-actions"><a class="cv2-button cv2-button-primary" href="#findings">Explore the investigation <span aria-hidden="true">↓</span></a><a class="cv2-video-jump" href="#presentation" data-play-presentation>Watch presentation · 18:39 ↘</a></div>
         <div class="cv2-hero-metadata"><span>Visual analysis</span><span>Educational media</span><span>Research website</span><span>Team project</span></div>
       </div>
       <figure class="ep-focal"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F17"><img src="../figures/ercot-accuracy-by-demand.png" alt="Grouped model mean absolute errors across demand percentile bands, showing large errors for XGBoost at top demand levels." fetchpriority="high" decoding="async"></a><figcaption><strong>ORIGINAL PROJECT VISUAL</strong><span>Error behavior across demand conditions</span></figcaption></figure><figure class="cv2-cover cv3-cover cv5-cover ep-reel-band project-reel" data-project-reel="ercot" data-reel-style="research" aria-label="Two horizontally scrolling filmstrips of original ERCOT figures, each linked to its exact Research Explorer record">
@@ -55,9 +51,8 @@
     </section>
 
     <nav class="cv2-page-nav cv4-page-nav ep-nav" aria-label="On this page" data-ercot-nav>
-      <span>ON THIS PAGE</span><a class="ep-primary" href="#visual-exhibit">Original visuals ↓</a>
+      <span>ON THIS PAGE</span><a class="ep-primary" href="#findings">The investigation ↓</a>
       <a href="#story">The finding</a>
-      <a href="#findings">The investigation</a>
       <a href="#presentation">Presentation</a>
       <a href="#explorer">Evidence map</a>
       <a href="#evidence">Project resources</a>
@@ -68,10 +63,36 @@
       </div>
     </nav>
 
-    <section class="ep-exhibit-section" id="visual-exhibit"><div class="ep-exhibit-heading"><div><p class="eyebrow">VISUAL RESEARCH EXHIBIT</p><h2>Demand, error, and a reason to blend<span class="accent">.</span></h2></div><p>Four original figures introduce the sequence from observed demand to conditional error patterns and the retrospective hybrid experiment. Each links to its original research record.</p></div><div class="ep-figure-grid"><figure class="ep-figure"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F03" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-demand-month-hour.png" alt="ERCOT mean hourly demand heatmap by month, Central Time." loading="lazy"></a><figcaption><small>ORIGINAL RESEARCH / F03</small><h3>When demand peaks</h3><p>Summer afternoons and evenings reach the highest demand; seasonal and hour features are important.</p><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F03" target="_blank" rel="noopener noreferrer">Open exact research record ↗</a></figcaption></figure><figure class="ep-figure"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F17" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-accuracy-by-demand.png" alt="Grouped model mean absolute errors across demand percentile bands, showing large errors for XGBoost at top demand levels." loading="lazy"></a><figcaption><small>ORIGINAL RESEARCH / F17</small><h3>Accuracy under high demand</h3><p>F17 · The best model changes with demand conditions. The operator forecast remained most consistent.</p><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F17" target="_blank" rel="noopener noreferrer">Open exact research record ↗</a></figcaption></figure><figure class="ep-figure"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F20" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-model-error-correlation.png" alt="Scatterplot of signed Weather XGBoost and Rolling SARIMA forecast errors." loading="lazy"></a><figcaption><small>ORIGINAL RESEARCH / F20</small><h3>Why try a blend?</h3><p>F20 · Error differences motivated an exploratory hybrid rather than assuming the models make identical mistakes.</p><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F20" target="_blank" rel="noopener noreferrer">Open exact research record ↗</a></figcaption></figure><figure class="ep-figure"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F22" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-later-period-blend-mae.png" alt="Later-period mean absolute errors for simple and weighted blends versus component models and ERCOT." loading="lazy"></a><figcaption><small>ORIGINAL RESEARCH / F22</small><h3>Test the hybrid on later hours</h3><p>F22 · A 50/50 blend beat its components on this retrospective period, but did not surpass ERCOT.</p><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F22" target="_blank" rel="noopener noreferrer">Open exact research record ↗</a></figcaption></figure></div></section>
-<section class="cv2-section cv2-story cv4-story" id="story" aria-labelledby="story-heading">
+    
+<section class="cv2-section cv2-findings" id="findings" aria-labelledby="findings-heading">
+      <div class="cv2-section-heading">
+        <div><p class="cv2-eyebrow">01 / THE INVESTIGATION</p><h2 id="findings-heading">How visualizing errors changed our approach<span class="cv2-dot">.</span></h2></div>
+        <p>Four steps show how I moved from comparing model performance to evaluating an ensemble, then questioning its limits.</p>
+      </div>
+      <div class="cv3-discovery-steps">
+        <article class="cv3-step">
+          <div class="cv3-step-copy"><span class="cv2-index">01 / ESTABLISH THE BENCHMARK</span><h3>First, compare each forecast.</h3><p>Before exploring improvements, I compared the team's models with ERCOT's published day-ahead forecast. Weather XGBoost led the individual team approaches on the common sample, but the operator benchmark still had the lowest percentage error.</p><p class="cv3-step-takeaway">F15 · ERCOT 2.00% MAPE / Weather XGBoost 4.18% MAPE</p></div>
+          <div class="cv3-step-media"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F15" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-seven-models-mape.png" alt="Original F15: matched-sample MAPE across ERCOT and six non-hybrid forecasting approaches" loading="lazy" /><span>Open original F15 · Model comparison ↗</span></a></div>
+        </article>
+        <article class="cv3-step">
+          <div class="cv3-step-copy"><span class="cv2-index">02 / LOOK AT THE ERRORS</span><h3>The models weren't making identical mistakes.</h3><p>Visualizing signed errors from Rolling SARIMA and Weather XGBoost exposed differences that an overall accuracy ranking could not show. Those differences led me to investigate whether their forecasts could complement each other.</p><p class="cv3-step-takeaway">F20 · Compare signed forecast errors, not just summary scores</p></div>
+          <div class="cv3-step-media"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F20" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-model-error-correlation.png" alt="Original F20: signed forecast errors of Weather XGBoost versus Rolling SARIMA" loading="lazy" /><span>Open original F20 · Different error directions ↗</span></a></div>
+        </article>
+        <article class="cv3-step">
+          <div class="cv3-step-copy"><span class="cv2-index">03 / TEST AN ENSEMBLE</span><h3>Could a simple blend perform better?</h3><p>The team tested a fixed 50/50 average of Rolling SARIMA and Weather XGBoost using the existing predictions. The hybrid reached 2,006 MWh overall MAE on the matched sample, the lowest among our approaches. We also evaluated blends over a later period, shown in the accompanying F22 figure.</p><p class="cv3-step-takeaway">Improved overall team accuracy; ERCOT remained the stronger benchmark at 1,135 MWh MAE.</p></div>
+          <div class="cv3-step-media"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F22" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-later-period-blend-mae.png" alt="Original F22: later-period model and hybrid mean absolute error comparison" loading="lazy" /><span>Open original F22 · Separate later-period blend evaluation ↗</span></a></div>
+        </article>
+        <article class="cv3-step">
+          <div class="cv3-step-copy"><span class="cv2-index">04 / CHALLENGE THE RESULT</span><h3>Winning overall doesn't mean winning at peak demand.</h3><p>When we examined the highest observed demand hours, the ranking changed. Rolling SARIMA and Weather SARIMAX were much more accurate than the tree-based approaches. The hybrid's overall advantage did not translate into being the best option at every demand level.</p><p class="cv3-step-takeaway">F17 · Original demand-group comparison / F23 · Later-period hybrid comparison. These figures use different evaluation slices.</p></div>
+          <div class="cv3-step-media"><div class="cv3-media-pair"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F17" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-accuracy-by-demand.png" alt="Original F17: model mean absolute error by observed demand level" loading="lazy" /><span>Open F17 · Peak-hour comparison ↗</span></a><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F23" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-blend-by-demand.png" alt="Original F23: hybrid performance by demand level in a later period" loading="lazy" /><span>Open F23 · Later-period hybrid ↗</span></a></div></div>
+        </article>
+      </div>
+      <p class="cv3-discovery-note">A comparison is only meaningful within its own evaluation sample. F15 was created before the hybrid was added, and F22–F23 examine a later period. Demand percentile groups are defined using observed outcomes after the fact, not advance-known operating conditions. <a href="#limitations">Read the research limitations ↗</a></p>
+    </section>
+
+    <section class="cv2-section cv2-story cv4-story" id="story" aria-labelledby="story-heading">
       <div class="cv2-section-title">
-        <p class="cv2-eyebrow">01 / THE FINDING</p>
+        <p class="cv2-eyebrow">02 / THE FINDING</p>
         <h2 id="story-heading">Average accuracy doesn't tell the whole story<span class="cv2-dot">.</span></h2>
         <figure class="cv4-story-figure">
           <a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F17" target="_blank" rel="noopener noreferrer" aria-label="Open original F17 forecast accuracy by demand level on research website">
@@ -120,32 +141,6 @@
           <p class="cv6-heatmap-footnote"><strong>How to read these:</strong> F03A shows observed demand; F30 and F31 show error relative to each model's own reference. Their colors do not share a common meaning or scale. Hover or focus to pause and reveal a title, then select a figure to inspect it in full.</p>
         </div>
       </div>
-    </section>
-
-    <section class="cv2-section cv2-findings" id="findings" aria-labelledby="findings-heading">
-      <div class="cv2-section-heading">
-        <div><p class="cv2-eyebrow">02 / THE INVESTIGATION</p><h2 id="findings-heading">How visualizing errors changed our approach<span class="cv2-dot">.</span></h2></div>
-        <p>Four steps show how I moved from comparing model performance to evaluating an ensemble, then questioning its limits.</p>
-      </div>
-      <div class="cv3-discovery-steps">
-        <article class="cv3-step">
-          <div class="cv3-step-copy"><span class="cv2-index">01 / ESTABLISH THE BENCHMARK</span><h3>First, compare each forecast.</h3><p>Before exploring improvements, I compared the team's models with ERCOT's published day-ahead forecast. Weather XGBoost led the individual team approaches on the common sample, but the operator benchmark still had the lowest percentage error.</p><p class="cv3-step-takeaway">F15 · ERCOT 2.00% MAPE / Weather XGBoost 4.18% MAPE</p></div>
-          <div class="cv3-step-media"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F15" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-seven-models-mape.png" alt="Original F15: matched-sample MAPE across ERCOT and six non-hybrid forecasting approaches" loading="lazy" /><span>Open original F15 · Model comparison ↗</span></a></div>
-        </article>
-        <article class="cv3-step">
-          <div class="cv3-step-copy"><span class="cv2-index">02 / LOOK AT THE ERRORS</span><h3>The models weren't making identical mistakes.</h3><p>Visualizing signed errors from Rolling SARIMA and Weather XGBoost exposed differences that an overall accuracy ranking could not show. Those differences led me to investigate whether their forecasts could complement each other.</p><p class="cv3-step-takeaway">F20 · Compare signed forecast errors, not just summary scores</p></div>
-          <div class="cv3-step-media"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F20" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-model-error-correlation.png" alt="Original F20: signed forecast errors of Weather XGBoost versus Rolling SARIMA" loading="lazy" /><span>Open original F20 · Different error directions ↗</span></a></div>
-        </article>
-        <article class="cv3-step">
-          <div class="cv3-step-copy"><span class="cv2-index">03 / TEST AN ENSEMBLE</span><h3>Could a simple blend perform better?</h3><p>The team tested a fixed 50/50 average of Rolling SARIMA and Weather XGBoost using the existing predictions. The hybrid reached 2,006 MWh overall MAE on the matched sample, the lowest among our approaches. We also evaluated blends over a later period, shown in the accompanying F22 figure.</p><p class="cv3-step-takeaway">Improved overall team accuracy; ERCOT remained the stronger benchmark at 1,135 MWh MAE.</p></div>
-          <div class="cv3-step-media"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F22" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-later-period-blend-mae.png" alt="Original F22: later-period model and hybrid mean absolute error comparison" loading="lazy" /><span>Open original F22 · Separate later-period blend evaluation ↗</span></a></div>
-        </article>
-        <article class="cv3-step">
-          <div class="cv3-step-copy"><span class="cv2-index">04 / CHALLENGE THE RESULT</span><h3>Winning overall doesn't mean winning at peak demand.</h3><p>When we examined the highest observed demand hours, the ranking changed. Rolling SARIMA and Weather SARIMAX were much more accurate than the tree-based approaches. The hybrid's overall advantage did not translate into being the best option at every demand level.</p><p class="cv3-step-takeaway">F17 · Original demand-group comparison / F23 · Later-period hybrid comparison. These figures use different evaluation slices.</p></div>
-          <div class="cv3-step-media"><div class="cv3-media-pair"><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F17" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-accuracy-by-demand.png" alt="Original F17: model mean absolute error by observed demand level" loading="lazy" /><span>Open F17 · Peak-hour comparison ↗</span></a><a href="https://mjscarpello.github.io/DSC450-ERCOT-Presentation/ERCOT%20project%20context%20web/explorer.html#node=FIG-F23" target="_blank" rel="noopener noreferrer"><img src="../figures/ercot-blend-by-demand.png" alt="Original F23: hybrid performance by demand level in a later period" loading="lazy" /><span>Open F23 · Later-period hybrid ↗</span></a></div></div>
-        </article>
-      </div>
-      <p class="cv3-discovery-note">A comparison is only meaningful within its own evaluation sample. F15 was created before the hybrid was added, and F22–F23 examine a later period. Demand percentile groups are defined using observed outcomes after the fact, not advance-known operating conditions. <a href="#limitations">Read the research limitations ↗</a></p>
     </section>
 
     <section class="cv2-section cv2-presentation" id="presentation" aria-labelledby="presentation-heading">
@@ -241,5 +236,15 @@
   </main>
 
   <footer class="site-footer wrap"><div><strong>Matthew Scarpello</strong><small>Data science · Software · Visual storytelling</small></div><a href="mailto:matthewscarpello@gmail.com">Get in touch ↗</a><button data-theme-toggle type="button" aria-pressed="false">Switch to dark</button><a class="footer-github" href="https://github.com/mjscarpello/Portfolio-Repository" target="_blank" rel="noopener noreferrer">GitHub ↗</a><span class="footer-meta">Science · Technology · Creativity</span></footer>
-</body>
+<script>
+document.querySelectorAll('[data-play-presentation]').forEach(link=>{
+  link.addEventListener('click',()=>{
+    const video=document.querySelector('#presentation video');
+    if(video){
+      const playback=video.play();
+      if(playback && typeof playback.catch==='function')playback.catch(()=>{});
+    }
+  });
+});
+</script></body>
 </html>
