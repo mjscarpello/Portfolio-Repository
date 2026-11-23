@@ -81,6 +81,8 @@ class LinkScanner(HTMLParser):
                 generated = ROOT == SOURCE and dest == ROOT / "demos/lab-rat-revolt/story.html"
                 if generated and (ROOT / "game-source/lab-rat-revolt-web.zip").is_file():
                     continue
+                if ROOT == SOURCE and dest == ROOT / "downloads/matthew-scarpello-resume.pdf" and (ROOT / "tools/generate_resume.py").is_file():
+                    continue
                 add(f"{self.page.relative_to(ROOT)}: missing reference {raw}")
                 continue
             if parsed.fragment and dest.suffix == ".html" and parsed.fragment not in ids(dest):

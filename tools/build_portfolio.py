@@ -97,3 +97,7 @@ if noaa_archive.is_file():
     markup = markup.replace("The original files are not downloadable from this site until the source archive is uploaded; no reproduction claim is made.", "The original source files and extracted figures are available above. Reproduction still requires the cleaned CSV and exact final training workflow.")
     noaa_page.write_text(markup, encoding="utf-8")
     print(f"Published NOAA archive: {len(originals)} original documents, {len(gallery)} original notebook figures")
+
+# Build the downloadable resume using the actual project assets copied above.
+import subprocess
+subprocess.run([sys.executable, str(ROOT / "tools" / "generate_resume.py"), str(TARGET)], check=True)

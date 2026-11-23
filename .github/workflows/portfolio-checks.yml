@@ -28,6 +28,12 @@ jobs:
           node --check project-reels.js
           node --check noaa-navigation.js
           node --check portfolio-data.js
+      - name: Set up Python for printable resume
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PDF generation dependencies
+        run: python3 -m pip install --disable-pip-version-check -r tools/resume-requirements.txt
       - name: Build static site and playable game
         run: python3 tools/build_portfolio.py
       - name: Validate built site

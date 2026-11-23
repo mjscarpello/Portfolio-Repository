@@ -18,6 +18,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up Pages
         uses: actions/configure-pages@v5
+      - name: Set up Python for printable resume
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PDF generation dependencies
+        run: python3 -m pip install --disable-pip-version-check -r tools/resume-requirements.txt
       - name: Unpack Storyline web export and assemble site
         run: python3 tools/build_portfolio.py
       - name: Upload static website
