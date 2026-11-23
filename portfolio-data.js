@@ -223,16 +223,16 @@ window.PORTFOLIO_DATA = {
       ],
       "figures": [
         {
-          "src": "figures/amazon-pick-distribution.png",
-          "title": "Boxes versus envelopes",
-          "alt": "Original violin plots with raw points of pick times, one for boxes and one for envelopes.",
-          "caption": "Original simulation report · Modeled mean box pick 4.2 s; envelope 5.6 s, with wider variability for envelopes."
-        },
-        {
           "src": "figures/amazon-pick-weekly-comparison.png",
           "title": "How searches changed by week",
           "alt": "Original four-panel mirrored histograms of box and envelope pick-time counts in weeks one to four.",
           "caption": "Original simulation report · Weekly distributions visualize the modeled changes in workflow conditions."
+        },
+        {
+          "src": "figures/amazon-pick-distribution.png",
+          "title": "Boxes versus envelopes",
+          "alt": "Original violin plots with raw points of pick times, one for boxes and one for envelopes.",
+          "caption": "Original simulation report · Modeled mean box pick 4.2 s; envelope 5.6 s, with wider variability for envelopes."
         },
         {
           "src": "figures/amazon-pick-rolling-dashboard.png",
