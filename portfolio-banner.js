@@ -22,9 +22,8 @@ node('rect',{x:W*.8,y:0,width:W*.2,height:5,fill:'#b8cf92'});
 // LinkedIn overlays the lower-left cover with the profile portrait.
 // Reserve x=0–420 below y=165, with extra room for responsive cropping.
 if(linked){
-  text(42,49,'ORDINARY I',17,'#83c8ed',700,{'letter-spacing':3});
-  text(42,101,'Matthew Scarpello',43,'#f6f8fb',750,{'letter-spacing':-1.5});
-  text(42,140,'Data science · Creative technology',20,'#d3e3ef',500);
+  text(42,78,'Matthew Scarpello',43,'#f6f8fb',750,{'letter-spacing':-1.5});
+  text(42,116,'Data science · Creative technology',20,'#d3e3ef',500);
   // Keep all secondary copy to the right of the portrait safe zone.
   node('rect',{x:430,y:185,width:168,height:1,fill:'#7694a8',opacity:.65});
   [['SCHOOL',colors.school],['WORK',colors.work],['PERSONAL',colors.personal]].forEach(([label,col],i)=>{
@@ -34,8 +33,7 @@ if(linked){
   text(430,322,'Research · Software',14,'#b8cbd9',500);
   text(430,344,'Visual storytelling',14,'#b8cbd9',500);
 }else{
-  const y=175;
-  text(left,y,'ORDINARY I',17,'#83c8ed',700,{'letter-spacing':3});
+  const y=146;
   text(left,y+56,'Matthew',58,'#f6f8fb',750,{'letter-spacing':-1.8});
   text(left,y+112,'Scarpello',58,'#f6f8fb',750,{'letter-spacing':-1.8});
   text(left,y+148,'Data science · Creative technology',19,'#d3e3ef',500);
