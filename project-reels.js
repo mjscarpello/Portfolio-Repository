@@ -133,7 +133,13 @@
       track.append(first,repeat);
       lane.replaceChildren(track);
       lane.dataset.direction=style!=="gallery" && index%2===1?"right":"left";
-      lane.style.setProperty("--reel-duration",(style==="research"?48+index*7:style==="storyboard"?37+index*7:45+index*6)+"s");
+      // Pillar strips have different numbers of frames. A fixed loop time
+      // makes longer strips move faster. Use a shared time per frame instead,
+      // keeping the visual speed consistent at the same viewport width.
+      const duration = reel.dataset.pillarReel
+        ? groups[index].length * 9
+        : (style==="research"?48+index*7:style==="storyboard"?37+index*7:45+index*6);
+      lane.style.setProperty("--reel-duration", duration+"s");
     });
     reel.classList.add("project-reel-ready");
     const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
