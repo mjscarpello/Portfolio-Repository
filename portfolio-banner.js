@@ -19,16 +19,31 @@ const left=linked?257:54, gx=linked?635:466, gy=linked?22:32, gw=W-gx-26, gh=H-g
 node('rect',{x:0,y:0,width:W,height:5,fill:'#83c8ed'});
 node('rect',{x:W*.57,y:0,width:W*.23,height:5,fill:'#f6ad80'});
 node('rect',{x:W*.8,y:0,width:W*.2,height:5,fill:'#b8cf92'});
-const y=linked?79:175;
-text(left,y,'ORDINARY I',17,'#83c8ed',700,{'letter-spacing':3});
-text(left,y+56,'Matthew',linked?53:58,'#f6f8fb',750,{'letter-spacing':-1.8});
-text(left,y+112,'Scarpello',linked?53:58,'#f6f8fb',750,{'letter-spacing':-1.8});
-text(left,y+148,'Data science · Creative technology',linked?18:19,'#d3e3ef',500);
-node('rect',{x:left,y:y+173,width:linked?322:355,height:1,fill:'#7694a8',opacity:.65});
-const legend=[['SCHOOL',colors.school],['WORK',colors.work],['PERSONAL',colors.personal]];
-let lx=left;legend.forEach(([label,col],i)=>{node('circle',{cx:lx+4,cy:y+200,r:4,fill:col});text(lx+14,y+205,label,12,col,700,{'letter-spacing':1});lx+=[108,92,115][i];});
-text(left,y+246,'Research. Software. Visual storytelling.',linked?15:17,'#b8cbd9');
-if(!linked)text(left,y+285,'Portfolio / selected projects',15,'#83c8ed',700);
+// LinkedIn overlays the lower-left cover with the profile portrait.
+// Reserve x=0–420 below y=165, with extra room for responsive cropping.
+if(linked){
+  text(42,49,'ORDINARY I',17,'#83c8ed',700,{'letter-spacing':3});
+  text(42,101,'Matthew Scarpello',43,'#f6f8fb',750,{'letter-spacing':-1.5});
+  text(42,140,'Data science · Creative technology',20,'#d3e3ef',500);
+  // Keep all secondary copy to the right of the portrait safe zone.
+  node('rect',{x:430,y:185,width:168,height:1,fill:'#7694a8',opacity:.65});
+  [['SCHOOL',colors.school],['WORK',colors.work],['PERSONAL',colors.personal]].forEach(([label,col],i)=>{
+    node('circle',{cx:434,cy:210+i*31,r:4,fill:col});
+    text(447,215+i*31,label,14,col,700,{'letter-spacing':1});
+  });
+  text(430,322,'Research · Software',14,'#b8cbd9',500);
+  text(430,344,'Visual storytelling',14,'#b8cbd9',500);
+}else{
+  const y=175;
+  text(left,y,'ORDINARY I',17,'#83c8ed',700,{'letter-spacing':3});
+  text(left,y+56,'Matthew',58,'#f6f8fb',750,{'letter-spacing':-1.8});
+  text(left,y+112,'Scarpello',58,'#f6f8fb',750,{'letter-spacing':-1.8});
+  text(left,y+148,'Data science · Creative technology',19,'#d3e3ef',500);
+  node('rect',{x:left,y:y+173,width:355,height:1,fill:'#7694a8',opacity:.65});
+  let lx=left;[['SCHOOL',colors.school],['WORK',colors.work],['PERSONAL',colors.personal]].forEach(([label,col],i)=>{node('circle',{cx:lx+4,cy:y+200,r:4,fill:col});text(lx+14,y+205,label,12,col,700,{'letter-spacing':1});lx+=[108,92,115][i];});
+  text(left,y+246,'Research. Software. Visual storytelling.',17,'#b8cbd9');
+  text(left,y+285,'Portfolio / selected projects',15,'#83c8ed',700);
+}
 const rows=linked?[projects.slice(0,5),projects.slice(5)]:[projects.slice(0,3),projects.slice(3,6),projects.slice(6,9)];
 const gap=9,rowH=(gh-gap*(rows.length-1))/rows.length;
 rows.forEach((row,ri)=>{if(!row.length)return;const cellW=(gw-gap*(row.length-1))/row.length;row.forEach((p,ci)=>{
