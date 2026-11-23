@@ -201,7 +201,6 @@ window.PORTFOLIO_DATA = {
           "caption": "Original team visualization notebook · A starting point for further investigation."
         }
       ]
-
     },
     {
       "id": "amazon-pick",
@@ -437,23 +436,79 @@ window.PORTFOLIO_DATA = {
       "shortTitle": "Mini Bookmaker",
       "title": "Mini Bookmaker",
       "label": "Personal project · Creative publishing",
-      "status": "Working prototype · v2.1",
-      "role": "Creative design & prototyping",
+      "status": "Working prototype · v2.1 · Source available",
+      "role": "Independent software developer & maker",
       "period": "Independent work",
-      "summary": "I built a desktop tool for rearranging PDF pages into printable miniature books, with sheet previews, page selection, and print-ready layouts.",
-      "takeaway": "The difficult part is imposition: mapping logical reading order onto physical sheets, front and back, so pages assemble correctly after cutting and stacking.",
+      "summary": "I developed a native Swift macOS tool that turns PDFs into printable, ring-bound miniature books. Physical prototypes inspired a cut-and-stack imposition algorithm and adaptive binding guides.",
+      "takeaway": "Automating reading order, duplex sheet layout and adaptive punch geometry makes a physical production workflow easier to inspect and repeat.",
       "skills": [
-        "PDF imposition",
-        "Page layout",
-        "Desktop UI",
+        "Swift / SwiftUI",
+        "PDFKit",
+        "Page imposition",
+        "Computational geometry",
+        "Regression testing",
         "Print workflow"
       ],
       "figures": [
+        {
+          "src": "figures/minibook-photo-0540.jpg",
+          "title": "Handmade illustrated cover",
+          "alt": "The miniature ring-bound Data Science for Business book lying on a wooden table, with an illustrated handmade cover.",
+          "caption": "Original project photograph · A finished book makes the digital layout problem tangible."
+        },
+        {
+          "src": "figures/minibook-photo-0555.jpg",
+          "title": "Color diagrams in a miniature book",
+          "alt": "Open miniature book with printed text and colored diagrams on both pages.",
+          "caption": "Original project photograph · The printed interior preserves diagrams as well as text."
+        },
+        {
+          "src": "figures/minibook-photo-0548.jpg",
+          "title": "Ring binding up close",
+          "alt": "Close side view of the metal rings and miniature book cover.",
+          "caption": "Original project photograph · Ring binding lets individual leaves turn independently; hole alignment matters."
+        },
         {
           "src": "figures/minibook-imposition-preview.jpg",
           "title": "Print-ready sheet preview",
           "alt": "MiniBook Maker 2.1 shows a front sheet with four mini pages arranged for printing, cutting, and assembly.",
           "caption": "Working prototype · A physical imposition preview with front/back sheet navigation."
+        },
+        {
+          "src": "figures/minibook-photo-0541.jpg",
+          "title": "A book in hand",
+          "alt": "The illustrated miniature book held in a hand, with the rings visible.",
+          "caption": "Original project photograph · The original photograph gives a sense of the physical scale."
+        },
+        {
+          "src": "figures/minibook-photo-0545.jpg",
+          "title": "Reading the finished book",
+          "alt": "The project author holding and looking at a miniature book.",
+          "caption": "Original project photograph · An actual use of the completed physical prototype."
+        },
+        {
+          "src": "figures/minibook-photo-0552.jpg",
+          "title": "The closed book and leaf stack",
+          "alt": "A closed plain-card-covered miniature book showing two metal rings and a stack of leaves.",
+          "caption": "Original project photograph · The book's thickness creates a binding constraint, not just a page-layout constraint."
+        },
+        {
+          "src": "figures/minibook-photo-0557.jpg",
+          "title": "Technical diagrams in print",
+          "alt": "Open miniature book containing technical diagrams and printed text, held flat by a hand.",
+          "caption": "Original project photograph · Technical material in a compact physical format."
+        },
+        {
+          "src": "figures/minibook-photo-3861.jpg",
+          "title": "Two physical book examples",
+          "alt": "Two finished ring-bound miniature books on a work surface.",
+          "caption": "Original project photograph · Different physical examples document the personal experiment."
+        },
+        {
+          "src": "figures/minibook-photo-3648.jpg",
+          "title": "Four pages on a printed sheet",
+          "alt": "A printed letter-size sheet with four miniature page areas before cutting.",
+          "caption": "Original project photograph · A photograph of the printed intermediate output before the individual leaves are assembled."
         },
         {
           "src": "figures/minibook-page-selector.jpg",

@@ -30,6 +30,8 @@
     "figures/unmc-lab-rat-interface.jpg",
     "figures/studio-s-timeline.jpg",
     "figures/studio-s-forecast-scene.jpg",
+    "figures/minibook-photo-0540.jpg",
+    "figures/minibook-photo-0555.jpg",
     "figures/minibook-imposition-preview.jpg",
     "figures/minibook-page-selector.jpg"
   ]);
