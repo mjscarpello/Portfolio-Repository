@@ -4,7 +4,7 @@ const svg=document.getElementById('pb-art'), select=document.getElementById('pb-
 if(!svg||!select||!button||!status)return;
 const NS='http://www.w3.org/2000/svg', XL='http://www.w3.org/1999/xlink';
 const data=window.PORTFOLIO_DATA;
-const names={'noaa':'Storm damage','ercot':'Electricity demand','capstone-three':'NYC recycling','amazon-pick':'Package pick times','amazon-clothing':'Driver gear','unmc':'Learning media','lab-rat':'Lab Rat Revolt','studio-s':'Studio S','mini-bookmaker':'Mini Bookmaker'};
+const names={'noaa':'Storm damage','ercot':'Electricity demand','capstone-three':'NYC recycling','amazon-pick':'Package pick times','amazon-clothing':'Driver gear','unmc':'Learning media','lab-rat':'Lab Rat Revolt','mini-bookmaker':'Mini Bookmaker','studio-s':'Studio S'};
 const colors={school:'#83c8ed',work:'#f6ad80',personal:'#b8cf92'};
 const projects=Object.keys(names).map(id=>data?.projects?.find(p=>p.id===id)).filter(p=>p?.figures?.length===undefined?false:p.figures.length>0);
 function node(tag,attrs={},parent=svg,content){const el=document.createElementNS(NS,tag);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,String(v)));if(content!==undefined)el.textContent=content;parent.appendChild(el);return el;}

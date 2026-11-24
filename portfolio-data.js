@@ -395,42 +395,8 @@ window.PORTFOLIO_DATA = {
       ]
     },
     {
-      "id": "studio-s",
-      "number": "01",
-      "category": "personal",
-      "page": "personal/studio-s.html",
-      "shortTitle": "Studio S",
-      "title": "Studio S — Code-Driven Presentation Studio",
-      "label": "Personal project · Creative software",
-      "status": "Active prototype development",
-      "role": "Designer & Developer",
-      "period": "Independent work",
-      "summary": "I am developing a desktop presentation editor that coordinates code-defined scenes, visuals, narration, captions, and a shared timeline.",
-      "takeaway": "Real prototype screenshots show a multitrack timeline, editable scene inspector, and graph-backed presentation design. More ambitious AI orchestration remains in development.",
-      "skills": [
-        "Electron",
-        "JavaScript",
-        "Canvas",
-        "Timeline orchestration"
-      ],
-      "figures": [
-        {
-          "src": "figures/studio-s-timeline.jpg",
-          "title": "Visual editor and timeline",
-          "alt": "Studio S application interface showing a scene composition, named cues, multitrack timeline, and scene inspector.",
-          "caption": "Working prototype · Scenes, named cues, and audiovisual timing share one timeline."
-        },
-        {
-          "src": "figures/studio-s-forecast-scene.jpg",
-          "title": "A real ERCOT presentation scene",
-          "alt": "Studio S editing interface showing a forecasting model comparison slide within a multitrack timeline.",
-          "caption": "Working prototype · The editor is used to assemble visuals from the DSC 450 ERCOT project."
-        }
-      ]
-    },
-    {
       "id": "mini-bookmaker",
-      "number": "02",
+      "number": "01",
       "category": "personal",
       "page": "personal/mini-bookmaker.html",
       "shortTitle": "Mini Bookmaker",
@@ -517,6 +483,40 @@ window.PORTFOLIO_DATA = {
           "caption": "Working prototype · Page selection and order control before building the booklet."
         }
       ]
+    },
+    {
+      "id": "studio-s",
+      "number": "02",
+      "category": "personal",
+      "page": "personal/studio-s.html",
+      "shortTitle": "Studio S",
+      "title": "Studio S — Code-Driven Presentation Studio",
+      "label": "Personal project · Creative software",
+      "status": "Active prototype development",
+      "role": "Designer & Developer",
+      "period": "Independent work",
+      "summary": "I am developing a desktop presentation editor that coordinates code-defined scenes, visuals, narration, captions, and a shared timeline.",
+      "takeaway": "Real prototype screenshots show a multitrack timeline, editable scene inspector, and graph-backed presentation design. More ambitious AI orchestration remains in development.",
+      "skills": [
+        "Electron",
+        "JavaScript",
+        "Canvas",
+        "Timeline orchestration"
+      ],
+      "figures": [
+        {
+          "src": "figures/studio-s-timeline.jpg",
+          "title": "Visual editor and timeline",
+          "alt": "Studio S application interface showing a scene composition, named cues, multitrack timeline, and scene inspector.",
+          "caption": "Working prototype · Scenes, named cues, and audiovisual timing share one timeline."
+        },
+        {
+          "src": "figures/studio-s-forecast-scene.jpg",
+          "title": "A real ERCOT presentation scene",
+          "alt": "Studio S editing interface showing a forecasting model comparison slide within a multitrack timeline.",
+          "caption": "Working prototype · The editor is used to assemble visuals from the DSC 450 ERCOT project."
+        }
+      ]
     }
   ],
   "pillars": [
@@ -545,7 +545,7 @@ window.PORTFOLIO_DATA = {
       "heading": "Building for curiosity",
       "description": "Independent software and creative tools developed through building, testing, and revising.",
       "collection": "personal/index.html",
-      "featured": "studio-s"
+      "featured": "mini-bookmaker"
     }
   ]
 };
