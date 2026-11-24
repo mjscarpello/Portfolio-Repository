@@ -417,16 +417,16 @@ window.PORTFOLIO_DATA = {
       ],
       "figures": [
         {
-          "src": "figures/minibook-photo-0540.jpg",
-          "title": "Handmade illustrated cover",
-          "alt": "The miniature ring-bound Data Science for Business book lying on a wooden table, with an illustrated handmade cover.",
-          "caption": "Original project photograph · A finished book makes the digital layout problem tangible."
-        },
-        {
           "src": "figures/minibook-photo-0555.jpg",
           "title": "Color diagrams in a miniature book",
           "alt": "Open miniature book with printed text and colored diagrams on both pages.",
           "caption": "Original project photograph · The printed interior preserves diagrams as well as text."
+        },
+        {
+          "src": "figures/minibook-photo-0540.jpg",
+          "title": "Handmade illustrated cover",
+          "alt": "The miniature ring-bound Data Science for Business book lying on a wooden table, with an illustrated handmade cover.",
+          "caption": "Original project photograph · A finished book makes the digital layout problem tangible."
         },
         {
           "src": "figures/minibook-photo-0548.jpg",
